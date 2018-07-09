@@ -16,17 +16,73 @@
     <http pattern="/**/*.png" security="none"/>
     <http pattern="/js/*.js" security="none"/>
 
-    <http pattern="/login.jsp" security="none"/>
+    <!-- <http pattern="/login.jsp" security="none"/>-->
     <http pattern="/getCode" security="none"/><!-- 不过滤验证码 -->
     <http pattern="/test/**" security="none"/><!-- 不过滤测试内容 -->
 
-    <http auto-config="true">
+    <http auto-config="false" use-expressions="true">
+        <intercept-url pattern="/login.jsp" access="permitAll"/>
+
         <!-- 表示访问app.jsp时，需要ROLE_SERVICE权限 -->
         <intercept-url pattern="/adminPage.jsp" access="hasRole('ROLE_ADMIN')"/>
-        <intercept-url pattern="/index.jsp" access="hasRole('ROLE_T')"/>
+        <intercept-url pattern="/index.jsp" access="hasRole('ROLE_USER')"/>
         <!--表示访问任何资源都需要ROLE_ADMIN权限。-->
         <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+
+
+        <!--
+            form-login这个标签是配置登陆页面的，其中的属性login-page是配置登陆页面的，
+            default-target-url配置登陆成功后跳转到的页面，
+            authentication-failure-url配置认证失败后的跳转页面。
+            form-login标签中还有一个特别要注意的属性use-expressions，如果设置为true，
+            这配置access就要做相应的改变，否则项目启动的时候会报错。
+            如果use-expressns="true"时，则表示改为 SpEL 表达式。 SpEL 允许使用特定的访问控制规则表达式语言。
+            与简单的字符串如 ROLE_USER 不同，配置文件可以指明表达式语言触发方法调用、引用系统属性、计算机值等等。
+            如 ：<intercept-url pattern="/login.jsp" access="permitAll" />
+        -->
+        <form-login login-page="/login.jsp" default-target-url="/index.jsp"
+                    always-use-default-target="false"
+                    authentication-failure-url="/login.jsp?error=true"/>
+
+
+        <!--
+           logout这个标签用来配置退出或者注销，其中的属性invalidate-session，
+           配置否是要清除session，logout-success-url配置注销成功后的跳转页面，
+           logout-url提交退出或者注销的地址，因此我们在配置退出或者注销的时候，
+           只需要将url设置为/j_spring_security_logout即可，这个地址也是security内部实现了的。
+       -->
+        <logout invalidate-session="true" logout-success-url="/login.jsp"
+                logout-url="/j_spring_security_logout"/>
+
+
+        <!--将CSRF保护功能禁用,设置为true即为启用-->
+        <!-- 必须添加此段声明，禁用CSRF功能 -->
+        <!-- <csrf disabled="false"/>-->
+
+        <!--<csrf request-matcher-ref="csrfSecurityRequestMatcher"></csrf>-->
+
+
+        <!-- max-sessions只容许一个账号登录，error-if-maximum-exceeded 后面账号登录后踢出前一个账号，
+              expired-url session过期跳转界面
+              如果concurrency-control标签配置了error-if-maximum-exceeded="true"，max-sessions="1"，
+              那么第二次登录时，是登录不了的。如果error-if-maximum-exceeded="false"，
+              那么第二次是能够登录到系统的，但是第一个登录的账号再次发起请求时，会跳转到expired-url配置的url中-->
+        <session-management session-authentication-error-url="/login.jsp">
+            <concurrency-control max-sessions="1" error-if-maximum-exceeded="false"
+                                 expired-url="/login.jsp" session-registry-ref="sessionRegistry"/>
+        </session-management>
+
+        <expression-handler ref="webSecurityExpressionHandler"/>
+
+
     </http>
+
+    <beans:bean id="sessionRegistry" class="org.springframework.security.core.session.SessionRegistryImpl"/>
+
+    <!--配置web端使用权限控制-->
+    <beans:bean id="webSecurityExpressionHandler"
+                class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler"/>
+
 
     <authentication-manager>
         <authentication-provider>

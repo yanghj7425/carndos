@@ -30,5 +30,4 @@
         <listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
     </listener>
 
-
 </web-app>
