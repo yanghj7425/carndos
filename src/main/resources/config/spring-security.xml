@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security
+                        http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+    <!-- 配置不过滤的资源（静态资源及登录相关）.是忽略拦截某些资源的意思，主要是针对静态资源 -->
+    <http pattern="/**/*.css" security="none"/>
+    <http pattern="/**/*.jpg" security="none"/>
+    <http pattern="/**/*.jpeg" security="none"/>
+    <http pattern="/**/*.gif" security="none"/>
+    <http pattern="/**/*.png" security="none"/>
+    <http pattern="/js/*.js" security="none"/>
+
+    <http pattern="/login.jsp" security="none"/>
+    <http pattern="/getCode" security="none"/><!-- 不过滤验证码 -->
+    <http pattern="/test/**" security="none"/><!-- 不过滤测试内容 -->
+
+    <http auto-config="true">
+        <!-- 表示访问app.jsp时，需要ROLE_SERVICE权限 -->
+        <intercept-url pattern="/adminPage.jsp" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/index.jsp" access="hasRole('ROLE_T')"/>
+        <!--表示访问任何资源都需要ROLE_ADMIN权限。-->
+        <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+    </http>
+
+    <authentication-manager>
+        <authentication-provider>
+            <jdbc-user-service data-source-ref="dataSource"/>
+        </authentication-provider>
+    </authentication-manager>
+
+</beans:beans>
