@@ -13,7 +13,6 @@ public class SpringMvcInitializer extends AbstractAnnotationConfigDispatcherServ
         return new Class[]{ServletConfig.class};
     }
 
-
     /**
      * @return
      * @Description: 将DispatcherServlet映射到 “/”

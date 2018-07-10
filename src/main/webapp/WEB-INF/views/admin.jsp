@@ -14,12 +14,32 @@
 </head>
 <body>
 <div>
-    <spam>标题:${title}</spam>
+    <spam>标题:${title}</spam><br>
     <span>消息: ${message} </span>
-    <c:if test="${pageContext.request.userPrincial.name != null}">
-        <h2>欢迎: ${pageContext.request.userPrincipal.name}
-            | <a href="<c:url value="/j_spring_security_logout" />"> Logout</a></h2>
+
+
+    <c:url value="/logout" var="logoutUrl"/>
+
+    <form action="${logoutUrl}" method="post" id="logoutFrom">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+    </form>
+
+
+    <script>
+        function formSubmit() {
+            document.getElementById("logoutFrom").submit();
+        }
+    </script>
+
+    <c:if test="${pageContext.request.userPrincipal.name != null}">
+        <span>
+                Welcome : ${pageContext.request.userPrincipal.name} | <a
+                href="javascript:formSubmit()"> Logout</a>
+
+        </span>
     </c:if>
+
+
 </div>
 
 </body>

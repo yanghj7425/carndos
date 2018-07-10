@@ -1,19 +1,16 @@
 <%--
   Created by IntelliJ IDEA.
-  User: yhj
-  Date: 7/10/18
-  Time: 8:23 AM
+  User: YHJ
+  Date: 2018/7/10
+  Time: 15:03
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@page session="true" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>dba Page</title>
 </head>
 <body>
-<span>标题: ${title}</span> <br>
-<span> 消息: ${message}</span><br>
-<span>用户名: ${userName}</span>
+
 </body>
 </html>
