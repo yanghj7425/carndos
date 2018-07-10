@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class HelloControler {
+public class HelloController {
 
 
-    @RequestMapping(value = {"/", "welcome**"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/welcome**"}, method = RequestMethod.GET)
     public ModelAndView welcomePage() {
         ModelAndView model = new ModelAndView();
         model.addObject("title", "Spring Security Hello");

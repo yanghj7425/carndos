@@ -14,8 +14,8 @@
 </head>
 <body>
 <div>
-    <h1>标题:${title}</h1>
-    <h1>消息: ${message} </h1>
+    <spam>标题:${title}</spam>
+    <span>消息: ${message} </span>
     <c:if test="${pageContext.request.userPrincial.name != null}">
         <h2>欢迎: ${pageContext.request.userPrincipal.name}
             | <a href="<c:url value="/j_spring_security_logout" />"> Logout</a></h2>

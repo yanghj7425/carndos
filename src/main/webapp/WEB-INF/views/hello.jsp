@@ -12,7 +12,7 @@
     <title>Title</title>
 </head>
 <body>
-    <h1>标题: ${title}</h1> <br>
-    <h2> 消息: ${message}</h2>
+    <span>标题: ${title}</span> <br>
+    <span> 消息: ${message}</span>
 </body>
 </html>
