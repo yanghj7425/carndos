@@ -1,4 +1,4 @@
-package com.yhj.web;
+package com.yhj.web.controler;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +31,17 @@ public class HelloControler {
 
         model.setViewName("admin");
 
+        return model;
+
+    }
+
+
+    @RequestMapping(value = "/dba**", method = RequestMethod.GET)
+    public ModelAndView dbaPage() {
+        ModelAndView model = new ModelAndView();
+        model.addObject("title", "Hello dba");
+        model.addObject("message", "this is dba page");
+        model.setViewName("dba");
         return model;
 
     }
