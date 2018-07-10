@@ -9,7 +9,7 @@ debug:
 <!--该规则是 logback 的核心。级别排序为： TRACE < DEBUG < INFO < WARN < ERROR-->
 <configuration scan="true" debug="false">
     <!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->
-    <property name="logs" value="E:/idea-security/ssecurity-page/logs"/>
+    <property name="logs" value="/opt/coder/java/security/logs"/>
     <!--读取MySQL数据库配置文件信息-->
     <!--<property resource="db_logback.properties"></property>-->
     <timestamp key="bySecond" datePattern="yyyy-MM-dd HH:mm:ss"/>

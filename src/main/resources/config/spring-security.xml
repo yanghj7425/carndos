@@ -20,7 +20,7 @@
     <http pattern="/getCode" security="none"/><!-- 不过滤验证码 -->
     <http pattern="/test/**" security="none"/><!-- 不过滤测试内容 -->
 
-    <http auto-config="false" use-expressions="true">
+    <http auto-config="true" use-expressions="true">
         <intercept-url pattern="/login.jsp" access="permitAll"/>
 
         <!-- 表示访问app.jsp时，需要ROLE_SERVICE权限 -->
@@ -86,7 +86,7 @@
 
     <authentication-manager>
         <authentication-provider>
-            <jdbc-user-service data-source-ref="dataSource"/>
+            <jdbc-user-service data-source-ref="dataSource" />
         </authentication-provider>
     </authentication-manager>
 
