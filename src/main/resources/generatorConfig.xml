@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+	<properties resource="generator.properties"/>
+	<context id="Mysql" targetRuntime="tk.mybatis.mapper.generator.TkMyBatis3SimpleImpl" defaultModelType="flat">
+		<property name="beginningDelimiter" value="`"/>
+		<property name="endingDelimiter" value="`"/>
+		<!-- <plugin type="org.mybatis.generator.plugins.CachePlugin" /> -->
+		<plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+		<!-- 通用Mapper -->
+		<plugin type="${generator.plugin}">
+			<property name="mappers" value="${generator.mappers}"/>
+		</plugin>
+		<!-- 去除原生注释 -->
+		<commentGenerator>
+			<property name="javaFileEncoding" value="UTF-8"/>
+			<property name="suppressDate" value="true"/>
+			<property name="suppressAllComments" value="true"/>
+		</commentGenerator>
+		<!--数据库链接URL，用户名密码 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}"/>
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false"/>
+		</javaTypeResolver>
+		<!-- 生成模型的包名和位置 -->
+		<javaModelGenerator targetPackage="${generator.package.model}" targetProject="${generator.package}">
+			<property name="enableSubPackages" value="true"/>
+			<property name="trimStrings" value="true"/>
+		</javaModelGenerator>
+		<!-- 生成映射文件的包名和位置 -->
+		<sqlMapGenerator targetPackage="${generator.package.mapper}" targetProject="${generator.package}">
+			<property name="enableSubPackages" value="true"/>
+		</sqlMapGenerator>
+		<!-- 生成DAO的包名和位置 -->
+		<javaClientGenerator targetPackage="${generator.package.dao}" targetProject="${generator.package}" type="XMLMAPPER">
+			<property name="enableSubPackages" value="true"/>
+		</javaClientGenerator>
+		<!-- 要生成哪些表 -->
+		<table tableName="${generator.table}">
+			<generatedKey column="id" sqlStatement="JDBC"/>
+		</table>
+	</context>
+</generatorConfiguration>

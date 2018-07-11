@@ -1,6 +1,6 @@
 package com.yhj.web.dao.res;
 
-import com.yhj.web.entity.res.Resource;
+import com.yhj.web.entity.res.ResRole;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.jdbc.object.MappingSqlQuery;
 import org.springframework.security.access.ConfigAttribute;
@@ -25,7 +25,7 @@ public class JdbcRequestMapBuilder extends JdbcDaoSupport {
     private String resourceQuerySQL;
 
 
-    public List<Resource> queryResourceData() {
+    public List<ResRole> queryResourceData() {
         ResourceMapping resourceMapping = new ResourceMapping(getDataSource(), resourceQuerySQL);
 
         return resourceMapping.execute();
@@ -35,11 +35,11 @@ public class JdbcRequestMapBuilder extends JdbcDaoSupport {
     public LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> buildRequestMap() {
         LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap = new LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>>();
 
-        List<Resource> resourceList = queryResourceData();
-        for (Resource resource : resourceList) {
-            RequestMatcher requestMatcher = getRequestMatcher(resource.getResUrl());
+        List<ResRole> resourceList = queryResourceData();
+        for (ResRole resRole : resourceList) {
+            RequestMatcher requestMatcher = getRequestMatcher(resRole.getResUrl());
             List<ConfigAttribute> list = new ArrayList<ConfigAttribute>();
-            list.add(new SecurityConfig(resource.getResRole()));
+            list.add(new SecurityConfig(resRole.getResRole()));
             requestMap.put(requestMatcher, list);
         }
         return requestMap;
@@ -69,7 +69,9 @@ public class JdbcRequestMapBuilder extends JdbcDaoSupport {
         /**
          * @param rs     查询到的资源信息
          * @param rowNum
+         *
          * @return
+         *
          * @throws SQLException
          */
         protected Object mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -78,9 +80,9 @@ public class JdbcRequestMapBuilder extends JdbcDaoSupport {
 
             String resRole = rs.getString(2);
 
-            Resource resource = new Resource(resUrl, resRole);
+            ResRole resRole1 = new ResRole(resUrl, resRole);
 
-            return resource;
+            return resRole1;
         }
     }
 

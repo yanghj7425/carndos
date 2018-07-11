@@ -1,6 +1,7 @@
 package com.yhj.config.security;
 
-import com.yhj.config.mybaties.DBConfig;
+import com.alibaba.druid.pool.DruidDataSource;
+import com.yhj.config.mybatis.MyBatisConfig;
 import com.yhj.web.controller.security.CustomSecurityMetadataSource;
 import com.yhj.web.controller.security.CustomSuccessHandler;
 import com.yhj.web.dao.res.CustomAccessDecisionManager;
@@ -16,11 +17,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableWebSecurity
-@Import(DBConfig.class)
+@Import(MyBatisConfig.class)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -38,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
-    private DataSource dataSource;
+    private DruidDataSource dataSource;
 
 
     public FilterSecurityInterceptor customFilterSecurityInterceptor() {
