@@ -2,7 +2,10 @@ package com.yhj.web;
 
 import com.yhj.config.core.RootConfig;
 import com.yhj.web.controller.security.CustomSuccessHandler;
+import com.yhj.web.dao.res.CustomAccessDecisionManager;
 import com.yhj.web.dao.res.JdbcRequestMapBuilder;
+import com.yhj.web.dao.res.ResRoleMapper;
+import com.yhj.web.dao.res.ResourceMapper;
 import com.yhj.web.entity.res.ResRole;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,11 +26,29 @@ public class DaoTest {
     @Autowired
     JdbcRequestMapBuilder builder;
 
+
+    @Autowired
+    CustomAccessDecisionManager customAccessDecisionManager;
+
+
+    @Autowired
+    ResRoleMapper resRoleMapper;
+
+
+    @Autowired
+    ResourceMapper resourceMapper;
+
     @Test
     public void test() {
-        List<ResRole> list = builder.queryResourceData();
+        System.out.println("s");
 
-        System.out.println(list);
+        if (resRoleMapper == null) {
+            System.out.println("null");
+        }
+        List<ResRole> list = resRoleMapper.queryAllResRole();
+        for (ResRole resRole : list) {
+            System.out.println(resRole);
+        }
     }
 
 
