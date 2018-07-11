@@ -24,7 +24,7 @@
         <mysql.verson>5.1.38</mysql.verson>
         <mybatis.version>3.4.1</mybatis.version>
         <mybatis-spring.version>1.3.2</mybatis-spring.version>
-
+        <commons.version>3.0</commons.version>
     </properties>
 
 
@@ -139,6 +139,16 @@
             <artifactId>commons-logging</artifactId>
             <version>${loging.version}</version>
         </dependency>
+
+
+
+        <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons.version}</version>
+        </dependency>
+
 
 
         <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->

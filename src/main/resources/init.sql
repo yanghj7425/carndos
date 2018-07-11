@@ -13,9 +13,9 @@ CREATE TABLE `resource` (
 -- ----------------------------
 -- Records of resource
 -- ----------------------------
-INSERT INTO `resource` (res_name, res_type, res_url, res_desc)VALUES ('','URL', '/adminPage.jsp', '管理员页面');
-INSERT INTO `resource` (res_name, res_type, res_url, res_desc) VALUES ( '', 'URL', '/index.jsp', '');
-INSERT INTO `resource` (res_name, res_type, res_url, res_desc)VALUES ( '', 'URL', '/home.jsp', '测试页面');
+INSERT INTO `resource` (res_name, res_type, res_url, res_desc)VALUES ('','URL', '/admin/**', '管理员页面');
+INSERT INTO `resource` (res_name, res_type, res_url, res_desc) VALUES ( '', 'URL', '/dba/**', '数据库管理界面');
+INSERT INTO `resource` (res_name, res_type, res_url, res_desc)VALUES ( '', 'URL', 'home**', '用户页面');
 
 -- ----------------------------
 -- Table structure for role
