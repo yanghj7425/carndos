@@ -7,6 +7,10 @@ import com.yhj.web.dao.res.JdbcRequestMapBuilder;
 import com.yhj.web.dao.res.ResRoleMapper;
 import com.yhj.web.dao.res.ResourceMapper;
 import com.yhj.web.entity.res.ResRole;
+import com.yhj.web.entity.res.Resource;
+import com.yhj.web.service.res.ResRoleService;
+import com.yhj.web.service.res.impl.ResRoleServiceI;
+import com.yhj.web.service.res.impl.ResourceServiceI;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,19 +40,21 @@ public class DaoTest {
 
 
     @Autowired
-    ResourceMapper resourceMapper;
+    ResRoleService resRoleService;
+
+
+    @Autowired
+    ResourceServiceI resourceService;
 
     @Test
     public void test() {
         System.out.println("s");
-
-        if (resRoleMapper == null) {
-            System.out.println("null");
-        }
-        List<ResRole> list = resRoleMapper.queryAllResRole();
-        for (ResRole resRole : list) {
+        List<ResRole> list = resRoleService.selectAll();
+        for (ResRole resRole : list){
             System.out.println(resRole);
         }
+
+
     }
 
 

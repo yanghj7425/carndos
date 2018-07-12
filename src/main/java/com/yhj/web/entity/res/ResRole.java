@@ -4,7 +4,11 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class ResRole {
+import java.io.Serializable;
+
+public class ResRole implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 资源ID

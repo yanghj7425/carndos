@@ -6,3 +6,4 @@ out/*
 sonar*
 classes/*
 .scannerwork/*
+logs/*

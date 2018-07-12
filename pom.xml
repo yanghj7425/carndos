@@ -19,7 +19,7 @@
         <logback-ext-spring.version>0.1.4</logback-ext-spring.version>
         <jstl.version>1.2</jstl.version>
         <loging.version>1.2</loging.version>
-
+        <slf4j.version>1.7.21</slf4j.version>
         <druid.version>1.1.2</druid.version>
         <mysql.verson>5.1.38</mysql.verson>
         <mybatis.version>3.4.1</mybatis.version>
@@ -126,6 +126,13 @@
             <artifactId>logback-access</artifactId>
             <version>${logback.version}</version>
         </dependency>
+        <dependency>
+            　　　　　　<groupId>org.slf4j</groupId>
+            　　　　　　<artifactId>slf4j-api</artifactId>
+            　　　　　　<version>${slf4j.version}</version>
+            　　　　　　<scope>compile</scope>
+            　　　　</dependency>
+
 
         <dependency>
             <groupId>org.logback-extensions</groupId>

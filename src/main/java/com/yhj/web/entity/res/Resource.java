@@ -199,4 +199,19 @@ public class Resource implements Serializable {
     public void setResDeleteTime(Date resDeleteTime) {
         this.resDeleteTime = resDeleteTime;
     }
+
+
+    @Override
+    public String toString() {
+        return "Resource{" +
+                "id=" + id +
+                ", resName='" + resName + '\'' +
+                ", resType='" + resType + '\'' +
+                ", resUrl='" + resUrl + '\'' +
+                ", resStatus=" + resStatus +
+                ", resDesc='" + resDesc + '\'' +
+                ", resCreateTime=" + resCreateTime +
+                ", resDeleteTime=" + resDeleteTime +
+                '}';
+    }
 }
