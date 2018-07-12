@@ -22,15 +22,18 @@
 		<javaTypeResolver>
 			<property name="forceBigDecimals" value="false"/>
 		</javaTypeResolver>
+
 		<!-- 生成模型的包名和位置 -->
-		<javaModelGenerator targetPackage="${generator.package.model}" targetProject="${generator.package}">
+		<javaModelGenerator targetPackage="${generator.package.entity}" targetProject="${generator.package}">
 			<property name="enableSubPackages" value="true"/>
 			<property name="trimStrings" value="true"/>
 		</javaModelGenerator>
+
 		<!-- 生成映射文件的包名和位置 -->
 		<sqlMapGenerator targetPackage="${generator.package.mapper}" targetProject="${generator.package}">
 			<property name="enableSubPackages" value="true"/>
 		</sqlMapGenerator>
+
 		<!-- 生成DAO的包名和位置 -->
 		<javaClientGenerator targetPackage="${generator.package.dao}" targetProject="${generator.package}" type="XMLMAPPER">
 			<property name="enableSubPackages" value="true"/>
