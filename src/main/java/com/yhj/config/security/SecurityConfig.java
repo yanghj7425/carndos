@@ -1,11 +1,9 @@
 package com.yhj.config.security;
 
-import com.alibaba.druid.pool.DruidDataSource;
 import com.yhj.config.mybatis.MyBatisConfig;
 import com.yhj.web.controller.security.CustomSecurityMetadataSource;
 import com.yhj.web.controller.security.CustomSuccessHandler;
 import com.yhj.web.dao.res.CustomAccessDecisionManager;
-import com.yhj.web.dao.res.JdbcRequestMapBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -31,47 +29,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     UserDetailsService userDetailsService;
 
 
+    @Autowired
     private CustomSecurityMetadataSource customSecurityMetadataSource;
 
 
+    @Autowired
     private CustomAccessDecisionManager customAccessDecisionManager;
 
 
-    @Autowired
-    private DruidDataSource dataSource;
-
-
+    @Bean
     public FilterSecurityInterceptor customFilterSecurityInterceptor() {
         FilterSecurityInterceptor fsi = new FilterSecurityInterceptor();
         fsi.setAccessDecisionManager(customAccessDecisionManager);
         fsi.setSecurityMetadataSource(customSecurityMetadataSource);
 
         return fsi;
-    }
-
-
-    public CustomSecurityMetadataSource customSecurityMetadataSource() {
-        CustomSecurityMetadataSource source = new CustomSecurityMetadataSource();
-        source.setBuilder(builder());
-        return source;
-    }
-
-
-    @Bean
-    public JdbcRequestMapBuilder builder() {
-        JdbcRequestMapBuilder builder = new JdbcRequestMapBuilder();
-        builder.setDataSource(dataSource);
-        builder.setResourceQuerySQL(
-                "SELECT " +
-                        "    res.res_url, role.role_name " +
-                        "FROM " +
-                        "    res_role rr " +
-                        "        LEFT JOIN " +
-                        "    resource res ON rr.res_id = res.id " +
-                        "        LEFT JOIN " +
-                        "    role ON rr.role_id = role.id;"
-        );
-        return builder;
     }
 
 

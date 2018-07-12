@@ -8,7 +8,7 @@ import java.io.IOException;
 /**
  * @description Base64 工具类
  */
-public class Base64Util {
+public class JDKBase64Utils {
 
     private static BASE64Encoder encoder = new BASE64Encoder();
 

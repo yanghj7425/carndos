@@ -1,15 +1,18 @@
 package com.yhj.web.controller.security;
 
-import com.yhj.web.dao.res.JdbcRequestMapBuilder;
+import com.yhj.web.service.res.ResRoleService;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
+@Component(value = "customSecurityMetadataSource")
 public class CustomSecurityMetadataSource implements FilterInvocationSecurityMetadataSource, InitializingBean {
 
 
@@ -20,7 +23,8 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
     private Map<RequestMatcher, Collection<ConfigAttribute>> requestMap;
 
     //查找数据库权限和资源的关系
-    private JdbcRequestMapBuilder builder;
+    @Autowired
+    private ResRoleService resRoleService;
 
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
 
@@ -52,19 +56,11 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
     //绑定requestMap
     protected Map<RequestMatcher, Collection<ConfigAttribute>> bindRequestMap() {
 
-        return builder.buildRequestMap();
+        return resRoleService.buildRequestMap();
     }
 
-    public void afterPropertiesSet() throws Exception {
+    public void afterPropertiesSet() {
         this.requestMap = bindRequestMap();
-    }
-
-    public JdbcRequestMapBuilder getBuilder() {
-        return builder;
-    }
-
-    public void setBuilder(JdbcRequestMapBuilder builder) {
-        this.builder = builder;
     }
 
 

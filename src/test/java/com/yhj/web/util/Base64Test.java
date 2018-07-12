@@ -1,4 +1,4 @@
-package com.yhj.web;
+package com.yhj.web.util;
 
 
 import com.yhj.web.entity.res.Resource;

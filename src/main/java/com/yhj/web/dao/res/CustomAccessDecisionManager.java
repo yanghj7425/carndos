@@ -11,7 +11,9 @@ import org.springframework.stereotype.Component;
 import java.util.Collection;
 import java.util.Iterator;
 
-
+/**
+ * 授权管理器
+ */
 @Component
 public class CustomAccessDecisionManager implements AccessDecisionManager {
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
@@ -22,7 +24,6 @@ public class CustomAccessDecisionManager implements AccessDecisionManager {
         if (configAttributes.size() <= 0) {
             return;
         }
-
 
         //所请求的资源拥有的权限(一个资源对多个权限)
         Iterator<ConfigAttribute> iterable = configAttributes.iterator();

@@ -102,7 +102,7 @@ public class MyBatisConfig implements EnvironmentAware {
     private Resource[] mapperLocations() {
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
-            return resolver.getResources("classpath:mysql/mapper/*.xml");
+            return resolver.getResources("classpath:mapper/*.xml");
         } catch (IOException e) {
             throw new IllegalArgumentException("找不到指定的 mapper 文件");
         }
