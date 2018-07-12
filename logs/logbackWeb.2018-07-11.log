@@ -1,0 +1,29 @@
+2018-07-11 23:24:35.600 [main] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2018-07-11 23:24:35.613 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Property 'configuration' or 'configLocation' not specified, using default MyBatis Configuration
+2018-07-11 23:24:35.642 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Registered plugin: 'com.github.pagehelper.PageHelper@5a9d6f02'
+2018-07-11 23:24:35.714 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [/opt/coder/java/security/target/classes/mysql/mapper/ResRoleMapper.xml]'
+2018-07-11 23:24:35.727 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [/opt/coder/java/security/target/classes/mysql/mapper/ResourceMapper.xml]'
+2018-07-11 23:27:12.911 [main] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2018-07-11 23:27:12.929 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Property 'configuration' or 'configLocation' not specified, using default MyBatis Configuration
+2018-07-11 23:27:12.959 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Registered plugin: 'com.github.pagehelper.PageHelper@362045c0'
+2018-07-11 23:27:13.042 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [/opt/coder/java/security/target/classes/mysql/mapper/ResRoleMapper.xml]'
+2018-07-11 23:27:13.054 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [/opt/coder/java/security/target/classes/mysql/mapper/ResourceMapper.xml]'
+2018-07-11 23:28:15.785 [main] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2018-07-11 23:28:15.800 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Property 'configuration' or 'configLocation' not specified, using default MyBatis Configuration
+2018-07-11 23:28:15.827 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Registered plugin: 'com.github.pagehelper.PageHelper@59252cb6'
+2018-07-11 23:28:15.916 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [/opt/coder/java/security/target/classes/mysql/mapper/ResRoleMapper.xml]'
+2018-07-11 23:28:15.932 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [/opt/coder/java/security/target/classes/mysql/mapper/ResourceMapper.xml]'
+2018-07-11 23:28:59.297 [main] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2018-07-11 23:28:59.315 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Property 'configuration' or 'configLocation' not specified, using default MyBatis Configuration
+2018-07-11 23:28:59.341 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Registered plugin: 'com.github.pagehelper.PageHelper@59252cb6'
+2018-07-11 23:28:59.424 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [/opt/coder/java/security/target/classes/mysql/mapper/ResRoleMapper.xml]'
+2018-07-11 23:28:59.434 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [/opt/coder/java/security/target/classes/mysql/mapper/ResourceMapper.xml]'
+2018-07-11 23:28:59.765 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2018-07-11 23:28:59.995 [Thread-1] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed
+2018-07-11 23:29:58.839 [main] DEBUG org.apache.ibatis.logging.LogFactory - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2018-07-11 23:29:58.855 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Property 'configuration' or 'configLocation' not specified, using default MyBatis Configuration
+2018-07-11 23:29:58.886 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Registered plugin: 'com.github.pagehelper.PageHelper@59252cb6'
+2018-07-11 23:29:58.976 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [/opt/coder/java/security/target/classes/mysql/mapper/ResRoleMapper.xml]'
+2018-07-11 23:29:58.989 [main] DEBUG org.mybatis.spring.SqlSessionFactoryBean - Parsed mapper file: 'file [/opt/coder/java/security/target/classes/mysql/mapper/ResourceMapper.xml]'
+2018-07-11 23:29:59.248 [main] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2018-07-11 23:29:59.615 [Thread-1] INFO  com.alibaba.druid.pool.DruidDataSource - {dataSource-1} closed

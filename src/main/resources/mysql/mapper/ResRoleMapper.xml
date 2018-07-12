@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yhj.web.dao.res.ResRoleMapper">
+    <resultMap id="BaseResultMap" type="com.yhj.web.entity.res.ResRole">
+        <result column="resRole" jdbcType="VARCHAR" property="resRole"/>
+        <result column="resUrl" jdbcType="VARCHAR" property="resUrl"/>
+    </resultMap>
+
+    <select id="queryAllResRole" resultMap="BaseResultMap">
+        SELECT
+            res.res_url    AS resUrl,
+            role.role_name AS resRole
+        FROM
+            res_role rr
+            LEFT JOIN
+            resource res ON rr.res_id = res.id
+            LEFT JOIN
+            role ON rr.role_id = role.id
+    </select>
+
+</mapper>

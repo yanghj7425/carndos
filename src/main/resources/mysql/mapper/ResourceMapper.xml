@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yhj.web.dao.res.ResourceMapper">
+  <resultMap id="BaseResultMap" type="com.yhj.web.entity.res.Resource">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="res_name" jdbcType="VARCHAR" property="resName" />
+    <result column="res_type" jdbcType="VARCHAR" property="resType" />
+    <result column="res_url" jdbcType="VARCHAR" property="resUrl" />
+    <result column="res_status" jdbcType="INTEGER" property="resStatus" />
+    <result column="res_desc" jdbcType="VARCHAR" property="resDesc" />
+    <result column="res_create_time" jdbcType="TIMESTAMP" property="resCreateTime" />
+    <result column="res_delete_time" jdbcType="TIMESTAMP" property="resDeleteTime" />
+  </resultMap>
+</mapper>
