@@ -13,4 +13,14 @@ public abstract class BaseService<T, M extends Mapper<T>> implements BaseService
     @Autowired
     protected M baseMapper;
 
+
+    @Override
+    public int insert(T t) {
+        return baseMapper.insert(t);
+    }
+
+    @Override
+    public T queryById(int id) {
+        return baseMapper.selectByPrimaryKey(id);
+    }
 }

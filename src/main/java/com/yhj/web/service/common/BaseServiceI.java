@@ -12,4 +12,12 @@ public interface BaseServiceI<T> {
      * @return
      */
     List<T> selectAll();
+
+    T queryById(int id);
+
+
+    int insert(T t);
+
+
+
 }
