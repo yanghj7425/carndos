@@ -1,10 +1,11 @@
-package com.yhj.web.entity.user;
+package com.yhj.web.entity.sys;
 
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
-public class User implements Serializable {
+@Table(name = "sys_user")
+public class SysUser implements Serializable {
     /**
      * 主键ID
      */

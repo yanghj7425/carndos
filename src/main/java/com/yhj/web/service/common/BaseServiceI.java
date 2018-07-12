@@ -3,21 +3,22 @@ package com.yhj.web.service.common;
 import java.util.List;
 
 /**
- * @description Service 接口
  * @param <T>
+ *
+ * @description Service 接口
  */
 public interface BaseServiceI<T> {
     /**
-     * @description 查询所有数据
      * @return
+     *
+     * @description 查询所有数据
      */
-    List<T> selectAll();
+    List<T> queryAll();
 
-    T queryById(int id);
+    T queryById(Long id);
 
 
     int insert(T t);
-
 
 
 }

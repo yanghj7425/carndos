@@ -10,6 +10,7 @@ import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.ArrayList;
@@ -18,24 +19,24 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 @Service("resRoleService")
+@Transactional(readOnly = true)
 public class ResRoleServiceI extends BaseService<ResRole, Mapper<ResRole>> implements ResRoleService {
 
     @Autowired
     private ResRoleMapper resRoleMapper;
 
     @Override
-    public List<ResRole> selectAll() {
+    public List<ResRole> queryAll() {
 
         return resRoleMapper.queryAllResRole();
 
     }
 
-
     @Override
     public LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> buildRequestMap() {
         LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap = new LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>>();
 
-        List<ResRole> resourceList = selectAll();
+        List<ResRole> resourceList = queryAll();
         for (ResRole resRole : resourceList) {
             RequestMatcher requestMatcher = getRequestMatcher(resRole.getResUrl());
             List<ConfigAttribute> list = new ArrayList<ConfigAttribute>();

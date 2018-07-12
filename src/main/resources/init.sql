@@ -71,7 +71,7 @@ CREATE TABLE `t_c3p0` (
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
-CREATE TABLE `user` (
+CREATE TABLE `sys_user` (
   `id` BIGINT(20) PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
   `user_name` VARCHAR(50) DEFAULT NULL COMMENT '用户名',
   `user_passwd` VARCHAR(50) DEFAULT NULL COMMENT '用户密码',
@@ -84,9 +84,9 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` (user_name, user_passwd, user_status, user_desc)VALUES ('admin', 'admin', '1', '管理员');
-INSERT INTO `user` (user_name, user_passwd, user_status, user_desc) VALUES ( 'user', 'user', '1', '用户');
-INSERT INTO `user` (user_name, user_passwd, user_status, user_desc) VALUES ('dba', 'dba', '1', '数据库管理员');
+INSERT INTO `sys_user` (user_name, user_passwd, user_status, user_desc)VALUES ('admin', 'admin', '1', '管理员');
+INSERT INTO `sys_user` (user_name, user_passwd, user_status, user_desc) VALUES ( 'user', 'user', '1', '用户');
+INSERT INTO `sys_user` (user_name, user_passwd, user_status, user_desc) VALUES ('dba', 'dba', '1', '数据库管理员');
 
 -- ----------------------------
 -- Table structure for user_role
