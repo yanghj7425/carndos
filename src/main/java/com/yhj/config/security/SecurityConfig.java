@@ -1,6 +1,7 @@
 package com.yhj.config.security;
 
 import com.yhj.config.mybatis.MyBatisConfig;
+import com.yhj.security.CustomFilterSecurityInterceptor;
 import com.yhj.security.CustomSecurityMetadataSource;
 import com.yhj.security.CustomSuccessHandler;
 import com.yhj.security.CustomAccessDecisionManager;
@@ -24,44 +25,27 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    CustomSuccessHandler customSuccessHandler;
+    private CustomSuccessHandler customSuccessHandler;
 
     @Autowired
-    UserDetailsService userDetailsService;
-
-
-    @Autowired
-    private CustomSecurityMetadataSource securityMetadataSource;
+    private UserDetailsService userDetailsService;
 
 
     @Autowired
-    private CustomAccessDecisionManager accessDecisionManager;
-
-
-    @Bean
-    public FilterSecurityInterceptor customFilterSecurityInterceptor() {
-        FilterSecurityInterceptor fsi = new FilterSecurityInterceptor();
-        fsi.setAccessDecisionManager(accessDecisionManager);
-        fsi.setSecurityMetadataSource(securityMetadataSource);
-        return fsi;
-    }
+    private CustomFilterSecurityInterceptor customFilterSecurityInterceptor;
 
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService);
-//        auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
-//        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
-//        auth.inMemoryAuthentication().withUser("dba").password("dba").roles("DBA");
     }
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        http.addFilterBefore(customFilterSecurityInterceptor, FilterSecurityInterceptor.class);
         http.authorizeRequests()
-                .antMatchers("/home**").access("hasRole('ROLE_USER')")
-                .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/dba/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_DBA')")
+                .antMatchers("/login").permitAll()
                 .and()
                 .formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password").successHandler(customSuccessHandler)
                 .and()
@@ -69,5 +53,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().exceptionHandling().accessDeniedPage("/error")
                 .and()
                 .csrf();
+
     }
 }
