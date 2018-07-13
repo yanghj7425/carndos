@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
-    private CustomFilterSecurityInterceptor customFilterSecurityInterceptor;
+    private CustomFilterSecurityInterceptor filterSecurityInterceptor;
 
 
     @Autowired
@@ -43,7 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.addFilterBefore(customFilterSecurityInterceptor, FilterSecurityInterceptor.class);
+        http.addFilterBefore(filterSecurityInterceptor, FilterSecurityInterceptor.class);
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .and()

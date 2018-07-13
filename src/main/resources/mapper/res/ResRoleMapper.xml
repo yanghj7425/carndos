@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yhj.web.dao.res.ResRoleMapper">
     <resultMap id="BaseResultMap" type="com.yhj.web.entity.res.ResRole">
-        <id column="id" jdbcType="BIGINT" property="id" />
+        <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="resRole" jdbcType="VARCHAR" property="resRole"/>
         <result column="resUrl" jdbcType="VARCHAR" property="resUrl"/>
     </resultMap>
@@ -13,9 +13,9 @@
             res.res_url    AS resUrl,
             role.role_name AS resRole
         FROM
-            res_role rr
+            resource res
             LEFT JOIN
-            resource res ON rr.res_id = res.id
+            res_role rr ON rr.res_id = res.id
             LEFT JOIN
             role ON rr.role_id = role.id
     </select>
