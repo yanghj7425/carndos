@@ -23,7 +23,7 @@ public abstract class BaseService<T, M extends Mapper<T>> implements BaseService
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true, transactionManager = "transactionManager")
     public int insert(T t) {
         return baseMapper.insert(t);
     }

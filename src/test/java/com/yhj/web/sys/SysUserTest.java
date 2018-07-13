@@ -16,12 +16,12 @@ import java.util.List;
 public class SysUserTest {
 
     @Autowired
-    private SysUserService userService;
+    private SysUserService sysUserService;
 
 
-    @Test
+
     public void userServiceTest() {
-        List<SysUser> list = userService.queryAll();
+        List<SysUser> list = sysUserService.queryAll();
 
 
         for (SysUser user : list) {
@@ -29,18 +29,18 @@ public class SysUserTest {
         }
 
 
-        SysUser u = userService.queryById(1L);
+        SysUser u = sysUserService.queryById(1L);
         System.out.println(u.getUserName());
     }
 
 
-
+    @Test
     public void insertUserTest() {
         SysUser user = new SysUser();
 
         user.setUserDesc("insssss");
 
 
-        userService.insert(user);
+        sysUserService.insert(user);
     }
 }

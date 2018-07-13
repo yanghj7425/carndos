@@ -78,16 +78,6 @@ public class MyBatisConfig implements EnvironmentAware {
 
 
     @Bean
-    public PlatformTransactionManager txManager(DataSource dataSource) {
-
-        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
-        transactionManager.setDataSource(dataSource);
-
-        return transactionManager;
-    }
-
-
-    @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer scannerConfigurer = new MapperScannerConfigurer();
 
