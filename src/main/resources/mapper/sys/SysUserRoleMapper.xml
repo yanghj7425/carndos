@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yhj.web.dao.sys.SysUserRoleMapper">
+
+
+    <resultMap id="BaseResultMap" type="com.yhj.web.entity.sys.SysUserRole">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
+    </resultMap>
+
+
+    <select id="querySysUserRoleByName" resultMap="BaseResultMap" parameterType="com.yhj.web.entity.sys.SysUser">
+        SELECT
+            ur.id,
+            suser.user_name,
+            role.role_name
+        FROM
+            user_role ur
+            LEFT JOIN
+            sys_user suser ON suser.id = ur.user_id
+            LEFT JOIN
+            role ON role.id = ur.role_id
+        WHERE
+            suser.user_status = 1
+            and suser.user_name = #{userName}
+    </select>
+
+
+</mapper>

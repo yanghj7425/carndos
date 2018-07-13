@@ -1,4 +1,4 @@
-package com.yhj.web.controller.security;
+package com.yhj.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;

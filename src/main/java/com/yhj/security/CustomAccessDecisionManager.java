@@ -1,4 +1,4 @@
-package com.yhj.web.dao.res;
+package com.yhj.security;
 
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
@@ -14,7 +14,7 @@ import java.util.Iterator;
 /**
  * 授权管理器
  */
-@Component
+@Component(value="accessDecisionManager")
 public class CustomAccessDecisionManager implements AccessDecisionManager {
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
         if (null == configAttributes) {
@@ -26,9 +26,7 @@ public class CustomAccessDecisionManager implements AccessDecisionManager {
         }
 
         //所请求的资源拥有的权限(一个资源对多个权限)
-        Iterator<ConfigAttribute> iterable = configAttributes.iterator();
-        while (iterable.hasNext()) {
-            ConfigAttribute configAttribute = iterable.next();
+        for (ConfigAttribute configAttribute : configAttributes) {
             //访问所请求的资源所需要的权限
             String needPermission = configAttribute.getAttribute();
             System.out.println("访问" + object.toString() + "需要的权限是：" + needPermission);

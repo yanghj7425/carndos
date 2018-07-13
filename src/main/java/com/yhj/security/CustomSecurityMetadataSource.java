@@ -1,4 +1,4 @@
-package com.yhj.web.controller.security;
+package com.yhj.security;
 
 import com.yhj.web.service.res.ResRoleService;
 import org.springframework.beans.factory.InitializingBean;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
-@Component(value = "customSecurityMetadataSource")
+@Component(value = "securityMetadataSource")
 public class CustomSecurityMetadataSource implements FilterInvocationSecurityMetadataSource, InitializingBean {
 
 

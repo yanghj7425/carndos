@@ -70,7 +70,7 @@ CREATE TABLE `t_c3p0` (
 -- ----------------------------
 -- Table structure for user
 -- ----------------------------
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
   `id` BIGINT(20) PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
   `user_name` VARCHAR(50) DEFAULT NULL COMMENT '用户名',

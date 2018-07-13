@@ -1,12 +1,13 @@
 package com.yhj.config.security;
 
 import com.yhj.config.mybatis.MyBatisConfig;
-import com.yhj.web.controller.security.CustomSecurityMetadataSource;
-import com.yhj.web.controller.security.CustomSuccessHandler;
-import com.yhj.web.dao.res.CustomAccessDecisionManager;
+import com.yhj.security.CustomSecurityMetadataSource;
+import com.yhj.security.CustomSuccessHandler;
+import com.yhj.security.CustomAccessDecisionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -19,40 +20,39 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 @Configuration
 @EnableWebSecurity
 @Import(MyBatisConfig.class)
+@ComponentScan(basePackages = {"com.yhj.security"})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     CustomSuccessHandler customSuccessHandler;
 
     @Autowired
-    @Qualifier("customUserDetailService")
     UserDetailsService userDetailsService;
 
 
     @Autowired
-    private CustomSecurityMetadataSource customSecurityMetadataSource;
+    private CustomSecurityMetadataSource securityMetadataSource;
 
 
     @Autowired
-    private CustomAccessDecisionManager customAccessDecisionManager;
+    private CustomAccessDecisionManager accessDecisionManager;
 
 
     @Bean
     public FilterSecurityInterceptor customFilterSecurityInterceptor() {
         FilterSecurityInterceptor fsi = new FilterSecurityInterceptor();
-        fsi.setAccessDecisionManager(customAccessDecisionManager);
-        fsi.setSecurityMetadataSource(customSecurityMetadataSource);
-
+        fsi.setAccessDecisionManager(accessDecisionManager);
+        fsi.setSecurityMetadataSource(securityMetadataSource);
         return fsi;
     }
 
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        //   auth.userDetailsService(userDetailsService);
-        auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
-        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
-        auth.inMemoryAuthentication().withUser("dba").password("dba").roles("DBA");
+        auth.userDetailsService(userDetailsService);
+//        auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
+//        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
+//        auth.inMemoryAuthentication().withUser("dba").password("dba").roles("DBA");
     }
 
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yhj.web.dao.sys.SysUserMapper">
+    <resultMap id="BaseResultMap" type="com.yhj.web.entity.sys.SysUser">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="user_passwd" jdbcType="VARCHAR" property="userPasswd"/>
+        <result column="user_status" jdbcType="INTEGER" property="userStatus"/>
+        <result column="user_desc" jdbcType="VARCHAR" property="userDesc"/>
+        <result column="user_create_time" jdbcType="TIMESTAMP" property="userCreateTime"/>
+        <result column="user_delete_time" jdbcType="TIMESTAMP" property="userDeleteTime"/>
+    </resultMap>
+
+    <select id="querySysUserByName" resultMap="BaseResultMap" parameterType="String">
+        SELECT
+            id,
+            user_name,
+            user_passwd,
+            user_status,
+            user_desc,
+            user_create_time,
+            user_delete_time
+        FROM
+            sys_user
+        WHERE
+            user_name = #{userName}
+        LIMIT 1
+    </select>
+
+
+</mapper>

@@ -18,6 +18,7 @@ public interface BaseServiceI<T> {
     T queryById(Long id);
 
 
+
     int insert(T t);
 
 

@@ -6,7 +6,6 @@ import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,12 +13,9 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
 import tk.mybatis.mapper.code.Style;
 import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 
-import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -27,12 +23,10 @@ import java.util.Properties;
 @PropertySource(value = {"classpath:dataSource.properties"})
 public class MyBatisConfig implements EnvironmentAware {
 
-
     private Environment environment;
 
     /**
      * @return
-     *
      * @description 配置数据源
      */
     @Bean
@@ -47,9 +41,7 @@ public class MyBatisConfig implements EnvironmentAware {
 
     /**
      * @param dataSource
-     *
      * @return
-     *
      * @description 配置 MyBatis sessionFactory
      */
     @Bean
@@ -92,7 +84,7 @@ public class MyBatisConfig implements EnvironmentAware {
     private Resource[] mapperLocations() {
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
-            return resolver.getResources("classpath:mapper/*.xml");
+            return resolver.getResources("classpath:mapper/**/*.xml");
         } catch (IOException e) {
             throw new IllegalArgumentException("找不到指定的 mapper 文件");
         }

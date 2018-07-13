@@ -12,7 +12,6 @@ import tk.mybatis.mapper.common.Mapper;
 import java.util.List;
 
 @Service("resourceService")
-@Transactional(readOnly = true)
 public class ResourceServiceI extends BaseService<Resource, Mapper<Resource>> implements ResourceService {
 
     @Autowired

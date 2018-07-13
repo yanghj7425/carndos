@@ -9,7 +9,12 @@ import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
-
+/**
+ * @description  默认为修改为只读事务
+ * @param <T>
+ * @param <M>
+ */
+@Transactional(transactionManager = "transactionManager")
 public abstract class BaseService<T, M extends Mapper<T>> implements BaseServiceI<T> {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
@@ -23,7 +28,6 @@ public abstract class BaseService<T, M extends Mapper<T>> implements BaseService
     }
 
     @Override
-    @Transactional(readOnly = true, transactionManager = "transactionManager")
     public int insert(T t) {
         return baseMapper.insert(t);
     }
