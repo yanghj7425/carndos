@@ -1,4 +1,4 @@
-package com.yhj.security;
+package com.yhj.security.res;
 
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;

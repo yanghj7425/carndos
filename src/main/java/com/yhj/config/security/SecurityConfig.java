@@ -1,34 +1,32 @@
 package com.yhj.config.security;
 
 import com.yhj.config.mybatis.MyBatisConfig;
-import com.yhj.security.CustomFilterSecurityInterceptor;
-import com.yhj.security.CustomSecurityMetadataSource;
-import com.yhj.security.CustomSuccessHandler;
-import com.yhj.security.CustomAccessDecisionManager;
+import com.yhj.security.login.CustomAuthenticationProvider;
+import com.yhj.security.login.CustomLoginFailureHandler;
+import com.yhj.security.login.CustomLoginSuccessHandler;
+import com.yhj.security.res.CustomFilterSecurityInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
-@Configuration
 @EnableWebSecurity
 @Import(MyBatisConfig.class)
 @ComponentScan(basePackages = {"com.yhj.security"})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private CustomSuccessHandler customSuccessHandler;
+    private CustomLoginSuccessHandler customLoginSuccessHandler;
 
     @Autowired
-    private UserDetailsService userDetailsService;
+    private CustomLoginFailureHandler customLoginFailureHandler;
+
+    @Autowired
+    private CustomAuthenticationProvider customAuthenticationProvider;
 
 
     @Autowired
@@ -37,22 +35,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService);
+        auth.authenticationProvider(customAuthenticationProvider);
     }
 
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
         http.addFilterBefore(filterSecurityInterceptor, FilterSecurityInterceptor.class);
-        http.authorizeRequests()
-                .antMatchers("/login").permitAll()
+        http
+                .csrf().disable()//默认开启，这里先显式关闭
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login")//form表单POST请求url提交地址，默认为/login
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .successHandler(customLoginSuccessHandler)
                 .and()
-                .formLogin().loginPage("/login").usernameParameter("username").passwordParameter("password").successHandler(customSuccessHandler)
+                .logout()
+                .logoutSuccessUrl("/login?logout")
+                .deleteCookies("JSESSIONID")
                 .and()
-                .logout().logoutSuccessUrl("/login?logout")
-                .and().exceptionHandling().accessDeniedPage("/error")
-                .and()
-                .csrf();
+                .exceptionHandling()
+                .accessDeniedPage("/error");
 
     }
 }

@@ -1,22 +1,24 @@
-package com.yhj.security;
+package com.yhj.security.login;
 
 import com.yhj.web.dao.sys.SysUserMapper;
 import com.yhj.web.dao.sys.SysUserRoleMapper;
 import com.yhj.web.entity.sys.SysUser;
 import com.yhj.web.entity.sys.SysUserRole;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Service(value = "userDetailsService")
+@Service
 public class CustomUserDetailService implements UserDetailsService {
 
     private final Integer Active = 1;
@@ -32,11 +34,14 @@ public class CustomUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String sysUserName)
             throws UsernameNotFoundException {
         SysUser sysUser = sysUserMapper.querySysUserByName(sysUserName);
-        System.out.println("User : " + sysUser);
         if (sysUser == null) {
             System.out.println("User not found");
             throw new UsernameNotFoundException("Username not found");
         }
+        System.out.println("User : " + sysUser.getUserName() + "\t " + sysUser.getUserName() + "\t" + sysUser.getUserName());
+
+
+
         return new org.springframework.security.core.userdetails.User(sysUser.getUserName(), sysUser.getUserPasswd(),
                 sysUser.getUserStatus().equals(Active), true, true, true, getGrantedAuthorities(sysUser));
     }

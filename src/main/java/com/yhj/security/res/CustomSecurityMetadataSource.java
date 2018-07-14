@@ -1,4 +1,4 @@
-package com.yhj.security;
+package com.yhj.security.res;
 
 import com.yhj.web.service.res.ResRoleService;
 import org.springframework.beans.factory.InitializingBean;

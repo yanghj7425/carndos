@@ -18,6 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 public class HelloController {
 
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index() {
+
+        System.out.println("index");
+        return "login";
+    }
+
+
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String homePage(ModelMap model) {
 

@@ -1,7 +1,7 @@
 package com.yhj.web;
 
 import com.yhj.config.core.RootConfig;
-import com.yhj.security.CustomSecurityMetadataSource;
+import com.yhj.security.res.CustomSecurityMetadataSource;
 import com.yhj.web.service.res.ResRoleService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

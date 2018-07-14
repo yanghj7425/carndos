@@ -1,4 +1,4 @@
-package com.yhj.security;
+package com.yhj.security.res;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDecisionManager;
@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Component(value = "filterSecurityInterceptor")
 public class CustomFilterSecurityInterceptor extends FilterSecurityInterceptor {
+
+
 
     @Autowired
     public void setAccessDecisionManager(AccessDecisionManager accessDecisionManager) {
