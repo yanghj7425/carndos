@@ -44,20 +44,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(filterSecurityInterceptor, FilterSecurityInterceptor.class);
         http
-                .csrf().disable()//默认开启，这里先显式关闭
                 .formLogin()
-                .loginPage("/login")
-                .loginProcessingUrl("/login")//form表单POST请求url提交地址，默认为/login
-                .usernameParameter("username")
-                .passwordParameter("password")
-                .successHandler(customLoginSuccessHandler)
+                    .loginPage("/login")
+                    .loginProcessingUrl("/login")//form表单POST请求url提交地址，默认为/login
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .successHandler(customLoginSuccessHandler)
                 .and()
-                .logout()
-                .logoutSuccessUrl("/login?logout")
-                .deleteCookies("JSESSIONID")
+                    .logout()
+                    .logoutSuccessUrl("/login?logout")
+                    .deleteCookies("JSESSIONID")
                 .and()
-                .exceptionHandling()
-                .accessDeniedPage("/error");
+                    .exceptionHandling()
+                    .accessDeniedPage("/error");
 
     }
 }

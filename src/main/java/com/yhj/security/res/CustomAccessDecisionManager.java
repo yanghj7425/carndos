@@ -1,27 +1,31 @@
 package com.yhj.security.res;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
-import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-import java.util.Iterator;
 
 /**
  * 授权管理器
  */
-@Component(value="accessDecisionManager")
+@Component(value = "accessDecisionManager")
 public class CustomAccessDecisionManager implements AccessDecisionManager {
-    public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) throws AccessDeniedException, InsufficientAuthenticationException {
+
+
+    private final Logger log = LoggerFactory.getLogger(getClass());
+
+    public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) {
         if (null == configAttributes) {
             return;
         }
 
-        if (configAttributes.size() <= 0) {
+        if (configAttributes.isEmpty()) {
             return;
         }
 
@@ -29,7 +33,7 @@ public class CustomAccessDecisionManager implements AccessDecisionManager {
         for (ConfigAttribute configAttribute : configAttributes) {
             //访问所请求的资源所需要的权限
             String needPermission = configAttribute.getAttribute();
-            System.out.println("访问" + object.toString() + "需要的权限是：" + needPermission);
+            log.info("message {}", object);
 
             //用户所拥有的权限authentication
             Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
