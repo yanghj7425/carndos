@@ -14,19 +14,22 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.IOException;
 import java.util.Properties;
 
 @Configuration
 @PropertySource(value = {"classpath:dataSource.properties"})
-@MapperScan(basePackages = {"com.yhj.web.dao"},sqlSessionFactoryRef = "sqlSessionFactory")
+@MapperScan(basePackages = {"com.yhj.web.dao"}, sqlSessionFactoryRef = "sqlSessionFactory")
 public class MyBatisConfig implements EnvironmentAware {
 
     private Environment environment;
 
     /**
      * @return dataSource
+     *
      * @description 配置数据源
      */
     @Bean
@@ -41,7 +44,9 @@ public class MyBatisConfig implements EnvironmentAware {
 
     /**
      * @param dataSource
+     *
      * @return sessionFactoryBean
+     *
      * @description 配置 MyBatis sessionFactory
      */
     @Bean

@@ -105,3 +105,14 @@ INSERT INTO `user_role` (user_id, role_id) VALUES ('1', '1');
 INSERT INTO `user_role` (user_id, role_id) VALUES ('1', '2');
 INSERT INTO `user_role` (user_id, role_id) VALUES ('2', '2');
 INSERT INTO `user_role` (user_id, role_id) VALUES ('3', '3');
+
+
+-- ----------------------------
+-- Records of remember me
+-- ----------------------------
+CREATE TABLE persistent_logins (
+  username  VARCHAR(64) NOT NULL,
+  series    VARCHAR(64) NOT NULL PRIMARY KEY,
+  token     VARCHAR(64) NOT NULL,
+  last_used TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

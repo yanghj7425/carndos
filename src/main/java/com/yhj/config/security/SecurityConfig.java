@@ -8,18 +8,24 @@ import com.yhj.security.res.CustomFilterSecurityInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
+import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
+
+import javax.sql.DataSource;
 
 @EnableWebSecurity
 @Import(MyBatisConfig.class)
 @ComponentScan(basePackages = {"com.yhj.security"})
+@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -31,6 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomLoginFailureHandler customLoginFailureHandler;
 
+
+    @Autowired
+    private UserDetailsService customUserDetailService;
+
+
+    @Autowired
+    private DataSource dataSource;
+
     @Autowired
     private CustomFilterSecurityInterceptor filterSecurityInterceptor;
 
@@ -40,9 +54,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.authenticationProvider(customAuthenticationProvider);
     }
 
+
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+    public RememberMeServices rememberMeServices() {
+        JdbcTokenRepositoryImpl rememberMeTokenRepository = new JdbcTokenRepositoryImpl();
+        // 此处需要设置数据源，否则无法从数据库查询验证信息
+        rememberMeTokenRepository.setDataSource(dataSource);
+
+        // 此处的 key 可以为任意非空值(null 或 "")，单必须和起前面
+        // rememberMeServices(RememberMeServices rememberMeServices).key(key)的值相同
+        PersistentTokenBasedRememberMeServices rememberMeServices =
+                new PersistentTokenBasedRememberMeServices("INTERNAL_SECRET_KEY", customUserDetailService, rememberMeTokenRepository);
+        rememberMeServices.setTokenValiditySeconds(300);
+
+        // 该参数不是必须的，默认值为 "remember-me", 但如果设置必须和页面复选框的 name 一致
+        rememberMeServices.setParameter("remember-me");
+        return rememberMeServices;
     }
 
 
@@ -68,6 +95,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .passwordParameter("password")
                     .successHandler(customLoginSuccessHandler)
                  //   .failureHandler(customLoginFailureHandler)
+                .and()
+                    .rememberMe()
+                    .rememberMeServices(rememberMeServices())
+                    .key("INTERNAL_SECRET_KEY")
+
+
                 .and()
                 .logout()
                     .logoutSuccessUrl("/login?logout")
