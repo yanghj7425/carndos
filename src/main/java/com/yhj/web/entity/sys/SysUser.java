@@ -1,11 +1,16 @@
 package com.yhj.web.entity.sys;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "sys_user")
-public class SysUser implements Serializable {
+public class SysUser implements Serializable, UserState {
     /**
      * 主键ID
      */
@@ -175,5 +180,15 @@ public class SysUser implements Serializable {
      */
     public void setUserDeleteTime(Date userDeleteTime) {
         this.userDeleteTime = userDeleteTime;
+    }
+
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("userName", userName)
+                .append("userPasswd", userPasswd)
+                .append("userStatus", userStatus)
+                .toString();
     }
 }

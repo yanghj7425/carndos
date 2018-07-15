@@ -12,7 +12,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,19 +26,18 @@ public class SecurityDataTest {
     @Autowired
     private ResRoleService resRoleService;
 
-
+    @Test
     public void testResRoleService() {
 
-        LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> map = resRoleService.buildRequestMap();
+        Map<RequestMatcher, Collection<ConfigAttribute>> map = customSecurityMetadataSource.buildRequestMap();
         for (Map.Entry<RequestMatcher, Collection<ConfigAttribute>> entry : map.entrySet()) {
-            System.out.println(entry.getKey());
+            System.out.print(entry.getKey() + "\t : \t");
             System.out.println(entry.getValue());
         }
 
     }
 
 
-    @Test
     public void customSecurityMetadataSourceTest() {
         System.out.println(customSecurityMetadataSource == null);
 

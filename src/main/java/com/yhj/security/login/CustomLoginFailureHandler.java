@@ -6,8 +6,5 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
-    @Override
-    public void setDefaultFailureUrl(String defaultFailureUrl) {
-        super.setDefaultFailureUrl(defaultFailureUrl);
-    }
+   
 }

@@ -14,7 +14,8 @@
 </head>
 <body>
 <div>
-    <spam>标题:${title}</spam><br>
+    <spam>标题:${title}</spam>
+    <br>
     <span>消息: ${message} </span>
 
 
@@ -24,12 +25,6 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </form>
 
-
-    <script>
-        function formSubmit() {
-            document.getElementById("logoutFrom").submit();
-        }
-    </script>
 
     <c:if test="${pageContext.request.userPrincipal.name != null}">
         <span>
@@ -43,4 +38,9 @@
 </div>
 
 </body>
+<script>
+    function formSubmit() {
+        document.getElementById("logoutFrom").submit();
+    }
+</script>
 </html>

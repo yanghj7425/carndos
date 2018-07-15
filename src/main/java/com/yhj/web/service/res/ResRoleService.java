@@ -9,5 +9,4 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 
 public interface ResRoleService extends BaseServiceI<ResRole> {
-     LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> buildRequestMap();
 }

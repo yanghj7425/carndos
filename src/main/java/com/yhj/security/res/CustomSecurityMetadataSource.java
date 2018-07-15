@@ -1,11 +1,16 @@
 package com.yhj.security.res;
 
-import com.yhj.web.service.res.ResRoleService;
+import com.yhj.web.dao.res.ResRoleMapper;
+import com.yhj.web.entity.res.ResRole;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
+import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +21,7 @@ import java.util.*;
 public class CustomSecurityMetadataSource implements FilterInvocationSecurityMetadataSource, InitializingBean {
 
 
-    private final static List<ConfigAttribute> NULL_CONFIG_ATTRIBUTE = null;
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
 
     //资源权限集合
@@ -24,27 +29,32 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
 
     //查找数据库权限和资源的关系
     @Autowired
-    private ResRoleService resRoleService;
+    private ResRoleMapper resRoleMapper;
 
-    public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
+    public Collection<ConfigAttribute> getAttributes(Object object) {
 
         final HttpServletRequest request = ((FilterInvocation) object).getRequest();
-        Collection<ConfigAttribute> atts = NULL_CONFIG_ATTRIBUTE;
+
+        Collection<ConfigAttribute> attribute = new ArrayList<>();
+
+
         for (Map.Entry<RequestMatcher, Collection<ConfigAttribute>> entry : requestMap.entrySet()) {
             if (entry.getKey().matches(request)) {
-                atts = entry.getValue();
-                break;
+                attribute = entry.getValue();
+                return attribute;
             }
         }
-        return atts;
+        return attribute;
     }
 
     public Collection<ConfigAttribute> getAllConfigAttributes() {
-        Set<ConfigAttribute> attributes = new HashSet<ConfigAttribute>();
+        Set<ConfigAttribute> attributes = new HashSet<>();
         for (Map.Entry<RequestMatcher, Collection<ConfigAttribute>> entry : requestMap.entrySet()) {
             attributes.addAll(entry.getValue());
         }
-        System.out.println("总共有这些权限：" + attributes.toString());
+        if (logger.isInfoEnabled()) {
+            logger.debug("System have those privileges : {}", attributes);
+        }
         return attributes;
     }
 
@@ -53,14 +63,45 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
     }
 
 
-    //绑定requestMap
-    protected Map<RequestMatcher, Collection<ConfigAttribute>> bindRequestMap() {
-
-        return resRoleService.buildRequestMap();
+    @Override
+    public void afterPropertiesSet() {
+        this.requestMap = buildRequestMap();
     }
 
-    public void afterPropertiesSet() {
-        this.requestMap = bindRequestMap();
+
+    /**
+     * @return 返回 requestMap 资源和权限对应关系的数据格式
+     *
+     * @description 一个资源可以被多个角色访问
+     */
+    public Map<RequestMatcher, Collection<ConfigAttribute>> buildRequestMap() {
+        LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> matcherCollectionLinkedHashMap = new LinkedHashMap<>();
+
+        List<ResRole> resourceList = resRoleMapper.queryAllResRole();
+        for (ResRole resRole : resourceList) {
+
+            RequestMatcher requestMatcher = getRequestMatcher(resRole.getAccessResUrl());
+            Collection<ConfigAttribute> multipleRoles;
+
+            if (matcherCollectionLinkedHashMap.containsKey(requestMatcher)) {
+
+                multipleRoles = matcherCollectionLinkedHashMap.get(requestMatcher);
+
+            } else {
+                multipleRoles = new ArrayList<>();
+            }
+            multipleRoles.add(new SecurityConfig(resRole.getAccessResRole()));
+
+            // bad small
+
+            matcherCollectionLinkedHashMap.put(requestMatcher, multipleRoles);
+        }
+        return matcherCollectionLinkedHashMap;
+    }
+
+
+    private RequestMatcher getRequestMatcher(String resUrl) {
+        return new AntPathRequestMatcher(resUrl);
     }
 
 

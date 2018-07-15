@@ -3,8 +3,8 @@
 <mapper namespace="com.yhj.web.dao.res.ResRoleMapper">
     <resultMap id="BaseResultMap" type="com.yhj.web.entity.res.ResRole">
         <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="resRole" jdbcType="VARCHAR" property="resRole"/>
-        <result column="resUrl" jdbcType="VARCHAR" property="resUrl"/>
+        <result column="resRole" jdbcType="VARCHAR" property="accessResRole"/>
+        <result column="resUrl" jdbcType="VARCHAR" property="accessResUrl"/>
     </resultMap>
 
     <select id="queryAllResRole" resultMap="BaseResultMap">

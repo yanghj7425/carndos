@@ -23,22 +23,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private CustomLoginSuccessHandler customLoginSuccessHandler;
 
     @Autowired
-    private CustomLoginFailureHandler customLoginFailureHandler;
-
-    @Autowired
     private CustomAuthenticationProvider customAuthenticationProvider;
 
+    @Autowired
+    private CustomLoginFailureHandler customLoginFailureHandler;
 
     @Autowired
     private CustomFilterSecurityInterceptor filterSecurityInterceptor;
 
-
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    public void configureGlobal(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(customAuthenticationProvider);
     }
 
 
+    /**
+     * @param http 资源拦截
+     *
+     * @throws Exception
+     */
+    //@formatter:offs
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -50,13 +54,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .usernameParameter("username")
                     .passwordParameter("password")
                     .successHandler(customLoginSuccessHandler)
+                    .failureHandler(customLoginFailureHandler)
                 .and()
                     .logout()
                     .logoutSuccessUrl("/login?logout")
                     .deleteCookies("JSESSIONID")
                 .and()
                     .exceptionHandling()
-                    .accessDeniedPage("/error");
+                    .accessDeniedPage("/denied");
 
     }
 }

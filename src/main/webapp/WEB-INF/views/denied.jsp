@@ -11,6 +11,6 @@
     <title>error</title>
 </head>
 <body>
-error page
+denied page
 </body>
 </html>

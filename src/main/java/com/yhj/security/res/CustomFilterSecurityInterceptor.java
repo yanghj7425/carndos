@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 public class CustomFilterSecurityInterceptor extends FilterSecurityInterceptor {
 
 
-
     @Autowired
+    @Override
     public void setAccessDecisionManager(AccessDecisionManager accessDecisionManager) {
         super.setAccessDecisionManager(accessDecisionManager);
     }

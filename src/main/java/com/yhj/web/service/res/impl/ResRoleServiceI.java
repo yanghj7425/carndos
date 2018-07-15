@@ -32,23 +32,6 @@ public class ResRoleServiceI extends BaseService<ResRole, Mapper<ResRole>> imple
 
     }
 
-    @Override
-    public LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> buildRequestMap() {
-        LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> requestMap = new LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>>();
 
-        List<ResRole> resourceList = queryAll();
-        for (ResRole resRole : resourceList) {
-            RequestMatcher requestMatcher = getRequestMatcher(resRole.getResUrl());
-            List<ConfigAttribute> list = new ArrayList<ConfigAttribute>();
-            list.add(new SecurityConfig(resRole.getResRole()));
-            requestMap.put(requestMatcher, list);
-        }
-        return requestMap;
-    }
-
-
-    private RequestMatcher getRequestMatcher(String resUrl) {
-        return new AntPathRequestMatcher(resUrl);
-    }
 
 }

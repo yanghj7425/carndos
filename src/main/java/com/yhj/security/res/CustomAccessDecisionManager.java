@@ -18,7 +18,7 @@ import java.util.Collection;
 public class CustomAccessDecisionManager implements AccessDecisionManager {
 
 
-    private final Logger log = LoggerFactory.getLogger(getClass());
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes) {
         if (null == configAttributes) {
@@ -29,15 +29,22 @@ public class CustomAccessDecisionManager implements AccessDecisionManager {
             return;
         }
 
+        if (logger.isDebugEnabled()) {
+            logger.debug("Access resource: ' {} 'must requires privilege: {} ", object, configAttributes);
+        }
+
+        //用户所拥有的权限authentication
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+
         //所请求的资源拥有的权限(一个资源对多个权限)
         for (ConfigAttribute configAttribute : configAttributes) {
+
             //访问所请求的资源所需要的权限
             String needPermission = configAttribute.getAttribute();
-            log.info("message {}", object);
 
-            //用户所拥有的权限authentication
-            Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
             for (GrantedAuthority ga : authorities) {
+
                 if (needPermission.equals(ga.getAuthority())) {
                     return;
                 }

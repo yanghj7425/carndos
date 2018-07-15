@@ -3,7 +3,6 @@ package com.yhj.web.entity.res;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * @description 角色资源映射
@@ -20,13 +19,18 @@ public class ResRole implements Serializable {
     /**
      * 角色
      */
-    private String resRole;
+    private String accessResRole;
 
     /**
      * 资源
      */
-    private String resUrl;
+    private String accessResUrl;
 
+    public ResRole(Long id, String accessResRole, String accessResUrl) {
+        this.id = id;
+        this.accessResRole = accessResRole;
+        this.accessResUrl = accessResUrl;
+    }
 
     public Long getId() {
         return id;
@@ -36,40 +40,28 @@ public class ResRole implements Serializable {
         this.id = id;
     }
 
-    public String getResRole() {
-        return resRole;
+    public String getAccessResRole() {
+        return accessResRole;
     }
 
-    public void setResRole(String resRole) {
-        this.resRole = resRole;
+    public void setAccessResRole(String accessResRole) {
+        this.accessResRole = accessResRole;
     }
 
-    public String getResUrl() {
-        return resUrl;
+    public String getAccessResUrl() {
+        return accessResUrl;
     }
 
-    public void setResUrl(String resUrl) {
-        this.resUrl = resUrl;
-    }
-
-    public ResRole(Long id, String resRole, String resUrl) {
-        this.id = id;
-        this.resRole = resRole;
-        this.resUrl = resUrl;
-    }
-
-
-    public ResRole(String resRole, String resUrl) {
-        this.resRole = resRole;
-        this.resUrl = resUrl;
+    public void setAccessResUrl(String accessResUrl) {
+        this.accessResUrl = accessResUrl;
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
-                .append("resRole", resRole)
-                .append("resUrl", resUrl)
+                .append("accessResRole", accessResRole)
+                .append("accessResUrl", accessResUrl)
                 .toString();
     }
 }
