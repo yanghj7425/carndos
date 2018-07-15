@@ -17,6 +17,10 @@ import org.springframework.stereotype.Component;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
+/**
+ * 默认实现  DefaultFilterInvocationSecurityMetadataSource
+ */
+
 @Component(value = "securityMetadataSource")
 public class CustomSecurityMetadataSource implements FilterInvocationSecurityMetadataSource, InitializingBean {
 

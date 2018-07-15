@@ -9,15 +9,15 @@
 
     <select id="queryAllResRole" resultMap="BaseResultMap">
         SELECT
-            rr.id          AS id,
-            res.res_url    AS resUrl,
-            role.role_name AS resRole
+            rr.id            AS id,
+            resource.res_url AS resUrl,
+            role.role_name   AS resRole
         FROM
-            resource res
+            sys_resource resource
             LEFT JOIN
-            res_role rr ON rr.res_id = res.id
+            res_role rr ON rr.res_id = resource.id
             LEFT JOIN
-            role ON rr.role_id = role.id
+            sys_role role ON rr.role_id = role.id
     </select>
 
 </mapper>

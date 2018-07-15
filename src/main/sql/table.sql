@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `resource`;
-CREATE TABLE `resource` (
+DROP TABLE IF EXISTS `sys_resource`;
+CREATE TABLE `sys_resource` (
   `id` BIGINT(20) PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
   `res_name` VARCHAR(50) DEFAULT NULL COMMENT '资源名称',
   `res_type` VARCHAR(50) DEFAULT NULL COMMENT '资源类型',
@@ -13,15 +13,15 @@ CREATE TABLE `resource` (
 -- ----------------------------
 -- Records of resource
 -- ----------------------------
-INSERT INTO `resource` (res_name, res_type, res_url, res_desc)VALUES ('','URL', '/admin/**', '管理员页面');
-INSERT INTO `resource` (res_name, res_type, res_url, res_desc) VALUES ( '', 'URL', '/dba/**', '数据库管理界面');
-INSERT INTO `resource` (res_name, res_type, res_url, res_desc)VALUES ( '', 'URL', 'home**', '用户页面');
+INSERT INTO `sys_resource` (res_name, res_type, res_url, res_desc)VALUES ('','URL', '/admin/**', '管理员页面');
+INSERT INTO `sys_resource` (res_name, res_type, res_url, res_desc) VALUES ( '', 'URL', '/dba/**', '数据库管理界面');
+INSERT INTO `sys_resource` (res_name, res_type, res_url, res_desc)VALUES ( '', 'URL', '/home**', '用户页面');
 
 -- ----------------------------
 -- Table structure for role
 -- ----------------------------
-DROP TABLE IF EXISTS `role`;
-CREATE TABLE `role` (
+DROP TABLE IF EXISTS `sys_role`;
+CREATE TABLE `sys_role` (
   `id` BIGINT(20) PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
   `role_name` VARCHAR(50) DEFAULT NULL COMMENT '角色名称',
   `role_desc` VARCHAR(200) DEFAULT NULL COMMENT '角色描述',
@@ -33,9 +33,9 @@ CREATE TABLE `role` (
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` (role_name, role_desc) VALUES ('ROLE_ADMIN', '管理员角色');
-INSERT INTO `role` (role_name, role_desc) VALUES ('ROLE_USER', '用户角色');
-INSERT INTO `role` (role_name, role_desc)VALUES ('ROLE_DBA', '数据库管理员角色');
+INSERT INTO `sys_role` (role_name, role_desc) VALUES ('ROLE_ADMIN', '管理员角色');
+INSERT INTO `sys_role` (role_name, role_desc) VALUES ('ROLE_USER', '用户角色');
+INSERT INTO `sys_role` (role_name, role_desc)VALUES ('ROLE_DBA', '数据库管理员角色');
 
 -- ----------------------------
 -- Table structure for res_role
@@ -74,7 +74,7 @@ DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE `sys_user` (
   `id` BIGINT(20) PRIMARY KEY AUTO_INCREMENT COMMENT '主键ID',
   `user_name` VARCHAR(50) DEFAULT NULL COMMENT '用户名',
-  `user_passwd` VARCHAR(50) DEFAULT NULL COMMENT '用户密码',
+  `user_passwd` VARCHAR(500) DEFAULT NULL COMMENT '用户密码',
   `user_status` INT(1) DEFAULT 1 COMMENT '用户状态: 1 有效 , 0 无效',
   `user_desc` VARCHAR(200) DEFAULT NULL COMMENT '用户描述',
   `user_create_time` DATETIME DEFAULT NOW() COMMENT '添加时间',
@@ -85,8 +85,8 @@ CREATE TABLE `sys_user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `sys_user` (user_name, user_passwd, user_status, user_desc)VALUES ('admin', 'admin', '1', '管理员');
-INSERT INTO `sys_user` (user_name, user_passwd, user_status, user_desc) VALUES ( 'user', 'user', '1', '用户');
 INSERT INTO `sys_user` (user_name, user_passwd, user_status, user_desc) VALUES ('dba', 'dba', '1', '数据库管理员');
+INSERT INTO `sys_user` (user_name, user_passwd, user_status, user_desc) VALUES ( 'user', '$2a$10$pJKdP0V6ak6tOx6cL2rgJOdQgcI3.8mCVKDW/RNU04HXhvClpHYfq', '1', '用户');
 
 -- ----------------------------
 -- Table structure for user_role

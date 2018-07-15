@@ -14,4 +14,10 @@ public class CustomAuthenticationProvider extends DaoAuthenticationProvider {
     public void setUserDetailService(UserDetailsService userDetailService) {
         super.setUserDetailsService(userDetailService);
     }
+
+    @Autowired
+    @Override
+    public void setPasswordEncoder(Object passwordEncoder) {
+        super.setPasswordEncoder(passwordEncoder);
+    }
 }

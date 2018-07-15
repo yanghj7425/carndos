@@ -23,10 +23,10 @@
             LEFT JOIN
             sys_user suser ON suser.id = ur.user_id
             LEFT JOIN
-            role ON role.id = ur.role_id
+            sys_role role ON role.id = ur.role_id
         WHERE
             suser.user_status = 1
-            and suser.user_name = #{userName}
+            AND suser.user_name = #{userName}
     </select>
 
 
