@@ -8,9 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>index page</title>
+      <link href="/static/css/main.css">
   </head>
   <body>
-hello index page
+  <%@include file="common/header.jsp"%>
   </body>
 </html>

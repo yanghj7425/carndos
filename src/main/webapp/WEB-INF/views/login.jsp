@@ -5,8 +5,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Login page</title>
-    <link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"/>
-    <link href="<c:url value='/static/css/app.css' />" rel="stylesheet"/>
+    <link href="<c:url value='static/css/bootstrap/bootstrap.min.css' />" rel="stylesheet"/>
+    <link href="<c:url value='static/css/app.css' />" rel="stylesheet"/>
 </head>
 
 <body onload='document.loginForm.username.focus();'>

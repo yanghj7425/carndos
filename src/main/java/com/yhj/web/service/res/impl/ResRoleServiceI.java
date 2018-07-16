@@ -31,7 +31,4 @@ public class ResRoleServiceI extends BaseService<ResRole, Mapper<ResRole>> imple
         return resRoleMapper.queryAllResRole();
 
     }
-
-
-
 }

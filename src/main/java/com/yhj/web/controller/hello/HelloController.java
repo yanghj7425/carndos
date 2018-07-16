@@ -19,16 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 @Controller
 public class HelloController extends BaseController {
 
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String index() {
-
-        System.out.println("index");
-
-        return "login";
-    }
-
-
     @RequestMapping(value = "/home", method = RequestMethod.GET)
     public String homePage(ModelMap model) {
 
