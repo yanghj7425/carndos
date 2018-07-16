@@ -56,18 +56,6 @@ INSERT INTO `res_role` (res_id, role_id) VALUES ('2', '2');
 INSERT INTO `res_role` (res_id, role_id) VALUES ('3', '3');
 
 -- ----------------------------
--- Table structure for t_c3p0
--- ----------------------------
-DROP TABLE IF EXISTS `t_c3p0`;
-CREATE TABLE `t_c3p0` (
-  `a` char(1) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of t_c3p0
--- ----------------------------
-
--- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
