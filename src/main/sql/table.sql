@@ -108,7 +108,7 @@ INSERT INTO `user_role` (user_id, role_id) VALUES ('3', '3');
 
 
 -- ----------------------------
--- Records of remember me
+-- Table structure for  persistent_logins
 -- ----------------------------
 CREATE TABLE persistent_logins (
   username  VARCHAR(64) NOT NULL,
