@@ -41,7 +41,6 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
 
         Collection<ConfigAttribute> attribute = new ArrayList<>();
 
-
         for (Map.Entry<RequestMatcher, Collection<ConfigAttribute>> entry : requestMap.entrySet()) {
             if (entry.getKey().matches(request)) {
                 attribute = entry.getValue();

@@ -6,5 +6,6 @@ import tk.mybatis.mapper.common.Mapper;
 
 @Repository
 public interface SysUserMapper extends Mapper<SysUser> {
+
     SysUser querySysUserByName(String userName);
 }

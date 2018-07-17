@@ -9,7 +9,7 @@ public class ECryptTest {
     public void password() {
 
         //  $2a$10$pJKdP0V6ak6tOx6cL2rgJOdQgcI3.8mCVKDW/RNU04HXhvClpHYfq
-        String password = "user";
+        String password = "admin";
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         System.out.println(passwordEncoder.encode(password));
 
