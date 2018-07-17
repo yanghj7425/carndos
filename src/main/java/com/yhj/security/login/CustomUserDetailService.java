@@ -1,8 +1,8 @@
 package com.yhj.security.login;
 
 import com.yhj.web.dao.sys.SysUserMapper;
-import com.yhj.web.entity.sys.SysRole;
 import com.yhj.web.entity.sys.SysUser;
+import com.yhj.web.entity.sys.SysUserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,10 +44,10 @@ public class CustomUserDetailService implements UserDetailsService {
 
     private List<GrantedAuthority> getGrantedAuthorities(SysUser sysUser) {
         List<GrantedAuthority> authorities = new ArrayList<>();
-        List<SysRole> roles = sysUser.getRoles();
-        for (SysRole role : roles) {
+        List<SysUserRole> roles = sysUser.getRoles();
+        for (SysUserRole role : roles) {
             if (logger.isDebugEnabled()) {
-                logger.debug("sysUserRole:\t {} \t {}", sysUser.getUserName(), role.getRoleName());
+                logger.debug("sysUserRole:\t {} \t {}", role.getUserName(), role.getRoleName());
             }
             authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
         }

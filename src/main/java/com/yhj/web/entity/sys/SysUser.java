@@ -56,7 +56,7 @@ public class SysUser implements Serializable, UserState {
     private Date userDeleteTime;
 
 
-    private List<SysRole> roles;
+    private List<SysUserRole> roles;
 
 
     private static final long serialVersionUID = 1L;
@@ -187,12 +187,11 @@ public class SysUser implements Serializable, UserState {
         this.userDeleteTime = userDeleteTime;
     }
 
-
-    public List<SysRole> getRoles() {
+    public List<SysUserRole> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<SysRole> roles) {
+    public void setRoles(List<SysUserRole> roles) {
         this.roles = roles;
     }
 

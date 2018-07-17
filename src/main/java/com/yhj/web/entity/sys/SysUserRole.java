@@ -44,4 +44,13 @@ public class SysUserRole implements Serializable {
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
+
+    @Override
+    public String toString() {
+        return "SysUserRole{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", roleName='" + roleName + '\'' +
+                '}';
+    }
 }

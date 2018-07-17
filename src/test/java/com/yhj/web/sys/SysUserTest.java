@@ -1,8 +1,8 @@
 package com.yhj.web.sys;
 
 import com.yhj.config.core.RootConfig;
-import com.yhj.web.entity.sys.SysRole;
 import com.yhj.web.entity.sys.SysUser;
+import com.yhj.web.entity.sys.SysUserRole;
 import com.yhj.web.service.sys.SysUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,8 +28,8 @@ public class SysUserTest {
 
 
         SysUser user = sysUserService.querySysUserByName("admin");
-        List<SysRole> roles = user.getRoles();
-        for (SysRole role : roles) {
+        List<SysUserRole> roles = user.getRoles();
+        for (SysUserRole role : roles) {
             System.out.println(role);
         }
 

@@ -81,9 +81,11 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
         LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> matcherCollectionLinkedHashMap = new LinkedHashMap<>();
 
         List<ResRole> resourceList = resRoleMapper.queryAllResRole();
+
         for (ResRole resRole : resourceList) {
 
             RequestMatcher requestMatcher = getRequestMatcher(resRole.getAccessResUrl());
+
             Collection<ConfigAttribute> multipleRoles;
 
             if (matcherCollectionLinkedHashMap.containsKey(requestMatcher)) {

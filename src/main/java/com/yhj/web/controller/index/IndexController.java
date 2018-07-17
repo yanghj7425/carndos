@@ -11,7 +11,7 @@ public class IndexController extends BaseController {
     @GetMapping("/")
     public String index(Model model) {
 
-        model.addAttribute("welcome", "这是一个欢迎header的 header");
+        model.addAttribute("welcome", "这是一个欢迎的 header");
         model.addAttribute("tel","125464565464");
         logger.debug("message{}", model);
 

@@ -12,11 +12,13 @@
         <result column="user_desc" jdbcType="VARCHAR" property="userDesc"/>
         <result column="user_create_time" jdbcType="TIMESTAMP" property="userCreateTime"/>
         <result column="user_delete_time" jdbcType="TIMESTAMP" property="userDeleteTime"/>
-        <collection property="roles" ofType="com.yhj.web.entity.sys.SysRole">
+        <!-- 该该用户拥有的权限 -->
+        <collection property="roles" ofType="com.yhj.web.entity.sys.SysUserRole">
             <id column="rid" jdbcType="BIGINT" property="id"/>
             <result column="role_name" jdbcType="VARCHAR" property="roleName"/>
-            <result column="role_desc" jdbcType="VARCHAR" property="roleDesc"/>
+            <result column="user_name" jdbcType="VARCHAR" property="userName"/>
         </collection>
+        
     </resultMap>
 
     <select id="querySysUserByName" resultMap="BaseResultMap" parameterType="String">
@@ -29,8 +31,7 @@
             su.user_create_time,
             su.user_delete_time,
             sr.id AS rid,
-            sr.role_name,
-            sr.role_desc
+            sr.role_name
         FROM
             sys_user su LEFT JOIN user_role ur ON su.id = ur.user_id
             LEFT JOIN sys_role sr ON sr.id = ur.role_id

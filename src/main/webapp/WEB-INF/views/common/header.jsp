@@ -20,7 +20,6 @@
                 <span class="glyphicon glyphicon-send" aria-hidden="true"></span> ${tel} <span> |  联系我们</span>
             </div>
         </div>
-
     </div>
 
     <div class="nva">

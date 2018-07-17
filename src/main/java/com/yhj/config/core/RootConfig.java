@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @Import({SecurityConfig.class})
-@ComponentScan(basePackages = {"com.yhj.web.service.*"}, excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = {Controller.class})})
+@ComponentScan(basePackages = {"com.yhj.web.service.*","com.yhj.web.dao.*"}, excludeFilters = {@ComponentScan.Filter(type = FilterType.ANNOTATION, value = {Controller.class})})
 public class RootConfig {
 
     /**
