@@ -17,12 +17,9 @@
     zoom: 1;
 }
 
-.welcome {
-    width: 50%;
-    float: left;
-    color: #ffcc33;
+.line .connect {
+    color: #999;
     font-size: 14px;
-    text-align: left;
 }
 
 .top .line {
@@ -31,13 +28,6 @@
     color: #cbcf52;
     font-size: 14px;
     text-align: right;
-}
-
-
-
-.line .connect {
-    color: #999;
-    font-size: 14px;
 }
 
 .top .line .phone {
@@ -51,7 +41,17 @@
     background-image: url(" ../../image/header/phone.png");
 }
 
+.manager{
+    color: #f7f7f7;
+}
 
+.welcome {
+    width: 50%;
+    float: left;
+    color: #ffcc33;
+    font-size: 14px;
+    text-align: left;
+}
 
 .header .logo {
     float: left;
@@ -60,12 +60,13 @@
     background-color: #f7ef2f;
 
 }
-
-.header .nva{
+.nva{
+    width: 100%;
+    top: 20px;
+    z-index: 888;
     height: 100px;
     background-color: #f7f7f7;
 }
-
 .warp .menu{
     float: left;
     width: 70%;
@@ -73,6 +74,7 @@
     margin-left: 10px;
     background-color: #2e6da4;
 }
+
 
 
 

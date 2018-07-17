@@ -19,10 +19,14 @@
                 <span class="connect"> 24小时咨询热线 </span>
                 <span class="glyphicon glyphicon-send" aria-hidden="true"></span> ${tel} <span> |  联系我们</span>
             </div>
+            <div>
+                <span class="manage">管理</span>
+
+            </div>
         </div>
     </div>
 
-    <div class="nva">
+    <div class="nva navbar-fixed-top">
         <div class="warp">
             <div class="logo">
                 这里是一个 logo
@@ -31,8 +35,9 @@
             </div>
         </div>
     </div>
-
 </div>
+<script src="static/js/jquery/jquery-2.0.0.min.js"></script>
+<script src="static/js/header/header.js"></script>
 
 
 

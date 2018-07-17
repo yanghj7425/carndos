@@ -12,7 +12,7 @@
     <title>index page</title>
       <link href="/static/css/main.css">
   </head>
-  <body>
+  <body style="height: 1999px">
   <%@include file="common/header.jsp"%>
   </body>
 </html>

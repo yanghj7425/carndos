@@ -9,4 +9,5 @@ import java.util.Collection;
 import java.util.LinkedHashMap;
 
 public interface ResRoleService extends BaseServiceI<ResRole> {
+
 }
