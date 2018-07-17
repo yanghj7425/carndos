@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Table(name = "sys_user")
 public class SysUser implements Serializable, UserState {
@@ -53,6 +54,10 @@ public class SysUser implements Serializable, UserState {
      */
     @Column(name = "user_delete_time")
     private Date userDeleteTime;
+
+
+    private List<SysRole> roles;
+
 
     private static final long serialVersionUID = 1L;
 
@@ -183,12 +188,20 @@ public class SysUser implements Serializable, UserState {
     }
 
 
+    public List<SysRole> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<SysRole> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .append("userName", userName)
                 .append("userPasswd", userPasswd)
-                .append("userStatus", userStatus)
+                .append("roles", roles)
                 .toString();
     }
 }
