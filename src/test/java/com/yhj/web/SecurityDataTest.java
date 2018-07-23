@@ -12,7 +12,6 @@ import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
 import java.util.Map;
@@ -20,7 +19,7 @@ import java.util.Map;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = RootConfig.class)
 public class SecurityDataTest {
-    private static final Logger logger = LoggerFactory.getLogger(SecurityDataTest.class);
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private CustomSecurityMetadataSource customSecurityMetadataSource;
@@ -30,15 +29,6 @@ public class SecurityDataTest {
     private ResRoleService resRoleService;
 
     @Test
-    public void threadOutlogs() {
-
-
-        resRoleService.threadOutlogs();
-
-
-    }
-
-
     public void testResRoleService() {
 
         Map<RequestMatcher, Collection<ConfigAttribute>> map = customSecurityMetadataSource.buildRequestMap();
