@@ -2,10 +2,7 @@ package com.yhj.web.entity.sys;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -56,6 +53,7 @@ public class SysUser implements Serializable, UserState {
     private Date userDeleteTime;
 
 
+    @Transient
     private List<SysUserRole> roles;
 
 

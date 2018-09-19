@@ -14,18 +14,20 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import tk.mybatis.mapper.common.BaseMapper;
+import tk.mybatis.mapper.common.Mapper;
+import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 
 import java.io.IOException;
 import java.util.Properties;
 
 @Configuration
 @PropertySource(value = {"classpath:dataSource.properties"})
-@MapperScan(basePackages = {"com.yhj.web.dao"}, sqlSessionFactoryRef = "sqlSessionFactory")
+//@MapperScan(basePackages = {"com.yhj.web.dao"}, sqlSessionFactoryRef = "sqlSessionFactory")
 public class MyBatisConfig implements EnvironmentAware {
 
     private Environment environment;
+
 
     /**
      * @return dataSource
@@ -50,7 +52,7 @@ public class MyBatisConfig implements EnvironmentAware {
      * @description 配置 MyBatis sessionFactory
      */
     @Bean
-    public SqlSessionFactoryBean sqlSessionFactory(DruidDataSource dataSource) {
+    public SqlSessionFactory  sqlSessionFactory(DruidDataSource dataSource) {
         SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
         //添加数据源
         sessionFactoryBean.setDataSource(dataSource);
@@ -65,8 +67,27 @@ public class MyBatisConfig implements EnvironmentAware {
 
         //添加分页插件
         sessionFactoryBean.setPlugins(new Interceptor[]{interceptor});
-        return sessionFactoryBean;
+
+        try{
+            return sessionFactoryBean.getObject();
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+
     }
+
+    @Bean
+    public MapperScannerConfigurer mapperScannerConfigurer() {
+        MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
+        mapperScannerConfigurer.setBasePackage("com.yhj.web.dao");
+        Properties properties = new Properties();
+        properties.setProperty("notEmpty", "false");
+        properties.setProperty("IDENTITY", "MYSQL");
+        mapperScannerConfigurer.setProperties(properties);
+        mapperScannerConfigurer.setMarkerInterface(BaseMapper.class);
+        return mapperScannerConfigurer;
+    }
+
 
     @Bean
     public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
