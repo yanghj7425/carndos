@@ -1,5 +1,6 @@
 package com.yhj.web.controller.hello;
 
+import com.yhj.security.utils.SecurityUtil;
 import com.yhj.web.controller.common.BaseController;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -101,7 +102,7 @@ public class HelloController extends BaseController {
 
     private String getPrincipal() {
         String userName;
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Object principal = SecurityUtil.getPrincipal();
 
         if (principal instanceof UserDetails) {
             userName = ((UserDetails) principal).getUsername();

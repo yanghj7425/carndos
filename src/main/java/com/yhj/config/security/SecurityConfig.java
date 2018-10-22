@@ -94,18 +94,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .usernameParameter("username")
                     .passwordParameter("password")
                     .successHandler(customLoginSuccessHandler)
-                 //   .failureHandler(customLoginFailureHandler)
+                    .failureHandler(customLoginFailureHandler)
                 .and()
                     .rememberMe()
                     .rememberMeServices(rememberMeServices())
                     .key("INTERNAL_SECRET_KEY")
-
-
                 .and()
                 .logout()
                     .logoutSuccessUrl("/login?logout")
                     .deleteCookies("JSESSIONID")
                 .and()
+                .csrf().disable()
                 .exceptionHandling()
                 .accessDeniedPage("/denied");
 
