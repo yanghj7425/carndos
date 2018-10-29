@@ -1,4 +1,4 @@
-package com.yhj.modules.res.security;
+package com.yhj.modules.authonzation.security;
 
 import com.yhj.modules.res.dao.ResRoleMapper;
 import com.yhj.modules.res.entity.ResRole;

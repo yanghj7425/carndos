@@ -1,4 +1,4 @@
-package com.yhj.modules.res.security;
+package com.yhj.modules.authonzation.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDecisionManager;

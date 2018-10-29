@@ -1,4 +1,4 @@
-package com.yhj.modules.res.security;
+package com.yhj.modules.authonzation.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

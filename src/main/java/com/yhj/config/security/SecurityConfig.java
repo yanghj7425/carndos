@@ -1,7 +1,7 @@
 package com.yhj.config.security;
 
 import com.yhj.config.mybatis.MyBatisConfig;
-import com.yhj.modules.res.security.CustomFilterSecurityInterceptor;
+import com.yhj.modules.authonzation.security.CustomFilterSecurityInterceptor;
 import com.yhj.modules.authonzation.filter.PreAuthFilter;
 import com.yhj.modules.authonzation.security.CustomAuthenticationProvider;
 import com.yhj.modules.authonzation.security.CustomLoginFailureHandler;
