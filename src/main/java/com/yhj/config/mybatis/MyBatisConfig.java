@@ -23,7 +23,7 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource(value = {"classpath:dataSource.properties"})
-//@MapperScan(basePackages = {"com.yhj.web.dao"}, sqlSessionFactoryRef = "sqlSessionFactory")
+//@MapperScan(basePackages = {"com.yhj.modules.dao"}, sqlSessionFactoryRef = "sqlSessionFactory")
 public class MyBatisConfig implements EnvironmentAware {
 
     private Environment environment;
@@ -79,7 +79,7 @@ public class MyBatisConfig implements EnvironmentAware {
     @Bean
     public MapperScannerConfigurer mapperScannerConfigurer() {
         MapperScannerConfigurer mapperScannerConfigurer = new MapperScannerConfigurer();
-        mapperScannerConfigurer.setBasePackage("com.yhj.web.dao");
+        mapperScannerConfigurer.setBasePackage("com.yhj.modules");
         Properties properties = new Properties();
         properties.setProperty("notEmpty", "false");
         properties.setProperty("IDENTITY", "MYSQL");

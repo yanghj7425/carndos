@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yhj.web.dao.sys.SysUserRoleMapper">
+<mapper namespace="com.yhj.modules.sys.dao.SysUserRoleMapper">
 
 
-    <resultMap id="BaseResultMap" type="com.yhj.web.entity.sys.SysUserRole">
+    <resultMap id="BaseResultMap" type="com.yhj.modules.sys.entity.SysUserRole">
         <!--
           WARNING - @mbg.generated
         -->
@@ -13,7 +13,7 @@
     </resultMap>
 
 
-    <select id="querySysUserRoleByName" resultMap="BaseResultMap" parameterType="com.yhj.web.entity.sys.SysUser">
+    <select id="querySysUserRoleByName" resultMap="BaseResultMap" parameterType="com.yhj.modules.sys.entity.SysUser">
         SELECT
             ur.id,
             suser.user_name,
