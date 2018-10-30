@@ -15,7 +15,7 @@ public class JWTUtils {
     private static final String PAYLOAD = "payload";
 
     //加密，传入一个对象和有效期
-    public static <T> String sign(T object, int seconds) {
+    public static <T> String encoder(T object, int seconds) {
         try {
             long mills = secondsToMillis(seconds);
             final JWTSigner signer = new JWTSigner(SECRET);
@@ -32,7 +32,7 @@ public class JWTUtils {
 
 
     //解密，传入一个加密后的token字符串和解密后的类型
-    public static <T> T unsign(String jwt, Class<T> classT) {
+    public static <T> T decoder(String jwt, Class<T> classT) {
         final JWTVerifier verifier = new JWTVerifier(SECRET);
         try {
             final Map<String, Object> claims = verifier.verify(jwt);

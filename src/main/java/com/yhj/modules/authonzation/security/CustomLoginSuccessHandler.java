@@ -24,7 +24,7 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
         Object o = authentication.getCredentials();
         String userName = ((User) authentication.getPrincipal()).getUsername();
         Map<String,Object> authInfo = new HashMap<>();
-        authInfo.put("token", JWTUtils.sign(userName,30));
+        authInfo.put("token", JWTUtils.encoder(userName,30));
         authInfo.put("roles", authentication.getAuthorities());
         authInfo.put("name", userName);
         RespBean respBean = RespBean.ok("登录成功!", authInfo);
