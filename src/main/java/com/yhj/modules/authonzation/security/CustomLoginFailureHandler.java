@@ -19,7 +19,7 @@ public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHan
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
         response.setContentType("application/json;charset=utf-8");
-        RespBean respBean = null;
+        RespBean respBean;
         if (e instanceof BadCredentialsException ||
                 e instanceof UsernameNotFoundException) {
             respBean = RespBean.error("账户名或者密码输入错误!");
@@ -35,7 +35,6 @@ public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHan
             respBean = RespBean.error("登录失败!");
         }
         PrintWriter out = response.getWriter();
-        String str = JSONObject.toJSONString(respBean);
         out.write(JSONObject.toJSONString(respBean));
         out.flush();
         out.close();

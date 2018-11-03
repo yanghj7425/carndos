@@ -22,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetailsByNameServiceWra
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.RememberMeServices;
+import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 import org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
@@ -90,7 +91,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         //加入自定义过滤器
-        http.addFilterBefore(preAuthFilter(), RequestHeaderAuthenticationFilter.class);
+        http.addFilterBefore(preAuthFilter(), AbstractPreAuthenticatedProcessingFilter.class);
         http.addFilterBefore(filterSecurityInterceptor, FilterSecurityInterceptor.class);
         http
 //                .authorizeRequests()

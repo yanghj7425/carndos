@@ -4,6 +4,7 @@ import com.auth0.jwt.JWTSigner;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.internal.com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,13 +18,13 @@ public class JWTUtils {
     //加密，传入一个对象和有效期
     public static <T> String encoder(T object, int seconds) {
         try {
-            long mills = secondsToMillis(seconds);
+            long maxAge = secondsToMillis(seconds);
             final JWTSigner signer = new JWTSigner(SECRET);
             final Map<String, Object> claims = new HashMap<>();
             ObjectMapper mapper = new ObjectMapper();
             String jsonString = mapper.writeValueAsString(object);
             claims.put(PAYLOAD, jsonString);
-            claims.put(EXP, System.currentTimeMillis() + mills);
+            claims.put(EXP, System.currentTimeMillis() + maxAge);
             return signer.sign(claims);
         } catch (Exception e) {
             return null;
@@ -38,6 +39,8 @@ public class JWTUtils {
             final Map<String, Object> claims = verifier.verify(jwt);
             if (claims.containsKey(EXP) && claims.containsKey(PAYLOAD)) {
                 long exp = (Long) claims.get(EXP);
+                Date futureDate = new Date(exp);
+                System.out.println(futureDate);
                 long currentTimeMillis = System.currentTimeMillis();
                 if (exp > currentTimeMillis) {
                     String json = (String) claims.get(PAYLOAD);
