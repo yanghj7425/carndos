@@ -7,25 +7,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class RespBean {
+
+    // 状态
     private Integer status;
+    // 简单消息
     private String msg;
+    // 复杂对象
     private Object data;
+    // response 流
     private HttpServletResponse response;
-
-    private RespBean() {
-    }
-
-    public static RespBean build() {
-        return new RespBean();
-    }
 
     public static RespBean ok(String msg, Object data) {
         return new RespBean(200, msg, data);
     }
 
-    public static RespBean ok(String msg) {
-        return new RespBean(200, msg, null);
-    }
 
     public static RespBean ok(HttpServletResponse response, String msg) {
         return new RespBean(response, 200, msg, null);
@@ -35,14 +30,16 @@ public class RespBean {
         return new RespBean(500, msg, obj);
     }
 
-    public static RespBean error(String msg) {
-        return new RespBean(500, msg, null);
+    public static RespBean error(HttpServletResponse response, String msg) {
+        return new RespBean(response,500, msg, null);
     }
 
-
+    /**
+     * @Description 通过 response 把数据写到客户端
+     * @throws IOException
+     */
     public void writeToClient() throws IOException {
-        response.setHeader("Content-type", "text/html;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json;charset=utf-8");
         PrintWriter out = response.getWriter();
         out.write(JSONObject.toJSONString(this));
         out.flush();
@@ -63,36 +60,35 @@ public class RespBean {
         this.data = data;
     }
 
-
     public Integer getStatus() {
-
         return status;
     }
 
-    public RespBean setStatus(Integer status) {
+    public void setStatus(Integer status) {
         this.status = status;
-        return this;
     }
 
     public String getMsg() {
         return msg;
     }
 
-    public RespBean setMsg(String msg) {
+    public void setMsg(String msg) {
         this.msg = msg;
-        return this;
-    }
-
-    public void setResponse(HttpServletResponse response) {
-        this.response = response;
     }
 
     public Object getData() {
         return data;
     }
 
-    public RespBean setData(Object data) {
+    public void setData(Object data) {
         this.data = data;
-        return this;
+    }
+
+    public HttpServletResponse getResponse() {
+        return response;
+    }
+
+    public void setResponse(HttpServletResponse response) {
+        this.response = response;
     }
 }

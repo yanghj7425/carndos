@@ -22,16 +22,6 @@ import java.util.Map;
 @RequestMapping("sys")
 public class UserController extends BaseController {
 
-    @GetMapping(value = "logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        System.out.println("logout");
-        if (auth != null) {
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        return "redirect:/login?logout";
-    }
-
     @GetMapping("login")
     @ResponseBody
     public RespBean login(@RequestParam("token") String token, HttpServletResponse response) {
@@ -42,5 +32,4 @@ public class UserController extends BaseController {
         map.put("roles", list);
         return RespBean.ok("getIndo success", map);
     }
-
 }
