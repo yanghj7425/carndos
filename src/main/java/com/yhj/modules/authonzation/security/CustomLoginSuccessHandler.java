@@ -3,6 +3,7 @@ package com.yhj.modules.authonzation.security;
 import com.alibaba.fastjson.JSONObject;
 import com.yhj.modules.commons.entitiy.response.RespBean;
 import com.yhj.modules.authonzation.utils.JWTUtils;
+import com.yhj.modules.commons.util.SecurityUtil;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
@@ -20,16 +21,15 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-        response.setContentType("application/json;charset=utf-8");
-        Object o = authentication.getCredentials();
+
         String userName = ((User) authentication.getPrincipal()).getUsername();
         Map<String,Object> authInfo = new HashMap<>();
         authInfo.put("token", JWTUtils.encoder(userName,30));
-        authInfo.put("roles", authentication.getAuthorities());
+        authInfo.put("roles", SecurityUtil.getRoles());
         authInfo.put("name", userName);
         RespBean respBean = RespBean.ok("登录成功!", authInfo);
+        response.setContentType("application/json;charset=utf-8");
         PrintWriter out = response.getWriter();
-
         out.write(JSONObject.toJSONString(respBean));
         out.flush();
         out.close();
