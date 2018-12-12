@@ -22,6 +22,6 @@ public class UserController extends BaseController {
         Map<String, Object> map = new HashMap<>();
         List<String> roles = SecurityUtil.getRoles();
         map.put("roles", roles);
-        return map;
+        return renderSuccess(map);
     }
 }

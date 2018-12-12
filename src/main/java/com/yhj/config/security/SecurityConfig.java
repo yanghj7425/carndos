@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ import java.util.List;
 @Import(MyBatisConfig.class)
 @ComponentScan(basePackages = {"com.yhj.config.security"})
 @Configuration
+@CrossOrigin
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -61,17 +63,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //加入自定义过滤器
         http.addFilterBefore(preAuthFilter(), AbstractPreAuthenticatedProcessingFilter.class);
         http.addFilterBefore(filterSecurityInterceptor, FilterSecurityInterceptor.class);
-        http.csrf().disable();
+
         http.formLogin()
                 .loginPage("/sys/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .successHandler(customLoginSuccessHandler)
                 .failureHandler(customLoginFailureHandler);
-        http.logout()
-                .logoutUrl("/sys/logout")
-                .logoutSuccessUrl("/sys/logout")
-                .logoutSuccessHandler(new CustomLogoutHandler());
+        http.logout().addLogoutHandler(new CustomLogoutHandler());
         http.exceptionHandling()
                 .accessDeniedPage("/denied");
 
