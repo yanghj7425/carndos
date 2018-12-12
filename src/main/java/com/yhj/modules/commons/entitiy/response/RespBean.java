@@ -21,6 +21,10 @@ public class RespBean {
         return new RespBean(200, msg, data);
     }
 
+    public static RespBean ok(String msg) {
+        return new RespBean(200, msg, null);
+    }
+
 
     public static RespBean ok(HttpServletResponse response, String msg) {
         return new RespBean(response, 200, msg, null);

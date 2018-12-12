@@ -16,6 +16,8 @@ public class CustomLogoutHandler extends SimpleUrlLogoutSuccessHandler {
         if (authentication != null) {
             new SecurityContextLogoutHandler().logout(request, response, authentication);
         }
-        RespBean.ok(response, "正常退出").writeToClient();
+        RespBean respBean = RespBean.ok("正常退出");
+        respBean.setResponse(response);
+        respBean.writeToClient();
     }
 }

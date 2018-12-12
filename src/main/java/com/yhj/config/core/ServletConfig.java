@@ -80,7 +80,7 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
         converters.add(new ResourceHttpMessageConverter());
         converters.add(new SourceHttpMessageConverter<>());
         converters.add(new StringHttpMessageConverter(Charset.forName("UTF-8")));
-        
+
         converters.add(jsonHttpMessageConverter);
     }
 
@@ -91,6 +91,7 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**");
+        registry.addMapping("/**").allowedOrigins("http://localhost:8080").allowCredentials(true)
+                .allowedMethods("GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "TRACE");
     }
 }

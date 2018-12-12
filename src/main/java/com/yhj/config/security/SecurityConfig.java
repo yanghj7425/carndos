@@ -61,7 +61,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //加入自定义过滤器
         http.addFilterBefore(preAuthFilter(), AbstractPreAuthenticatedProcessingFilter.class);
         http.addFilterBefore(filterSecurityInterceptor, FilterSecurityInterceptor.class);
-        http.csrf().disable();
         http.formLogin()
                 .loginPage("/sys/login")
                 .usernameParameter("username")
@@ -74,6 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(new CustomLogoutHandler());
         http.exceptionHandling()
                 .accessDeniedPage("/denied");
+        http.csrf().disable();
 
     }
 
