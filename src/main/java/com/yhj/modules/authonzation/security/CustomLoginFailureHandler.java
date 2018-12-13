@@ -2,7 +2,6 @@ package com.yhj.modules.authonzation.security;
 
 
 import com.yhj.modules.commons.components.CustomConstantInterface;
-import com.yhj.modules.commons.entitiy.response.RespBean;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,21 +16,21 @@ import java.io.IOException;
 public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHandler implements CustomConstantInterface {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
-        RespBean respBean;
+//        RespBean respBean;
         if (e instanceof BadCredentialsException ||
                 e instanceof UsernameNotFoundException) {
-            respBean = RespBean.error(response, ERROR_CODE,"账户名或者密码输入错误!");
+       //     respBean = RespBean.error(response, ERROR_CODE,"账户名或者密码输入错误!");
         } else if (e instanceof LockedException) {
-            respBean = RespBean.error(response, ERROR_CODE,"账户被锁定，请联系管理员!");
+//            respBean = RespBean.error(response, ERROR_CODE,"账户被锁定，请联系管理员!");
         } else if (e instanceof CredentialsExpiredException) {
-            respBean = RespBean.error(response, ERROR_CODE,"密码过期，请联系管理员!");
+//            respBean = RespBean.error(response, ERROR_CODE,"密码过期，请联系管理员!");
         } else if (e instanceof AccountExpiredException) {
-            respBean = RespBean.error(response, ERROR_CODE,"账户过期，请联系管理员!");
+//            respBean = RespBean.error(response, ERROR_CODE,"账户过期，请联系管理员!");
         } else if (e instanceof DisabledException) {
-            respBean = RespBean.error(response, ERROR_CODE,"账户被禁用，请联系管理员!");
+//            respBean = RespBean.error(response, ERROR_CODE,"账户被禁用，请联系管理员!");
         } else {
-            respBean = RespBean.error(response, ERROR_CODE,"登录失败!");
+//            respBean = RespBean.error(response, ERROR_CODE,"登录失败!");
         }
-        respBean.writeToClient();
+//        respBean.writeToClient();
     }
 }

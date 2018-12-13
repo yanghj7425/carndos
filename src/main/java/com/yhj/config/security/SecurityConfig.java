@@ -3,7 +3,6 @@ package com.yhj.config.security;
 import com.yhj.config.mybatis.MyBatisConfig;
 import com.yhj.modules.authonzation.filter.PreAuthFilter;
 import com.yhj.modules.authonzation.security.*;
-import com.yhj.web.filter.CrosFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -85,7 +84,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/denied");
         http.csrf().disable();
 
-        http.addFilterAfter(corsFilter(),CorsFilter.class);
+        http.addFilterAfter(corsFilter(), CorsFilter.class);
+
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry
                 = http.authorizeRequests();
         registry.requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
@@ -123,8 +123,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     /**
-     * @desc 处理跨域问题
      * @return
+     * @desc 处理跨域问题
      */
     @Bean
     public CorsFilter corsFilter() {

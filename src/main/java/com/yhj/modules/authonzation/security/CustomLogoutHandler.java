@@ -23,10 +23,9 @@ public class CustomLogoutHandler implements LogoutSuccessHandler, CustomConstant
             if (authentication != null) {
                 new SecurityContextLogoutHandler().logout(request, response, authentication);
             }
-       //     RespBean.success(response,"退出成功").writeToClient();
             JSONObject retJson = new JSONObject();
             retJson.put(STATUS_KEY, SUCCESS_CODE);
-            retJson.put(MSG_KEY, "退出成功");
+            retJson.put(MSG_KEY, "");
             response.setContentType("application/json;charset=utf-8");
             response.getWriter().print(retJson.toJSONString());
         } catch (IOException e) {

@@ -24,13 +24,4 @@ public class UserController extends BaseController {
         map.put("roles", roles);
         return renderSuccess(map);
     }
-
-    @GetMapping("logouta")
-    @ResponseBody
-    public Map logout() {
-        Map<String, Object> map = new HashMap<>();
-        List<String> roles = SecurityUtil.getRoles();
-        map.put("roles", roles);
-        return renderSuccess(map);
-    }
 }

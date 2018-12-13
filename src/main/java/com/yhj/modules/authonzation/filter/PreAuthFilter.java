@@ -2,8 +2,6 @@ package com.yhj.modules.authonzation.filter;
 
 import com.yhj.modules.authonzation.utils.JWTUtils;
 import com.yhj.modules.commons.components.CustomConstantInterface;
-import com.yhj.modules.commons.entitiy.response.RespBean;
-import com.yhj.modules.commons.util.SecurityUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
@@ -35,6 +33,6 @@ public class PreAuthFilter extends AbstractPreAuthenticatedProcessingFilter impl
 
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
-        RespBean.error(response, ERROR_CODE,"token 认证失败").writeToClient();
+      //  RespBean.error(response, ERROR_CODE, "token 认证失败").writeToClient();
     }
 }
