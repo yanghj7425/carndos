@@ -3,7 +3,6 @@ package com.yhj.modules.authonzation.security;
 
 import com.alibaba.fastjson.JSONObject;
 import com.yhj.modules.commons.components.CustomConstantInterface;
-import com.yhj.modules.commons.entitiy.response.RespBean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
