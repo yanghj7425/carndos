@@ -3,6 +3,7 @@ package com.yhj.config.security;
 import com.yhj.config.mybatis.MyBatisConfig;
 import com.yhj.modules.authonzation.filter.PreAuthFilter;
 import com.yhj.modules.authonzation.security.*;
+import com.yhj.web.filter.CrosFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -15,12 +16,17 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +55,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
+    private CustomLogoutHandler customLogoutHandler;
+
+
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(customAuthenticationProvider);
     }
@@ -69,10 +79,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("password")
                 .successHandler(customLoginSuccessHandler)
                 .failureHandler(customLoginFailureHandler);
-        http.logout().addLogoutHandler(new CustomLogoutHandler());
+        http.logout().logoutUrl("/sys/logout")
+                .logoutSuccessHandler(customLogoutHandler);
         http.exceptionHandling()
                 .accessDeniedPage("/denied");
         http.csrf().disable();
+
+        http.addFilterAfter(corsFilter(),CorsFilter.class);
+        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry
+                = http.authorizeRequests();
+        registry.requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
 
     }
 
@@ -103,6 +119,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         PreAuthFilter filter = new PreAuthFilter();
         filter.setAuthenticationManager(preAuthenticationManager());
         return filter;
+    }
+
+
+    /**
+     * @desc 处理跨域问题
+     * @return
+     */
+    @Bean
+    public CorsFilter corsFilter() {
+        final UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
+        final CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        urlBasedCorsConfigurationSource.registerCorsConfiguration("/**", corsConfiguration);
+        return new CorsFilter(urlBasedCorsConfigurationSource);
     }
 
 }

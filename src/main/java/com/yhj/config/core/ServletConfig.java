@@ -84,39 +84,14 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
         converters.add(jsonHttpMessageConverter);
     }
 
-//    /**
-//     * 跨域
-//     *
-//     * @param registry
-//     */
-//    @Override
-//    public void addCorsMappings(CorsRegistry registry) {
-//        registry.addMapping("/**").allowCredentials(true)
-//                .allowedMethods("GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "TRACE");
-//    }
-
-
+    /**
+     * 跨域
+     *
+     * @param registry
+     */
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        super.addInterceptors(registry);
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**").allowCredentials(true)
+                .allowedMethods("GET", "HEAD", "POST", "PUT", "PATCH", "DELETE", "OPTIONS", "TRACE");
     }
-
-    private CorsConfiguration buildConfig() {
-        CorsConfiguration corsConfiguration = new CorsConfiguration();
-        corsConfiguration.addAllowedHeader("*"); // 允许任何的head头部
-        corsConfiguration.addAllowedOrigin("*"); // 允许任何域名使用
-        corsConfiguration.addAllowedMethod("*"); // 允许任何的请求方法
-        corsConfiguration.setAllowCredentials(true);
-        return corsConfiguration;
-    }
-
-    @Bean
-    public CorsFilter corsFilter() {
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", buildConfig());
-        return new CorsFilter(source);
-    }
-
-
-
 }

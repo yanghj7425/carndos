@@ -18,7 +18,16 @@ public class UserController extends BaseController {
 
     @GetMapping("login")
     @ResponseBody
-    public Map login(@RequestParam("token") String token) {
+    public Map login() {
+        Map<String, Object> map = new HashMap<>();
+        List<String> roles = SecurityUtil.getRoles();
+        map.put("roles", roles);
+        return renderSuccess(map);
+    }
+
+    @GetMapping("logouta")
+    @ResponseBody
+    public Map logout() {
         Map<String, Object> map = new HashMap<>();
         List<String> roles = SecurityUtil.getRoles();
         map.put("roles", roles);
