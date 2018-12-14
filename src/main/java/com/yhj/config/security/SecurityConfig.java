@@ -86,9 +86,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterAfter(corsFilter(), CorsFilter.class);
 
-        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry
-                = http.authorizeRequests();
-        registry.requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
+//        ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry
+//                = http.authorizeRequests();
+//        registry.requestMatchers(CorsUtils::isPreFlightRequest).permitAll();
 
     }
 
