@@ -10,6 +10,9 @@ import java.util.Iterator;
 import java.util.List;
 
 public class SecurityUtil {
+    private SecurityUtil() {
+    }
+
     public static Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
