@@ -27,6 +27,11 @@ public class CustomUserDetailService implements UserDetailsService {
     private SysUserMapper sysUserMapper;
 
 
+    /**
+     * @param sysUserName
+     * @return
+     * @description load user`s info and  return a UserDetail Object that construct by  username, password and user active status
+     */
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String sysUserName) {
         SysUser sysUser = sysUserMapper.querySysUserByName(sysUserName);
@@ -42,6 +47,11 @@ public class CustomUserDetailService implements UserDetailsService {
                 sysUser.getUserStatus().equals(SysUser.ACTIVE), true, true, true, getGrantedAuthorities(sysUser));
     }
 
+    /**
+     * @param sysUser
+     * @return
+     * @description push user`s roles information into a List, than return it
+     */
     private List<GrantedAuthority> getGrantedAuthorities(SysUser sysUser) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         List<SysUserRole> roles = sysUser.getRoles();
