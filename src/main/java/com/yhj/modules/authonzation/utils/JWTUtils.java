@@ -18,7 +18,7 @@ public class JWTUtils {
     }
 
     //加密，传入一个对象和有效期
-    public static <T> String encoder(T object, int seconds) {
+    public static <T> String encoder(T object, double seconds) {
         try {
             long maxAge = secondsToMillis(seconds);
             final JWTSigner signer = new JWTSigner(SECRET);
@@ -55,7 +55,7 @@ public class JWTUtils {
     }
 
 
-    private static long secondsToMillis(int seconds) {
-        return seconds * 60 * 1000L;
+    private static long secondsToMillis(double seconds) {
+        return (long) (seconds * 60 * 1000L);
     }
 }
