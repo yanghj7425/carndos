@@ -97,6 +97,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PreAuthenticatedAuthenticationProvider preAuthProvider() {
         PreAuthenticatedAuthenticationProvider provider = new PreAuthenticatedAuthenticationProvider();
         provider.setPreAuthenticatedUserDetailsService(userDetailsServiceWrapper(customUserDetailService));
+        provider.setThrowExceptionWhenTokenRejected(true);
         return provider;
     }
 
@@ -112,6 +113,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PreAuthFilter preAuthFilter() {
         PreAuthFilter filter = new PreAuthFilter();
         filter.setAuthenticationManager(preAuthenticationManager());
+        //认证异常处理类
+        filter.setAuthenticationFailureHandler(customLoginFailureHandler);
         return filter;
     }
 

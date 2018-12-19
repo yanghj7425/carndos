@@ -17,9 +17,11 @@ public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHan
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
         RespBean respBean;
-        if (e instanceof BadCredentialsException ||
-                e instanceof UsernameNotFoundException) {
-            respBean = RespBean.error(response, CustomFinalConstant.CREDENTIALS_CODE, "密码错误");
+        response.setStatus(HttpServletResponse.SC_OK);
+        if (e instanceof BadCredentialsException) {
+            respBean = RespBean.error(response, CustomFinalConstant.CREDENTIALS_CODE, "验证错误");
+        } else if (e instanceof UsernameNotFoundException) {
+            respBean = RespBean.error(response, CustomFinalConstant.CREDENTIALS_CODE, "用户不存在");
         } else if (e instanceof LockedException) {
             respBean = RespBean.error(response, CustomFinalConstant.LOCKED_CODE, "账户被锁定");
         } else if (e instanceof CredentialsExpiredException) {

@@ -28,17 +28,16 @@ public class CustomUserDetailService implements UserDetailsService {
 
 
     /**
-     * @param sysUserName
+     * @param sysUserName userName for authentication
      * @return
      * @description load user`s info and  return a UserDetail Object that construct by  username, password and user active status
      */
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String sysUserName) {
+    public UserDetails loadUserByUsername(String sysUserName) throws UsernameNotFoundException {
         SysUser sysUser = sysUserMapper.querySysUserByName(sysUserName);
         if (sysUser == null) {
-            throw new UsernameNotFoundException("Username not found");
+            throw new UsernameNotFoundException("用户名不存在");
         }
-
         if (logger.isDebugEnabled()) {
             logger.debug("SysUser: {}", sysUser);
         }
