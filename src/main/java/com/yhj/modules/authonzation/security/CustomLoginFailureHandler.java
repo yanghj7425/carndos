@@ -20,7 +20,7 @@ public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHan
         RespBean respBean;
         response.setStatus(HttpServletResponse.SC_OK);
         if (e instanceof BadCredentialsException) {
-            respBean = RespBean.error(response, CustomFinalConstant.CREDENTIALS_CODE, "验证错误");
+            respBean = RespBean.error(response, CustomFinalConstant.CREDENTIALS_CODE, "密码错误");
         } else if (e instanceof UsernameNotFoundException) {
             respBean = RespBean.error(response, CustomFinalConstant.CREDENTIALS_CODE, "用户不存在");
         } else if (e instanceof LockedException) {

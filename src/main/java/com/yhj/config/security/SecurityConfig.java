@@ -3,6 +3,7 @@ package com.yhj.config.security;
 import com.yhj.config.mybatis.MyBatisConfig;
 import com.yhj.modules.authonzation.filter.PreAuthFilter;
 import com.yhj.modules.authonzation.security.*;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -52,6 +53,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Autowired
+    private CustomAccessDecisionManager accessDecisionManager;
+
+    @Autowired
     private CustomLogoutHandler customLogoutHandler;
 
 
@@ -68,8 +72,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //加入自定义过滤器
-        http.addFilterBefore(preAuthFilter(), AbstractPreAuthenticatedProcessingFilter.class);
         http.addFilterBefore(filterSecurityInterceptor, FilterSecurityInterceptor.class);
+        http.addFilterBefore(preAuthFilter(), AbstractPreAuthenticatedProcessingFilter.class);
+
+
         http.formLogin()
                 .loginPage("/sys/login")
                 .usernameParameter("username")
@@ -82,7 +88,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/denied");
         http.csrf().disable();
 
-        http.addFilterAfter(corsFilter(), CorsFilter.class);
+        http.addFilterBefore(corsFilter(), CorsFilter.class);
 
     }
 

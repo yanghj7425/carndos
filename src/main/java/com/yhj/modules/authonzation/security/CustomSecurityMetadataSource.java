@@ -14,6 +14,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
@@ -32,7 +33,7 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
     private Map<RequestMatcher, Collection<ConfigAttribute>> requestMap;
 
     //查找数据库权限和资源的关系
-    @Autowired
+    @Resource
     private ResRoleMapper resRoleMapper;
 
     public Collection<ConfigAttribute> getAttributes(Object object) {
