@@ -113,8 +113,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public PreAuthFilter preAuthFilter() {
         PreAuthFilter filter = new PreAuthFilter();
         filter.setAuthenticationManager(preAuthenticationManager());
-        //认证异常处理类
+        //认证异常处理器
         filter.setAuthenticationFailureHandler(customLoginFailureHandler);
+        //认证成功处理器
+        filter.setAuthenticationSuccessHandler(null);
         return filter;
     }
 

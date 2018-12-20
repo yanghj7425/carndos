@@ -1,9 +1,7 @@
 package com.yhj.modules.authonzation.filter;
 
-import com.sun.deploy.xml.BadTokenException;
+import com.yhj.modules.authonzation.except.InvalidTokenException;
 import com.yhj.modules.authonzation.utils.JWTUtils;
-import com.yhj.modules.commons.components.CustomFinalConstant;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
@@ -26,7 +24,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 public class PreAuthFilter extends GenericFilterBean
@@ -35,8 +32,6 @@ public class PreAuthFilter extends GenericFilterBean
     private ApplicationEventPublisher eventPublisher = null;
     private AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource = new WebAuthenticationDetailsSource();
     private AuthenticationManager authenticationManager = null;
-    private boolean checkForPrincipalChanges;
-    private boolean invalidateSessionOnPrincipalChange = true;
     private AuthenticationSuccessHandler authenticationSuccessHandler = null;
     private AuthenticationFailureHandler authenticationFailureHandler = null;
 
@@ -44,17 +39,19 @@ public class PreAuthFilter extends GenericFilterBean
     private boolean isUnsuccessfulAuthentication = true;
 
 
-    protected Object getPreAuthenticatedPrincipal(HttpServletRequest request) throws BadTokenException {
+    private Object getPreAuthenticatedPrincipal(HttpServletRequest request) throws InvalidTokenException {
         String token = request.getHeader("X-Token");
+        if (token == null) {
+            return null;
+        }
         String userName = JWTUtils.decoder(token, String.class);
         if (userName == null) {
-            throw new BadTokenException("非法的 Token", CustomFinalConstant.TOKEN_AUTH_FAIL_CODE);
+            throw new InvalidTokenException("非法的 Token");
         }
         return userName;
-
     }
 
-    protected Object getPreAuthenticatedCredentials(HttpServletRequest request) {
+    private Object getPreAuthenticatedCredentials(HttpServletRequest request) {
         return "";
     }
 
@@ -106,16 +103,16 @@ public class PreAuthFilter extends GenericFilterBean
      * Subclasses can override this method to determine when a principal has changed.
      * </p>
      *
-     * @param request
-     * @param currentAuthentication
+     * @param request               请求流
+     * @param currentAuthentication 当前认证信息
      * @return true if the principal has changed, else false
      */
-    protected boolean principalChanged(HttpServletRequest request, Authentication currentAuthentication) {
+    private boolean principalChanged(HttpServletRequest request, Authentication currentAuthentication) {
 
-        Object principal = null;
+        Object principal;
         try {
             principal = getPreAuthenticatedPrincipal(request);
-        } catch (BadTokenException e) {
+        } catch (InvalidTokenException e) {
             return false;
         }
 
@@ -160,8 +157,7 @@ public class PreAuthFilter extends GenericFilterBean
             authResult = authenticationManager.authenticate(authRequest);
             successfulAuthentication(request, response, authResult);
         } catch (Exception e) {
-            unsuccessfulAuthentication(request, response, new AuthenticationException(e.getMessage(), e) {
-            });
+            unsuccessfulAuthentication(request, response, new InvalidTokenException(e.getMessage(), e));
         }
     }
 
@@ -173,27 +169,10 @@ public class PreAuthFilter extends GenericFilterBean
             return true;
         }
 
-        if (!checkForPrincipalChanges) {
-            return false;
-        }
-
         if (!principalChanged(request, currentUser)) {
             return false;
         }
-
         logger.debug("Pre-authenticated principal has changed and will be reauthenticated");
-
-        if (invalidateSessionOnPrincipalChange) {
-            SecurityContextHolder.clearContext();
-
-            HttpSession session = request.getSession(false);
-
-            if (session != null) {
-                logger.debug("Invalidating existing session");
-                session.invalidate();
-                request.getSession();
-            }
-        }
 
         return true;
     }
@@ -202,8 +181,8 @@ public class PreAuthFilter extends GenericFilterBean
      * Puts the <code>Authentication</code> instance returned by the authentication
      * manager into the secure context.
      */
-    protected void successfulAuthentication(HttpServletRequest request,
-                                            HttpServletResponse response, Authentication authResult) throws IOException, ServletException {
+    private void successfulAuthentication(HttpServletRequest request,
+                                          HttpServletResponse response, Authentication authResult) throws IOException, ServletException {
         if (logger.isDebugEnabled()) {
             logger.debug("Authentication success: " + authResult);
         }
@@ -226,8 +205,8 @@ public class PreAuthFilter extends GenericFilterBean
      * <p>
      * Caches the failure exception as a request attribute
      */
-    protected void unsuccessfulAuthentication(HttpServletRequest request,
-                                              HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+    private void unsuccessfulAuthentication(HttpServletRequest request,
+                                            HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
         SecurityContextHolder.clearContext();
 
         if (logger.isDebugEnabled()) {
@@ -250,54 +229,12 @@ public class PreAuthFilter extends GenericFilterBean
     }
 
     /**
-     * @param authenticationDetailsSource The AuthenticationDetailsSource to use
-     */
-    public void setAuthenticationDetailsSource(
-            AuthenticationDetailsSource<HttpServletRequest, ?> authenticationDetailsSource) {
-        Assert.notNull(authenticationDetailsSource,
-                "AuthenticationDetailsSource required");
-        this.authenticationDetailsSource = authenticationDetailsSource;
-    }
-
-    protected AuthenticationDetailsSource<HttpServletRequest, ?> getAuthenticationDetailsSource() {
-        return authenticationDetailsSource;
-    }
-
-    /**
      * @param authenticationManager The AuthenticationManager to use
      */
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
     }
 
-    /**
-     * If set, the pre-authenticated principal will be checked on each request and
-     * compared against the name of the current <tt>Authentication</tt> object. A check to
-     * determine if {@link Authentication#getPrincipal()} is equal to the principal will
-     * also be performed. If a change is detected, the user will be reauthenticated.
-     *
-     * @param checkForPrincipalChanges
-     */
-    public void setCheckForPrincipalChanges(boolean checkForPrincipalChanges) {
-        this.checkForPrincipalChanges = checkForPrincipalChanges;
-    }
-
-    /**
-     * If <tt>checkForPrincipalChanges</tt> is set, and a change of principal is detected,
-     * determines whether any existing session should be invalidated before proceeding to
-     * authenticate the new principal.
-     *
-     * @param invalidateSessionOnPrincipalChange <tt>false</tt> to retain the existing
-     *                                           session. Defaults to <tt>true</tt>.
-     */
-    public void setInvalidateSessionOnPrincipalChange(
-            boolean invalidateSessionOnPrincipalChange) {
-        this.invalidateSessionOnPrincipalChange = invalidateSessionOnPrincipalChange;
-    }
-
-    /**
-     * Sets the strategy used to handle a successful authentication.
-     */
     public void setAuthenticationSuccessHandler(AuthenticationSuccessHandler authenticationSuccessHandler) {
         this.authenticationSuccessHandler = authenticationSuccessHandler;
     }
