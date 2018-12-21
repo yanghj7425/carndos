@@ -20,7 +20,7 @@ public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHan
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
         RespBean respBean;
         response.setStatus(HttpServletResponse.SC_OK);
-        System.out.println(e.getClass().getSimpleName());
+        System.out.println("exception name "+ e.getClass().getSimpleName());
         if (e instanceof BadCredentialsException) {
             respBean = RespBean.error(response, CustomFinalConstant.CREDENTIALS_CODE, "密码错误");
         } else if (e instanceof UsernameNotFoundException) {

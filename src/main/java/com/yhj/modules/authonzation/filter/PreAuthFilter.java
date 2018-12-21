@@ -164,8 +164,7 @@ public class PreAuthFilter extends GenericFilterBean
             authResult = authenticationManager.authenticate(authRequest);
             successfulAuthentication(request, response, authResult);
         } catch (Exception e) {
-            unsuccessfulAuthentication(request, response, new AuthenticationException(e.getMessage(), e) {
-            });
+            unsuccessfulAuthentication(request, response, (AuthenticationException) e);
         }
     }
 
