@@ -6,7 +6,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 import org.springframework.stereotype.Component;
 
 
-@Component(value = "filterSecurityInterceptor")
+@Component(value = "customFilterSecurityInterceptor")
 public class CustomFilterSecurityInterceptor extends FilterSecurityInterceptor {
 
 

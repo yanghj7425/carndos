@@ -21,9 +21,9 @@ public class UserController extends BaseController {
     @Resource
     private SysUserMapper userMapper;
 
-    @GetMapping("login")
+    @GetMapping("userInfo")
     @ResponseBody
-    public Map login() {
+    public Map userInfo() {
         Map<String, Object> map = Maps.newHashMap();
         List<String> roles = SecurityUtil.getRoles();
         map.put("roles", roles);

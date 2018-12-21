@@ -1,6 +1,7 @@
 package com.yhj.modules.authonzation.security;
 
 
+import com.yhj.modules.authonzation.except.CustomAccessDeniedException;
 import com.yhj.modules.authonzation.except.CustomInvalidTokenException;
 import com.yhj.modules.commons.components.CustomFinalConstant;
 import com.yhj.modules.commons.entitiy.response.RespBean;
@@ -19,6 +20,7 @@ public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHan
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
         RespBean respBean;
         response.setStatus(HttpServletResponse.SC_OK);
+        System.out.println(e.getClass().getSimpleName());
         if (e instanceof BadCredentialsException) {
             respBean = RespBean.error(response, CustomFinalConstant.CREDENTIALS_CODE, "密码错误");
         } else if (e instanceof UsernameNotFoundException) {
@@ -26,15 +28,17 @@ public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHan
         } else if (e instanceof LockedException) {
             respBean = RespBean.error(response, CustomFinalConstant.LOCKED_CODE, "账户被锁定");
         } else if (e instanceof CredentialsExpiredException) {
-            respBean = RespBean.error(response, CustomFinalConstant.EXPIRED_PASSWORD_CODE, "密码过期，请联系管理员");
+            respBean = RespBean.error(response, CustomFinalConstant.EXPIRED_PASSWORD_CODE, "密码过期");
         } else if (e instanceof AccountExpiredException) {
-            respBean = RespBean.error(response, CustomFinalConstant.EXPIRED_ACCOUNT_CODE, "账户过期，请联系管理员");
+            respBean = RespBean.error(response, CustomFinalConstant.EXPIRED_ACCOUNT_CODE, "账户过期");
         } else if (e instanceof DisabledException) {
-            respBean = RespBean.error(response, CustomFinalConstant.DISABLE_ACCOUNT_CODE, "账户被禁用，请联系管理员");
+            respBean = RespBean.error(response, CustomFinalConstant.DISABLE_ACCOUNT_CODE, "账户被禁用");
         } else if (e instanceof CustomInvalidTokenException) {
             respBean = RespBean.error(response, CustomFinalConstant.TOKEN_AUTH_FAIL_CODE, e.getMessage());
+        } else if (e instanceof CustomAccessDeniedException) {
+            respBean = RespBean.error(response, CustomFinalConstant.NONE_PRIVILEGE, "权限不足");
         } else {
-            respBean = RespBean.error(response, CustomFinalConstant.ERROR_CODE, "登陆失败");
+            respBean = RespBean.error(response, CustomFinalConstant.ERROR_CODE, "验证失败");
         }
         respBean.writeJsonToClient();
     }

@@ -3,7 +3,6 @@ package com.yhj.config.security;
 import com.yhj.config.mybatis.MyBatisConfig;
 import com.yhj.modules.authonzation.filter.PreAuthFilter;
 import com.yhj.modules.authonzation.security.*;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -49,20 +48,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService customUserDetailService;
 
     @Autowired
-    private CustomFilterSecurityInterceptor filterSecurityInterceptor;
-
+    private CustomFilterSecurityInterceptor customFilterSecurityInterceptor;
 
     @Autowired
-    private CustomAccessDecisionManager accessDecisionManager;
+    private CustomAccessDeniedHandler customAccessDeniedHandler;
 
     @Autowired
     private CustomLogoutHandler customLogoutHandler;
 
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) {
-        auth.authenticationProvider(customAuthenticationProvider);
-    }
 
     /**
      * @param http 资源拦截
@@ -72,7 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         //加入自定义过滤器
-        http.addFilterBefore(filterSecurityInterceptor, FilterSecurityInterceptor.class);
+        http.addFilterBefore(customFilterSecurityInterceptor, FilterSecurityInterceptor.class);
         http.addFilterBefore(preAuthFilter(), AbstractPreAuthenticatedProcessingFilter.class);
 
 
@@ -84,8 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(customLoginFailureHandler);
         http.logout().logoutUrl("/sys/logout")
                 .logoutSuccessHandler(customLogoutHandler);
-        http.exceptionHandling()
-                .accessDeniedPage("/denied");
+        http.exceptionHandling().accessDeniedHandler(customAccessDeniedHandler);
         http.csrf().disable();
 
         http.addFilterBefore(corsFilter(), CorsFilter.class);
@@ -143,4 +135,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new CorsFilter(urlBasedCorsConfigurationSource);
     }
 
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) {
+        auth.authenticationProvider(customAuthenticationProvider);
+    }
 }

@@ -4,9 +4,7 @@ package com.yhj.modules.commons.components;
  * @description 返回码标识
  */
 public final class CustomFinalConstant {
-    private CustomFinalConstant() {
 
-    }
 
     //对应状态的 key
     public static final String STATUS_KEY = "status";
@@ -36,11 +34,16 @@ public final class CustomFinalConstant {
     public static final int DISABLE_ACCOUNT_CODE = 2005;
 
     // token authentication failure
-    public static final int TOKEN_AUTH_FAIL_CODE = 2005;
+    public static final int TOKEN_AUTH_FAIL_CODE = 2006;
 
+    // this request cant access this resource
+    public static final int NONE_PRIVILEGE = 2007;
 
     // error status
     public static final int ERROR_CODE = 5000;
 
+    private CustomFinalConstant() {
+
+    }
 
 }

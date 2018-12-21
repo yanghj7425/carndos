@@ -26,7 +26,7 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         String userName = ((User) authentication.getPrincipal()).getUsername();
         Map<String, Object> tokenMap = Maps.newHashMap();
-        tokenMap.put("token", JWTUtils.encoder(userName, 30));
+        tokenMap.put("token", JWTUtils.encoder(userName, 0.3));
         RespBean.ok(response, tokenMap).writeJsonToClient();
     }
 }

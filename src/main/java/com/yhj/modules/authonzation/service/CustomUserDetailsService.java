@@ -14,16 +14,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-@Service
-public class CustomUserDetailService implements UserDetailsService {
+@Service(value = "customUserDetailService")
+public class CustomUserDetailsService implements UserDetailsService {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
 
-    @Autowired
+    @Resource
     private SysUserMapper sysUserMapper;
 
 
