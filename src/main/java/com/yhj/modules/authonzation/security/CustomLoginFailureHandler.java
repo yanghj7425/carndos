@@ -1,7 +1,7 @@
 package com.yhj.modules.authonzation.security;
 
 
-import com.yhj.modules.authonzation.except.InvalidTokenException;
+import com.yhj.modules.authonzation.except.CustomInvalidTokenException;
 import com.yhj.modules.commons.components.CustomFinalConstant;
 import com.yhj.modules.commons.entitiy.response.RespBean;
 import org.springframework.security.authentication.*;
@@ -31,7 +31,7 @@ public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHan
             respBean = RespBean.error(response, CustomFinalConstant.EXPIRED_ACCOUNT_CODE, "账户过期，请联系管理员");
         } else if (e instanceof DisabledException) {
             respBean = RespBean.error(response, CustomFinalConstant.DISABLE_ACCOUNT_CODE, "账户被禁用，请联系管理员");
-        } else if (e instanceof InvalidTokenException) {
+        } else if (e instanceof CustomInvalidTokenException) {
             respBean = RespBean.error(response, CustomFinalConstant.TOKEN_AUTH_FAIL_CODE, e.getMessage());
         } else {
             respBean = RespBean.error(response, CustomFinalConstant.ERROR_CODE, "登陆失败");
