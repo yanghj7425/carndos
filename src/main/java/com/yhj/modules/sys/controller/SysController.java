@@ -5,6 +5,8 @@ import com.yhj.modules.commons.controller.BaseController;
 import com.yhj.modules.commons.util.SecurityUtil;
 import com.yhj.modules.sys.dao.SysUserMapper;
 import com.yhj.modules.sys.entity.SysUser;
+import com.yhj.modules.sys.service.SysUserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,10 +18,10 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("sys")
-public class UserController extends BaseController {
+public class SysController extends BaseController {
 
-    @Resource
-    private SysUserMapper userMapper;
+    @Autowired
+    private SysUserService sysUserService;
 
     @GetMapping("userInfo")
     @ResponseBody
@@ -35,7 +37,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public Map queryAllUser() {
         Map<String, Object> map = Maps.newHashMap();
-        List<SysUser> users = userMapper.selectAll();
+        List<SysUser> users = sysUserService.queryAllUser();
         map.put("users", users);
         return renderSuccess(map);
     }

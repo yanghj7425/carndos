@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.util.List;
+
 @Service(value = "sysUserService")
 public class SysUserServiceI extends BaseService<SysUser, Mapper<SysUser>> implements SysUserService {
 
@@ -32,6 +34,12 @@ public class SysUserServiceI extends BaseService<SysUser, Mapper<SysUser>> imple
     public SysUser querySysUserByName(String userName) {
         return sysUserMapper.querySysUserByName(userName);
     }
+
+    @Override
+    public List<SysUser> queryAllUser() {
+        return sysUserMapper.selectAll();
+    }
+
 
     @Autowired
     public void setPasswordEncoder(PasswordEncoder passwordEncoder) {

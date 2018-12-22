@@ -11,6 +11,9 @@ public class BaseController {
 
     protected Map renderSuccess(Map<String, Object> map) {
         map.put(CustomFinalConstant.STATUS_KEY, CustomFinalConstant.SUCCESS_CODE);
+        if (logger.isErrorEnabled()) {
+            logger.debug("success");
+        }
         return map;
     }
 
