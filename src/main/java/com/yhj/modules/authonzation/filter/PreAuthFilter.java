@@ -27,6 +27,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+
 public class PreAuthFilter extends GenericFilterBean
         implements ApplicationEventPublisherAware {
 
@@ -120,7 +121,7 @@ public class PreAuthFilter extends GenericFilterBean
         try {
             principal = getPreAuthenticatedPrincipal(request);
         } catch (CustomInvalidTokenException e) {
-            return false;
+            return true;
         }
 
         if ((principal instanceof String) && currentAuthentication.getName().equals(principal)) {
@@ -311,4 +312,6 @@ public class PreAuthFilter extends GenericFilterBean
     public void setAuthenticationFailureHandler(AuthenticationFailureHandler authenticationFailureHandler) {
         this.authenticationFailureHandler = authenticationFailureHandler;
     }
+
+
 }

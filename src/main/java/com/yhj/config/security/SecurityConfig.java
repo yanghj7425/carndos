@@ -115,6 +115,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setAuthenticationFailureHandler(customLoginFailureHandler);
         //认证成功处理器
         filter.setAuthenticationSuccessHandler(null);
+        //处理验证每一个请求的 token
+        filter.setCheckForPrincipalChanges(true);
         return filter;
     }
 

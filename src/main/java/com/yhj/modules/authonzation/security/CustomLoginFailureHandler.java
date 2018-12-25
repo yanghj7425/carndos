@@ -5,6 +5,8 @@ import com.yhj.modules.authonzation.except.CustomAccessDeniedException;
 import com.yhj.modules.authonzation.except.CustomInvalidTokenException;
 import com.yhj.modules.commons.components.CustomFinalConstant;
 import com.yhj.modules.commons.entitiy.response.RespBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,11 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
+    private Logger logger = LoggerFactory.getLogger(CustomLoginFailureHandler.class);
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
         RespBean respBean;
         response.setStatus(HttpServletResponse.SC_OK);
-        System.out.println("exception name "+ e.getClass().getSimpleName());
+
         if (e instanceof BadCredentialsException) {
             respBean = RespBean.error(response, CustomFinalConstant.CREDENTIALS_CODE, "密码错误");
         } else if (e instanceof UsernameNotFoundException) {
@@ -39,6 +43,11 @@ public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHan
             respBean = RespBean.error(response, CustomFinalConstant.NONE_PRIVILEGE, "权限不足");
         } else {
             respBean = RespBean.error(response, CustomFinalConstant.ERROR_CODE, "验证失败");
+        }
+
+        if (logger.isDebugEnabled()) {
+            System.out.println("exception name " + e.getClass().getSimpleName());
+            e.printStackTrace();
         }
         respBean.writeJsonToClient();
     }
