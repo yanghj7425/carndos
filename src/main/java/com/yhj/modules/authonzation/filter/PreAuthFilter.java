@@ -1,5 +1,6 @@
 package com.yhj.modules.authonzation.filter;
 
+import com.yhj.modules.authonzation.except.CustomAccessDeniedException;
 import com.yhj.modules.authonzation.except.CustomInvalidTokenException;
 import com.yhj.modules.authonzation.utils.JWTUtils;
 import org.springframework.context.ApplicationEventPublisher;
@@ -47,7 +48,7 @@ public class PreAuthFilter extends GenericFilterBean
         authenticationDetailsSource = new WebAuthenticationDetailsSource();
     }
 
-    protected Object getPreAuthenticatedPrincipal(HttpServletRequest request) throws CustomInvalidTokenException {
+    private Object getPreAuthenticatedPrincipal(HttpServletRequest request) throws CustomInvalidTokenException {
         String token = request.getHeader("X-Token");
         if (token == null) {
             return null;
@@ -59,7 +60,7 @@ public class PreAuthFilter extends GenericFilterBean
         return userName;
     }
 
-    protected Object getPreAuthenticatedCredentials(HttpServletRequest request) {
+    private Object getPreAuthenticatedCredentials(HttpServletRequest request) {
         return "";
     }
 
@@ -94,7 +95,11 @@ public class PreAuthFilter extends GenericFilterBean
             doAuthenticate((HttpServletRequest) request, (HttpServletResponse) response);
         }
         if (isUnsuccessfulAuthentication) {
-            chain.doFilter(request, response);
+            try {
+                chain.doFilter(request, response);
+            } catch (Exception e) {
+                authenticationFailureHandler.onAuthenticationFailure((HttpServletRequest) request, (HttpServletResponse) response, new CustomAccessDeniedException(e.getMessage(), e));
+            }
         }
 
     }
@@ -198,7 +203,6 @@ public class PreAuthFilter extends GenericFilterBean
                 request.getSession();
             }
         }
-
         return true;
     }
 

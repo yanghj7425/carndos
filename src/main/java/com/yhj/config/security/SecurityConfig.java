@@ -68,7 +68,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(customFilterSecurityInterceptor, FilterSecurityInterceptor.class);
         http.addFilterBefore(preAuthFilter(), AbstractPreAuthenticatedProcessingFilter.class);
 
-
         http.formLogin()
                 .loginPage("/sys/login")
                 .usernameParameter("username")

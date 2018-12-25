@@ -14,7 +14,7 @@ public class CustomFilterSecurityInterceptor extends FilterSecurityInterceptor {
     @Override
     public void setAccessDecisionManager(AccessDecisionManager accessDecisionManager) {
         super.setAccessDecisionManager(accessDecisionManager);
-//        super.setRejectPublicInvocations(true);
+        super.setRejectPublicInvocations(true);
     }
 
     @Autowired
