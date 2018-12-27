@@ -5,7 +5,6 @@ import com.yhj.modules.res.entity.ResRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
@@ -85,7 +84,7 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
 
         for (ResRole resRole : resourceList) {
 
-            RequestMatcher requestMatcher = getRequestMatcher(resRole.getAccessResUrl());
+            RequestMatcher requestMatcher = getRequestMatcher(resRole.getResUrl());
 
             Collection<ConfigAttribute> multipleRoles;
 
@@ -96,8 +95,7 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
             } else {
                 multipleRoles = new ArrayList<>();
             }
-            multipleRoles.add(new SecurityConfig(resRole.getAccessResRole()));
-
+            multipleRoles.add(new SecurityConfig(resRole.getRoleName()));
             // bad small
 
             matcherCollectionLinkedHashMap.put(requestMatcher, multipleRoles);

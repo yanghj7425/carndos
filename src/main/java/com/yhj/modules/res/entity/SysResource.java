@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
-public class Resource implements Serializable {
+public class SysResource implements Serializable {
     /**
      * 主键ID
      */

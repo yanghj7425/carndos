@@ -1,5 +1,7 @@
 package com.yhj.modules.res.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
@@ -19,17 +21,32 @@ public class ResRole implements Serializable {
     /**
      * 角色
      */
-    private String accessResRole;
+    private String roleName;
 
     /**
-     * 资源
+     * 资源 URL
      */
-    private String accessResUrl;
+    private String resUrl;
 
-    public ResRole(Long id, String accessResRole, String accessResUrl) {
+
+    /**
+     * 资源名称
+     */
+    private String resName;
+
+
+    /**
+     * 资源描述
+     */
+    private String resDesc;
+
+
+    public ResRole(Long id, String roleName, String resUrl, String resName, String resDesc) {
         this.id = id;
-        this.accessResRole = accessResRole;
-        this.accessResUrl = accessResUrl;
+        this.roleName = roleName;
+        this.resUrl = resUrl;
+        this.resName = resName;
+        this.resDesc = resDesc;
     }
 
     public Long getId() {
@@ -40,28 +57,63 @@ public class ResRole implements Serializable {
         this.id = id;
     }
 
-    public String getAccessResRole() {
-        return accessResRole;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setAccessResRole(String accessResRole) {
-        this.accessResRole = accessResRole;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    public String getAccessResUrl() {
-        return accessResUrl;
+    public String getResUrl() {
+        return resUrl;
     }
 
-    public void setAccessResUrl(String accessResUrl) {
-        this.accessResUrl = accessResUrl;
+    public void setResUrl(String resUrl) {
+        this.resUrl = resUrl;
+    }
+
+    public String getResName() {
+        return resName;
+    }
+
+    public void setResName(String resName) {
+        this.resName = resName;
+    }
+
+    public String getResDesc() {
+        return resDesc;
+    }
+
+    public void setResDesc(String resDesc) {
+        this.resDesc = resDesc;
     }
 
     @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .append("id", id)
-                .append("accessResRole", accessResRole)
-                .append("accessResUrl", accessResUrl)
-                .toString();
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ResRole resRole = (ResRole) o;
+
+        return new EqualsBuilder()
+                .append(id, resRole.id)
+                .append(roleName, resRole.roleName)
+                .append(resUrl, resRole.resUrl)
+                .append(resName, resRole.resName)
+                .append(resDesc, resRole.resDesc)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .append(roleName)
+                .append(resUrl)
+                .append(resName)
+                .append(resDesc)
+                .toHashCode();
     }
 }

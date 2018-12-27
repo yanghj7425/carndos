@@ -1,6 +1,10 @@
 package com.yhj.config.core;
 
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 
 public class SpringMvcInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
@@ -21,4 +25,11 @@ public class SpringMvcInitializer extends AbstractAnnotationConfigDispatcherServ
         return new String[]{"/"};
     }
 
+
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        super.onStartup(servletContext);
+        servletContext.addFilter("name", new CharacterEncodingFilter("UTF-8", true))
+                .addMappingForUrlPatterns(null, false, "/*");
+    }
 }

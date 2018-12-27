@@ -3,15 +3,19 @@
 <mapper namespace="com.yhj.modules.res.dao.ResRoleMapper">
     <resultMap id="BaseResultMap" type="com.yhj.modules.res.entity.ResRole">
         <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="resRole" jdbcType="VARCHAR" property="accessResRole"/>
-        <result column="resUrl" jdbcType="VARCHAR" property="accessResUrl"/>
+        <result column="resUrl" jdbcType="VARCHAR" property="resUrl"/>
+        <result column="roleName" jdbcType="VARCHAR" property="roleName"/>
+        <result column="resName" jdbcType="VARCHAR" property="resName"/>
+        <result column="resDesc" jdbcType="VARCHAR" property="resDesc"/>
     </resultMap>
 
     <select id="queryAllResRole" resultMap="BaseResultMap">
         SELECT
-            rr.id            AS id,
+            rr.id AS id,
             resource.res_url AS resUrl,
-            role.role_name   AS resRole
+            role.role_name AS roleName,
+            res_name AS resName,
+            res_desc as resDesc
         FROM
             sys_resource resource
             LEFT JOIN

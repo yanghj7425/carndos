@@ -1,7 +1,7 @@
 package com.yhj.modules.util;
 
 
-import com.yhj.modules.res.entity.Resource;
+import com.yhj.modules.res.entity.SysResource;
 import com.yhj.modules.commons.util.RSAUtils;
 import org.junit.Test;
 import org.springframework.util.Base64Utils;
@@ -19,7 +19,7 @@ public class Base64Test {
         Map<String, Object> keyMap = RSAUtils.genKeyPair();
         String privateKey = RSAUtils.getPrivateKey(keyMap);
         String publicKey = RSAUtils.getPublicKey(keyMap);
-        Resource r = new Resource();
+        SysResource r = new SysResource();
         String resName = "公钥加密——私钥解密";
 
 

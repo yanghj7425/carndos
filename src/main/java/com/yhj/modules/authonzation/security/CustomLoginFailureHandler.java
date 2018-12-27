@@ -44,7 +44,6 @@ public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHan
         } else {
             respBean = RespBean.error(response, CustomFinalConstant.ERROR_CODE, "验证失败");
         }
-
         if (logger.isDebugEnabled()) {
             System.out.println("exception name " + e.getClass().getSimpleName());
             e.printStackTrace();
