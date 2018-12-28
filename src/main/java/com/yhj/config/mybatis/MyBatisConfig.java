@@ -6,7 +6,6 @@ import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.EnvironmentAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +14,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import tk.mybatis.mapper.common.BaseMapper;
-import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 
 import java.io.IOException;
@@ -23,7 +21,6 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource(value = {"classpath:dataSource.properties"})
-//@MapperScan(basePackages = {"com.yhj.modules.dao"}, sqlSessionFactoryRef = "sqlSessionFactory")
 public class MyBatisConfig implements EnvironmentAware {
 
     private Environment environment;
@@ -31,7 +28,6 @@ public class MyBatisConfig implements EnvironmentAware {
 
     /**
      * @return dataSource
-     *
      * @description 配置数据源
      */
     @Bean
@@ -46,13 +42,11 @@ public class MyBatisConfig implements EnvironmentAware {
 
     /**
      * @param dataSource
-     *
      * @return sessionFactoryBean
-     *
      * @description 配置 MyBatis sessionFactory
      */
     @Bean
-    public SqlSessionFactory  sqlSessionFactory(DruidDataSource dataSource) {
+    public SqlSessionFactory sqlSessionFactory(DruidDataSource dataSource) {
         SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
         //添加数据源
         sessionFactoryBean.setDataSource(dataSource);
@@ -68,9 +62,9 @@ public class MyBatisConfig implements EnvironmentAware {
         //添加分页插件
         sessionFactoryBean.setPlugins(new Interceptor[]{interceptor});
 
-        try{
+        try {
             return sessionFactoryBean.getObject();
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
 

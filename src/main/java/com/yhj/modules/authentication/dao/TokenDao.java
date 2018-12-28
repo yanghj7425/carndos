@@ -1,6 +1,6 @@
-package com.yhj.modules.authonzation.dao;
+package com.yhj.modules.authentication.dao;
 
-import com.yhj.modules.authonzation.entity.TokenEntity;
+import com.yhj.modules.authentication.entity.TokenEntity;
 
 public interface TokenDao {
     /**

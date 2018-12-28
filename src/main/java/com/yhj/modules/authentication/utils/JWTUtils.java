@@ -1,4 +1,4 @@
-package com.yhj.modules.authonzation.utils;
+package com.yhj.modules.authentication.utils;
 
 import com.auth0.jwt.JWTSigner;
 import com.auth0.jwt.JWTVerifier;

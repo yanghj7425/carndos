@@ -1,4 +1,4 @@
-package com.yhj.modules.authonzation.entity;
+package com.yhj.modules.authentication.entity;
 
 public class TokenEntity {
     //用户id

@@ -1,4 +1,4 @@
-package com.yhj.modules.authonzation.security;
+package com.yhj.modules.authentication.security;
 
 import com.yhj.modules.res.dao.ResRoleMapper;
 import com.yhj.modules.res.entity.ResRole;
@@ -74,7 +74,6 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
 
     /**
      * @return 返回 requestMap 资源和权限对应关系的数据格式
-     *
      * @description 一个资源可以被多个角色访问
      */
     public Map<RequestMatcher, Collection<ConfigAttribute>> buildRequestMap() {

@@ -1,4 +1,4 @@
-package com.yhj.modules.authonzation.service;
+package com.yhj.modules.authentication.service;
 
 import com.yhj.modules.sys.dao.SysUserMapper;
 import com.yhj.modules.sys.entity.SysUser;
@@ -24,7 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
 
-    @Resource
+    @Autowired
     private SysUserMapper sysUserMapper;
 
 

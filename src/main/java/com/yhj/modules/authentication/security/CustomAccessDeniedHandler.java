@@ -1,15 +1,13 @@
-package com.yhj.modules.authonzation.security;
+package com.yhj.modules.authentication.security;
 
-import com.yhj.modules.authonzation.except.CustomAccessDeniedException;
+import com.yhj.modules.authentication.except.CustomAccessDeniedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 
 @Component

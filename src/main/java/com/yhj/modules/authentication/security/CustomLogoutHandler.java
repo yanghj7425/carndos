@@ -1,4 +1,4 @@
-package com.yhj.modules.authonzation.security;
+package com.yhj.modules.authentication.security;
 
 
 import com.yhj.modules.commons.entitiy.response.RespBean;

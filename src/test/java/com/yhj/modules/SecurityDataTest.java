@@ -1,7 +1,7 @@
 package com.yhj.modules;
 
 import com.yhj.config.core.RootConfig;
-import com.yhj.modules.authonzation.security.CustomSecurityMetadataSource;
+import com.yhj.modules.authentication.security.CustomSecurityMetadataSource;
 import com.yhj.modules.res.service.ResRoleService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

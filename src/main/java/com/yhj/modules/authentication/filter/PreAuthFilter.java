@@ -1,8 +1,8 @@
-package com.yhj.modules.authonzation.filter;
+package com.yhj.modules.authentication.filter;
 
-import com.yhj.modules.authonzation.except.CustomAccessDeniedException;
-import com.yhj.modules.authonzation.except.CustomInvalidTokenException;
-import com.yhj.modules.authonzation.utils.JWTUtils;
+import com.yhj.modules.authentication.except.CustomAccessDeniedException;
+import com.yhj.modules.authentication.except.CustomInvalidTokenException;
+import com.yhj.modules.authentication.utils.JWTUtils;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.security.authentication.AuthenticationDetailsSource;

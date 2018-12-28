@@ -1,4 +1,4 @@
-package com.yhj.modules.authonzation.except;
+package com.yhj.modules.authentication.except;
 
 import org.springframework.security.core.AuthenticationException;
 

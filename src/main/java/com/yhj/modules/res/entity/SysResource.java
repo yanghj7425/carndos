@@ -1,8 +1,12 @@
 package com.yhj.modules.res.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
+
 
 public class SysResource implements Serializable {
     /**
@@ -12,6 +16,13 @@ public class SysResource implements Serializable {
     @GeneratedValue(generator = "JDBC")
     private Long id;
 
+
+
+    /**
+     * 资源父ID
+     */
+    @Column(name = "res_fid")
+    private Long resFid;
     /**
      * 资源名称
      */
@@ -72,6 +83,22 @@ public class SysResource implements Serializable {
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    /**
+     *  获取父级资源ID
+     * @return resFid - 资源ID
+     */
+    public Long getResFid() {
+        return resFid;
+    }
+
+    /**
+     * 设置 父级资源ID
+     * @param resFid 资源ID
+     */
+    public void setResFid(Long resFid) {
+        this.resFid = resFid;
     }
 
     /**
@@ -200,11 +227,47 @@ public class SysResource implements Serializable {
         this.resDeleteTime = resDeleteTime;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SysResource that = (SysResource) o;
+
+        return new EqualsBuilder()
+                .append(id, that.id)
+                .append(resFid, that.resFid)
+                .append(resName, that.resName)
+                .append(resType, that.resType)
+                .append(resUrl, that.resUrl)
+                .append(resStatus, that.resStatus)
+                .append(resDesc, that.resDesc)
+                .append(resCreateTime, that.resCreateTime)
+                .append(resDeleteTime, that.resDeleteTime)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .append(resFid)
+                .append(resName)
+                .append(resType)
+                .append(resUrl)
+                .append(resStatus)
+                .append(resDesc)
+                .append(resCreateTime)
+                .append(resDeleteTime)
+                .toHashCode();
+    }
 
     @Override
     public String toString() {
-        return "Resource{" +
+        return "SysResource{" +
                 "id=" + id +
+                ", resFid=" + resFid +
                 ", resName='" + resName + '\'' +
                 ", resType='" + resType + '\'' +
                 ", resUrl='" + resUrl + '\'' +

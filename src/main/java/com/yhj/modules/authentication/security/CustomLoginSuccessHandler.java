@@ -1,7 +1,7 @@
-package com.yhj.modules.authonzation.security;
+package com.yhj.modules.authentication.security;
 
 import com.google.common.collect.Maps;
-import com.yhj.modules.authonzation.utils.JWTUtils;
+import com.yhj.modules.authentication.utils.JWTUtils;
 import com.yhj.modules.commons.entitiy.response.RespBean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;

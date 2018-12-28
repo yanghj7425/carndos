@@ -6,6 +6,7 @@
       WARNING - @mbg.generated
     -->
     <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="res_fid" jdbcType="BIGINT" property="resFid"/>
     <result column="res_name" jdbcType="VARCHAR" property="resName" />
     <result column="res_type" jdbcType="VARCHAR" property="resType" />
     <result column="res_url" jdbcType="VARCHAR" property="resUrl" />
@@ -14,12 +15,22 @@
     <result column="res_create_time" jdbcType="TIMESTAMP" property="resCreateTime" />
     <result column="res_delete_time" jdbcType="TIMESTAMP" property="resDeleteTime" />
   </resultMap>
-  
+
   <insert id="insertNewResource" parameterType="com.yhj.modules.res.entity.SysResource" useGeneratedKeys="true">
     INSERT INTO sys_resource (  res_name, res_type, res_url, res_status, res_desc, res_create_time )
     VALUES
       (#{resName}, #{resType}, #{resUrl}, #{resStatus},#{resDesc},now() );
   </insert>
 
+    <select id="queryResourceOrderById" resultMap="BaseResultMap">
+      SELECT
+        id,res_fid,res_name,res_url,res_desc
+      FROM
+        sys_resource
+      ORDER BY id
+    </select>
   
+
+
+
 </mapper>

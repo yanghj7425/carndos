@@ -20,8 +20,6 @@ public class ResRoleServiceI extends BaseService<ResRole, Mapper<ResRole>> imple
 
     @Override
     public List<ResRole> queryAll() {
-
         return resRoleMapper.queryAllResRole();
-
     }
 }

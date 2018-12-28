@@ -1,11 +1,10 @@
 package com.yhj.config.security;
 
 import com.yhj.config.mybatis.MyBatisConfig;
-import com.yhj.modules.authonzation.filter.PreAuthFilter;
-import com.yhj.modules.authonzation.security.*;
+import com.yhj.modules.authentication.filter.PreAuthFilter;
+import com.yhj.modules.authentication.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -30,7 +29,6 @@ import java.util.List;
 
 @EnableWebSecurity
 @Import(MyBatisConfig.class)
-@ComponentScan(basePackages = {"com.yhj.config.security"})
 @Configuration
 @CrossOrigin
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

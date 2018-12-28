@@ -1,8 +1,8 @@
-package com.yhj.modules.authonzation.security;
+package com.yhj.modules.authentication.security;
 
 
-import com.yhj.modules.authonzation.except.CustomAccessDeniedException;
-import com.yhj.modules.authonzation.except.CustomInvalidTokenException;
+import com.yhj.modules.authentication.except.CustomAccessDeniedException;
+import com.yhj.modules.authentication.except.CustomInvalidTokenException;
 import com.yhj.modules.commons.components.CustomFinalConstant;
 import com.yhj.modules.commons.entitiy.response.RespBean;
 import org.slf4j.Logger;
