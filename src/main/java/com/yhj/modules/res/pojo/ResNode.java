@@ -119,4 +119,16 @@ public class ResNode {
                 .append(children)
                 .toHashCode();
     }
+
+    @Override
+    public String toString() {
+        return "ResNode{" +
+                "id=" + id +
+                ", resFid=" + resFid +
+                ", label='" + label + '\'' +
+                ", resDesc='" + resDesc + '\'' +
+                ", resUrl='" + resUrl + '\'' +
+                ", children=" + children +
+                '}';
+    }
 }

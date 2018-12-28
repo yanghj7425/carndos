@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.Map;
 
 
-public class RespBean  {
+public class RespBean {
     private static Logger logger = LoggerFactory.getLogger(RespBean.class);
 
     private HttpServletResponse response;
@@ -26,18 +26,18 @@ public class RespBean  {
     }
 
     public static RespBean ok(HttpServletResponse response, Map<String, Object> map) {
-        map.put(CustomFinalConstant.STATUS_KEY,CustomFinalConstant. SUCCESS_CODE);
+        map.put(CustomFinalConstant.STATUS_KEY, CustomFinalConstant.SUCCESS_CODE);
         return new RespBean(response, map);
     }
 
     public static RespBean error(HttpServletResponse response, int status, Map<String, Object> map) {
-        map.put(CustomFinalConstant.STATUS_KEY,status);
+        map.put(CustomFinalConstant.STATUS_KEY, status);
         return new RespBean(response, map);
     }
 
 
-    public static RespBean error(HttpServletResponse response,int status,String message){
-        Map<String,Object> map = Maps.newHashMap();
+    public static RespBean error(HttpServletResponse response, int status, String message) {
+        Map<String, Object> map = Maps.newHashMap();
         map.put(CustomFinalConstant.STATUS_KEY, status);
         map.put(CustomFinalConstant.MSG_KEY, message);
         return new RespBean(response, map);

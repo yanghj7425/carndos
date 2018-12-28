@@ -6,14 +6,19 @@ package com.yhj.modules.commons.components;
 public final class CustomFinalConstant {
 
 
-    //对应状态的 key
+    //status key
     public static final String STATUS_KEY = "status";
 
     // response json header
     public static final String RESPONSE_CONTENT_TYPE_HEADER = "application/json;charset=utf-8";
 
-    //消息key
+    //message key
     public static final String MSG_KEY = "message";
+
+
+    //
+    public static final String DATA_KEY = "info";
+
 
     // success status
     public static final int SUCCESS_CODE = 2000;

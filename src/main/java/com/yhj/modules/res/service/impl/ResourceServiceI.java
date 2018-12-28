@@ -26,7 +26,6 @@ public class ResourceServiceI extends BaseService<SysResource, Mapper<SysResourc
         return resourceMapper.selectAll();
     }
 
-
     @Override
     public Integer insertNewResource(SysResource sysResource) {
         return resourceMapper.insertNewResource(sysResource);
@@ -43,14 +42,19 @@ public class ResourceServiceI extends BaseService<SysResource, Mapper<SysResourc
         return resNodeList;
     }
 
+    /**
+     * @param resNode     资源节点
+     * @param resNodeList 资源节点列表
+     * @description 递归处理树 信息
+     */
     private void fillResNodeList(ResNode resNode, List<ResNode> resNodeList) {
         Iterator<ResNode> itr = resNodeList.iterator();
         boolean isContainNode = false;
         while (itr.hasNext()) {
             ResNode node = itr.next();
-            if (node.getId().equals(resNode.getId())) {
+            if (node.getId().equals(resNode.getResFid())) {
                 isContainNode = true;
-                fillResNodeList(node, node.getChildren());
+                fillResNodeList(resNode, node.getChildren());
             }
         }
         if (!isContainNode) {
