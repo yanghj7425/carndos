@@ -5,7 +5,6 @@ package com.yhj.modules.commons.components;
  */
 public final class CustomFinalConstant {
 
-
     //status key
     public static final String STATUS_KEY = "status";
 
@@ -14,10 +13,6 @@ public final class CustomFinalConstant {
 
     //message key
     public static final String MSG_KEY = "message";
-
-
-    //
-    public static final String DATA_KEY = "info";
 
 
     // success status

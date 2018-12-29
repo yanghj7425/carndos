@@ -5,9 +5,15 @@ import com.yhj.modules.res.entity.SysResource;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 
-public class ResNode {
+public class ResNode implements Serializable {
+
+    private static final long serialVersionUID = -291851707773983421L;
+
+    private List<ResNode> children;
     /**
      * sysResource ID
      */
@@ -33,55 +39,64 @@ public class ResNode {
      */
     private String resUrl;
 
-    public ResNode(SysResource sysResource) {
-        this.id = sysResource.getId();
-        this.resFid = sysResource.getResFid();
-        this.label = sysResource.getResName();
-        this.resUrl = sysResource.getResUrl();
+    /**
+     * 设置资源状态: 1 有效, 0 无效
+     * sysResource status
+     */
+    private Integer resStatus;
+
+
+
+    public ResNode() {
         this.children = Lists.newArrayList();
     }
 
-    private List<ResNode> children;
-
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setResFid(Long resFid) {
-        this.resFid = resFid;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public void setResDesc(String resDesc) {
-        this.resDesc = resDesc;
-    }
-
-    public void setChildren(List<ResNode> children) {
-        this.children = children;
+    /**
+     * @return
+     * @description translate ResNode Object to SysResource Object
+     */
+    public SysResource getSysResource() {
+        SysResource sysResource = new SysResource();
+        sysResource.setId(getId());
+        sysResource.setResType("URL");
+        sysResource.setResDesc(getResDesc());
+        sysResource.setResFid(getResFid());
+        sysResource.setResUrl(getResUrl());
+        sysResource.setResName(getLabel());
+        sysResource.setResStatus(getResStatus());
+        return sysResource;
     }
 
     public Long getId() {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Long getResFid() {
         return resFid;
+    }
+
+    public void setResFid(Long resFid) {
+        this.resFid = resFid;
     }
 
     public String getLabel() {
         return label;
     }
 
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
     public String getResDesc() {
         return resDesc;
     }
 
-    public List<ResNode> getChildren() {
-        return children;
+    public void setResDesc(String resDesc) {
+        this.resDesc = resDesc;
     }
 
     public String getResUrl() {
@@ -90,6 +105,22 @@ public class ResNode {
 
     public void setResUrl(String resUrl) {
         this.resUrl = resUrl;
+    }
+
+    public Integer getResStatus() {
+        return resStatus;
+    }
+
+    public void setResStatus(Integer resStatus) {
+        this.resStatus = resStatus;
+    }
+
+    public List<ResNode> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<ResNode> children) {
+        this.children = children;
     }
 
     @Override
@@ -101,22 +132,26 @@ public class ResNode {
         ResNode resNode = (ResNode) o;
 
         return new EqualsBuilder()
+                .append(children, resNode.children)
                 .append(id, resNode.id)
                 .append(resFid, resNode.resFid)
                 .append(label, resNode.label)
                 .append(resDesc, resNode.resDesc)
-                .append(children, resNode.children)
+                .append(resUrl, resNode.resUrl)
+                .append(resStatus, resNode.resStatus)
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
+                .append(children)
                 .append(id)
                 .append(resFid)
                 .append(label)
                 .append(resDesc)
-                .append(children)
+                .append(resUrl)
+                .append(resStatus)
                 .toHashCode();
     }
 
@@ -128,6 +163,7 @@ public class ResNode {
                 ", label='" + label + '\'' +
                 ", resDesc='" + resDesc + '\'' +
                 ", resUrl='" + resUrl + '\'' +
+                ", resStatus=" + resStatus +
                 ", children=" + children +
                 '}';
     }

@@ -1,6 +1,7 @@
 package com.yhj.modules.res.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Maps;
 import com.yhj.modules.commons.controller.BaseController;
 import com.yhj.modules.res.entity.ResRole;
@@ -26,16 +27,20 @@ public class ResController extends BaseController {
     @GetMapping("resTree")
     public Map queryResList() {
 
-        renderSuccess();
         List<ResNode> resTree = resourceService.queryResourceTree();
-        return renderSuccess("tree", JSON.toJSON(resTree));
+        String str = resTree.toString();
+        System.out.println(str);
+        for (ResNode resNode : resTree) {
+            System.out.println(JSON.toJSON(resNode));
+        }
+        return renderSuccess("tree", str);
     }
 
-    @PostMapping("addRes")
-    public Map createResNode(SysResource sysResource) {
-        sysResource.setResType("URL");
-        Integer count = resourceService.insertNewResource(sysResource);
-        return renderSuccess("COUNT", count);
+    @PostMapping("addResNode")
+    public Map createResNode(ResNode resNode) {
+        resourceService.insertNewResource(resNode);
+        Long primaryKey = resNode.getId();
+        return renderSuccess("KEY", primaryKey);
     }
 
 }

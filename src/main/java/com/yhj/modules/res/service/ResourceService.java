@@ -10,10 +10,10 @@ import java.util.Map;
 public interface ResourceService extends BaseServiceI<SysResource> {
     /**
      * @param sysResource
-     * @return
+     * @return Integer
      * @description 插入一条资源信息
      */
-    Integer insertNewResource(SysResource sysResource);
+    Integer insertNewResource(ResNode resNode);
 
 
     List<ResNode> queryResourceTree();

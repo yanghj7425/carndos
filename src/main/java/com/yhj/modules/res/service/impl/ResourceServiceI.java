@@ -27,8 +27,11 @@ public class ResourceServiceI extends BaseService<SysResource, Mapper<SysResourc
     }
 
     @Override
-    public Integer insertNewResource(SysResource sysResource) {
-        return resourceMapper.insertNewResource(sysResource);
+    public Integer insertNewResource(ResNode resNode) {
+        SysResource sysResource = resNode.getSysResource();
+        Integer count = resourceMapper.insertNewResource(sysResource);
+        resNode.setId(sysResource.getId());
+        return count;
     }
 
     @Override
@@ -36,7 +39,8 @@ public class ResourceServiceI extends BaseService<SysResource, Mapper<SysResourc
         List<SysResource> list = resourceMapper.queryResourceOrderById();
         List<ResNode> resNodeList = Lists.newArrayList();
         for (SysResource sysResource : list) {
-            ResNode resNode = new ResNode(sysResource);
+            ResNode resNode = sysResource.getResNode();
+//            ResNode resNode = new ResNode();
             fillResNodeList(resNode, resNodeList);
         }
         return resNodeList;

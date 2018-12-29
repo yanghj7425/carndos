@@ -1,5 +1,7 @@
 package com.yhj.modules.res.entity;
 
+import com.google.common.collect.Lists;
+import com.yhj.modules.res.pojo.ResNode;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -15,7 +17,6 @@ public class SysResource implements Serializable {
     @Id
     @GeneratedValue(generator = "JDBC")
     private Long id;
-
 
 
     /**
@@ -67,6 +68,19 @@ public class SysResource implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+
+    public ResNode getResNode() {
+        ResNode resNode = new ResNode();
+        resNode.setId(getId());
+        resNode.setResFid(getResFid());
+        resNode.setLabel(getResName());
+        resNode.setResUrl(getResUrl());
+        resNode.setResDesc(getResDesc());
+        resNode.setResStatus(getResStatus());
+        return resNode;
+    }
+
+
     /**
      * 获取主键ID
      *
@@ -86,7 +100,8 @@ public class SysResource implements Serializable {
     }
 
     /**
-     *  获取父级资源ID
+     * 获取父级资源ID
+     *
      * @return resFid - 资源ID
      */
     public Long getResFid() {
@@ -95,6 +110,7 @@ public class SysResource implements Serializable {
 
     /**
      * 设置 父级资源ID
+     *
      * @param resFid 资源ID
      */
     public void setResFid(Long resFid) {
@@ -226,6 +242,7 @@ public class SysResource implements Serializable {
     public void setResDeleteTime(Date resDeleteTime) {
         this.resDeleteTime = resDeleteTime;
     }
+
 
     @Override
     public boolean equals(Object o) {
