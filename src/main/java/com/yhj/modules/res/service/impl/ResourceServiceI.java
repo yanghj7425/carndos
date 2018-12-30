@@ -1,7 +1,6 @@
 package com.yhj.modules.res.service.impl;
 
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.yhj.modules.commons.service.impl.BaseService;
 import com.yhj.modules.res.dao.ResourceMapper;
 import com.yhj.modules.res.entity.SysResource;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -35,35 +35,44 @@ public class ResourceServiceI extends BaseService<SysResource, Mapper<SysResourc
     }
 
     @Override
-    public List<ResNode> queryResourceTree() {
-        List<SysResource> list = resourceMapper.queryResourceOrderById();
-        List<ResNode> resNodeList = Lists.newArrayList();
-        for (SysResource sysResource : list) {
-            ResNode resNode = sysResource.getResNode();
-//            ResNode resNode = new ResNode();
-            fillResNodeList(resNode, resNodeList);
+    public List<Map<String, Object>> queryResourceTree() {
+        List<Map<String, Object>> list = resourceMapper.queryResourceOrderById();
+        List<Map<String, Object>> subResNodeList = Lists.newArrayList();
+        for (Map<String, Object> sysResource : list) {
+            fillResNodeList(sysResource, subResNodeList);
         }
-        return resNodeList;
+        return subResNodeList;
     }
 
     /**
-     * @param resNode     资源节点
-     * @param resNodeList 资源节点列表
+     * when we get a node, we should  check in subResNodeList if one node`s  id  equals  the new node then we put the new node in it`s subList
+     *
+     * @param resNode        资源节点
+     * @param subResNodeList 资源节点列表
      * @description 递归处理树 信息
      */
-    private void fillResNodeList(ResNode resNode, List<ResNode> resNodeList) {
-        Iterator<ResNode> itr = resNodeList.iterator();
+    private void fillResNodeList(Map<String, Object> resNode, List<Map<String, Object>> subResNodeList) {
+        Iterator<Map<String, Object>> itr = subResNodeList.iterator();
         boolean isContainNode = false;
         while (itr.hasNext()) {
-            ResNode node = itr.next();
-            if (node.getId().equals(resNode.getResFid())) {
+            Map<String, Object> node = itr.next();
+            // if current id`s value equals 
+            if (node.get("id").equals(resNode.get("resFid"))) {
                 isContainNode = true;
-                fillResNodeList(resNode, node.getChildren());
+                ArrayList<Map<String, Object>> children;
+                if (node.containsKey("children")) {
+                    children = (ArrayList<Map<String, Object>>) node.get("children");
+                } else {
+                    children = Lists.newArrayList();
+                }
+                node.put("children", children);
+                fillResNodeList(resNode, children);
             }
         }
         if (!isContainNode) {
-            resNodeList.add(resNode);
+            subResNodeList.add(resNode);
         }
     }
+
 
 }

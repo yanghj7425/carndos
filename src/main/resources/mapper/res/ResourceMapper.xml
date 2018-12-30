@@ -23,13 +23,13 @@
             (#{resName}, #{resType}, #{resUrl}, #{resStatus}, #{resDesc}, now());
     </insert>
 
-    <select id="queryResourceOrderById" resultMap="BaseResultMap">
+    <select id="queryResourceOrderById" resultType="map">
         SELECT
             id,
-            res_fid,
-            res_name,
-            res_url,
-            res_desc
+            res_fid as resFid,
+            res_name as label,
+            res_url as resUrl,
+            res_desc as resDesc
         FROM
             sys_resource
         ORDER BY id

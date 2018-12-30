@@ -48,7 +48,7 @@ public class ResNode implements Serializable {
 
 
     public ResNode() {
-        this.children = Lists.newArrayList();
+//        this.children = Lists.newArrayList();
     }
 
     /**

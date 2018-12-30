@@ -16,6 +16,6 @@ public interface ResourceService extends BaseServiceI<SysResource> {
     Integer insertNewResource(ResNode resNode);
 
 
-    List<ResNode> queryResourceTree();
+    List<Map<String, Object>>queryResourceTree();
 
 }
