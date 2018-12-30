@@ -27,7 +27,7 @@ public class ResNode implements Serializable {
     /**
      * sysResource Name
      */
-    private String label;
+    private String resName;
 
     /**
      * sysResource Desc
@@ -46,7 +46,6 @@ public class ResNode implements Serializable {
     private Integer resStatus;
 
 
-
     public ResNode() {
 //        this.children = Lists.newArrayList();
     }
@@ -62,9 +61,17 @@ public class ResNode implements Serializable {
         sysResource.setResDesc(getResDesc());
         sysResource.setResFid(getResFid());
         sysResource.setResUrl(getResUrl());
-        sysResource.setResName(getLabel());
+        sysResource.setResName(getResName());
         sysResource.setResStatus(getResStatus());
         return sysResource;
+    }
+
+    public List<ResNode> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<ResNode> children) {
+        this.children = children;
     }
 
     public Long getId() {
@@ -83,12 +90,12 @@ public class ResNode implements Serializable {
         this.resFid = resFid;
     }
 
-    public String getLabel() {
-        return label;
+    public String getResName() {
+        return resName;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
+    public void setResName(String resName) {
+        this.resName = resName;
     }
 
     public String getResDesc() {
@@ -113,58 +120,5 @@ public class ResNode implements Serializable {
 
     public void setResStatus(Integer resStatus) {
         this.resStatus = resStatus;
-    }
-
-    public List<ResNode> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<ResNode> children) {
-        this.children = children;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ResNode resNode = (ResNode) o;
-
-        return new EqualsBuilder()
-                .append(children, resNode.children)
-                .append(id, resNode.id)
-                .append(resFid, resNode.resFid)
-                .append(label, resNode.label)
-                .append(resDesc, resNode.resDesc)
-                .append(resUrl, resNode.resUrl)
-                .append(resStatus, resNode.resStatus)
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(children)
-                .append(id)
-                .append(resFid)
-                .append(label)
-                .append(resDesc)
-                .append(resUrl)
-                .append(resStatus)
-                .toHashCode();
-    }
-
-    @Override
-    public String toString() {
-        return "ResNode{" +
-                "id=" + id +
-                ", resFid=" + resFid +
-                ", label='" + label + '\'' +
-                ", resDesc='" + resDesc + '\'' +
-                ", resUrl='" + resUrl + '\'' +
-                ", resStatus=" + resStatus +
-                ", children=" + children +
-                '}';
     }
 }

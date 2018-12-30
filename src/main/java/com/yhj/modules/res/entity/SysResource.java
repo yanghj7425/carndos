@@ -1,13 +1,13 @@
 package com.yhj.modules.res.entity;
 
-import com.google.common.collect.Lists;
-import com.yhj.modules.res.pojo.ResNode;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.*;
 
 
 public class SysResource implements Serializable {
@@ -67,19 +67,6 @@ public class SysResource implements Serializable {
     private Date resDeleteTime;
 
     private static final long serialVersionUID = 1L;
-
-
-    public ResNode getResNode() {
-        ResNode resNode = new ResNode();
-        resNode.setId(getId());
-        resNode.setResFid(getResFid());
-        resNode.setLabel(getResName());
-        resNode.setResUrl(getResUrl());
-        resNode.setResDesc(getResDesc());
-        resNode.setResStatus(getResStatus());
-        return resNode;
-    }
-
 
     /**
      * 获取主键ID

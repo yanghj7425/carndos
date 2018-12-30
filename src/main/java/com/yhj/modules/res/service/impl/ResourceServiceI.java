@@ -27,11 +27,9 @@ public class ResourceServiceI extends BaseService<SysResource, Mapper<SysResourc
     }
 
     @Override
-    public Integer insertNewResource(ResNode resNode) {
-        SysResource sysResource = resNode.getSysResource();
-        Integer count = resourceMapper.insertNewResource(sysResource);
-        resNode.setId(sysResource.getId());
-        return count;
+    public Long insertNewResource(SysResource sysResource) {
+        resourceMapper.insertNewResource(sysResource);
+        return sysResource.getId();
     }
 
     @Override
@@ -44,12 +42,18 @@ public class ResourceServiceI extends BaseService<SysResource, Mapper<SysResourc
         return subResNodeList;
     }
 
+    
+    @Override
+    public Integer updateResource(SysResource sysResource) {
+        return resourceMapper.updateByPrimaryKey(sysResource);
+    }
+
     /**
      * when we get a node, we should  check in subResNodeList if one node`s  id  equals  the new node then we put the new node in it`s subList
      *
-     * @param resNode        资源节点
-     * @param subResNodeList 资源节点列表
-     * @description 递归处理树 信息
+     * @param resNode        resource node
+     * @param subResNodeList resource nodes list
+     * @description recursively put nodes in list for construct a resource tree
      */
     private void fillResNodeList(Map<String, Object> resNode, List<Map<String, Object>> subResNodeList) {
         Iterator<Map<String, Object>> itr = subResNodeList.iterator();
