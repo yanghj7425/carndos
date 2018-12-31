@@ -1,19 +1,13 @@
 package com.yhj.modules.res.pojo;
 
-import com.google.common.collect.Lists;
 import com.yhj.modules.res.entity.SysResource;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
 public class ResNode implements Serializable {
 
     private static final long serialVersionUID = -291851707773983421L;
-
-    private List<ResNode> children;
     /**
      * sysResource ID
      */
@@ -27,7 +21,7 @@ public class ResNode implements Serializable {
     /**
      * sysResource Name
      */
-    private String resName;
+    private String label;
 
     /**
      * sysResource Desc
@@ -47,7 +41,6 @@ public class ResNode implements Serializable {
 
 
     public ResNode() {
-//        this.children = Lists.newArrayList();
     }
 
     /**
@@ -61,17 +54,9 @@ public class ResNode implements Serializable {
         sysResource.setResDesc(getResDesc());
         sysResource.setResFid(getResFid());
         sysResource.setResUrl(getResUrl());
-        sysResource.setResName(getResName());
+        sysResource.setResName(getLabel());
         sysResource.setResStatus(getResStatus());
         return sysResource;
-    }
-
-    public List<ResNode> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<ResNode> children) {
-        this.children = children;
     }
 
     public Long getId() {
@@ -90,12 +75,12 @@ public class ResNode implements Serializable {
         this.resFid = resFid;
     }
 
-    public String getResName() {
-        return resName;
+    public String getLabel() {
+        return label;
     }
 
-    public void setResName(String resName) {
-        this.resName = resName;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public String getResDesc() {

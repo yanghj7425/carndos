@@ -2,6 +2,7 @@ package com.yhj.modules.res.controller;
 
 import com.yhj.modules.commons.controller.BaseController;
 import com.yhj.modules.res.entity.SysResource;
+import com.yhj.modules.res.pojo.ResNode;
 import com.yhj.modules.res.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,14 +29,14 @@ public class ResController extends BaseController {
     }
 
     @PostMapping("addRes")
-    public Map createResource(SysResource sysResource) {
-        Long primaryKey = resourceService.insertNewResource(sysResource);
+    public Map createResource(ResNode resNode) {
+        Long primaryKey = resourceService.insertNewResource(resNode.getSysResource());
         return renderSuccess("KEY", primaryKey);
     }
 
     @PostMapping("updateRes")
-    public Map updateResource(SysResource sysResource) {
-        resourceService.updateResource(sysResource);
+    public Map updateResource(ResNode resNode) {
+        resourceService.updateResource(resNode.getSysResource());
 
         return renderSuccess();
     }

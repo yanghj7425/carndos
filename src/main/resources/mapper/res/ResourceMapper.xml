@@ -18,18 +18,18 @@
 
     <insert id="insertNewResource" parameterType="com.yhj.modules.res.entity.SysResource" useGeneratedKeys="true"
             keyProperty="id" keyColumn="id">
-        INSERT INTO sys_resource (res_name, res_type, res_url, res_status, res_desc, res_create_time)
+        INSERT INTO sys_resource (res_fid, res_name, res_type, res_url, res_status, res_desc, res_create_time)
         VALUES
-            (#{resName}, #{resType}, #{resUrl}, #{resStatus}, #{resDesc}, now());
+            (#{resFid}, #{resName}, #{resType}, #{resUrl}, #{resStatus}, #{resDesc}, now());
     </insert>
 
     <select id="queryResourceOrderById" resultType="map">
         SELECT
             id,
-            res_fid as resFid,
-            res_name as label,
-            res_url as resUrl,
-            res_desc as resDesc
+            res_fid  AS resFid,
+            res_name AS label,
+            res_url  AS resUrl,
+            res_desc AS resDesc
         FROM
             sys_resource
         ORDER BY id

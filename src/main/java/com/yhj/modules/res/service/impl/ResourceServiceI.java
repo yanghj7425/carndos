@@ -45,7 +45,7 @@ public class ResourceServiceI extends BaseService<SysResource, Mapper<SysResourc
     
     @Override
     public Integer updateResource(SysResource sysResource) {
-        return resourceMapper.updateByPrimaryKey(sysResource);
+        return resourceMapper.updateByPrimaryKeySelective(sysResource);
     }
 
     /**
