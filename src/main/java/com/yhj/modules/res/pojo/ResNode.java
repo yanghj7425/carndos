@@ -3,7 +3,6 @@ package com.yhj.modules.res.pojo;
 import com.yhj.modules.res.entity.SysResource;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class ResNode implements Serializable {
 

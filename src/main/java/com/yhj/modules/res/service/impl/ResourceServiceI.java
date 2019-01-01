@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.yhj.modules.commons.service.impl.BaseService;
 import com.yhj.modules.res.dao.ResourceMapper;
 import com.yhj.modules.res.entity.SysResource;
-import com.yhj.modules.res.pojo.ResNode;
 import com.yhj.modules.res.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

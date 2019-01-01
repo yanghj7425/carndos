@@ -1,10 +1,7 @@
 package com.yhj.modules.res;
 
 import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import com.yhj.config.core.RootConfig;
-import com.yhj.modules.res.pojo.ResNode;
 import com.yhj.modules.res.service.ResourceService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

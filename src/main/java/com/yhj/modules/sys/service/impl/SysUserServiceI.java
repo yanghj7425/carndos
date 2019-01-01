@@ -2,6 +2,7 @@ package com.yhj.modules.sys.service.impl;
 
 import com.yhj.modules.commons.service.impl.BaseService;
 import com.yhj.modules.sys.dao.SysUserMapper;
+import com.yhj.modules.sys.entity.SysRole;
 import com.yhj.modules.sys.entity.SysUser;
 import com.yhj.modules.sys.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,7 @@ public class SysUserServiceI extends BaseService<SysUser, Mapper<SysUser>> imple
     public List<SysUser> queryAllUser() {
         return sysUserMapper.selectAll();
     }
+
 
 
     @Autowired

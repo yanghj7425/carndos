@@ -1,8 +1,11 @@
 package com.yhj.modules.sys;
 
+import com.alibaba.fastjson.JSON;
 import com.yhj.config.core.RootConfig;
+import com.yhj.modules.sys.entity.SysRole;
 import com.yhj.modules.sys.entity.SysUser;
 import com.yhj.modules.sys.entity.SysUserRole;
+import com.yhj.modules.sys.service.SysRoleService;
 import com.yhj.modules.sys.service.SysUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,9 +23,16 @@ public class SysUserTest {
     private SysUserService sysUserService;
 
 
-
+    @Autowired
+    private SysRoleService sysRoleService;
 
     @Test
+    public void queryRolesTest() {
+        List<SysRole> roles = sysRoleService.querySysRoles();
+        System.out.println(JSON.toJSON(roles));
+    }
+
+
     public void sysUserRoleServiceTest() {
         SysUser sysUser = new SysUser();
 

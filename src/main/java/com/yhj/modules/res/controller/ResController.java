@@ -1,7 +1,6 @@
 package com.yhj.modules.res.controller;
 
 import com.yhj.modules.commons.controller.BaseController;
-import com.yhj.modules.res.entity.SysResource;
 import com.yhj.modules.res.pojo.ResNode;
 import com.yhj.modules.res.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;

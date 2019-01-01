@@ -1,13 +1,11 @@
-package com.yhj.modules.sys.dao;
+package com.yhj.modules.sys.service;
 
+import com.yhj.modules.commons.service.BaseServiceI;
 import com.yhj.modules.sys.entity.SysRole;
-import org.springframework.stereotype.Repository;
-import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
-@Repository
-public interface SysRoleMapper extends Mapper<SysRole> {
+public interface SysRoleService extends BaseServiceI<SysRole> {
 
 
     /**
@@ -15,4 +13,5 @@ public interface SysRoleMapper extends Mapper<SysRole> {
      * @description this method  query sysRole information
      */
     List<SysRole> querySysRoles();
+
 }
