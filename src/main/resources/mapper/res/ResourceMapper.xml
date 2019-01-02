@@ -16,7 +16,10 @@
         <result column="res_delete_time" jdbcType="TIMESTAMP" property="resDeleteTime"/>
     </resultMap>
 
-    <insert id="insertNewResource" parameterType="com.yhj.modules.res.entity.SysResource" useGeneratedKeys="true"
+
+    <parameterMap id="sysResource" type="com.yhj.modules.res.entity.SysResource"/>
+
+    <insert id="insertNewResource" parameterMap="sysResource" useGeneratedKeys="true"
             keyProperty="id" keyColumn="id">
         INSERT INTO sys_resource (res_fid, res_name, res_type, res_url, res_status, res_desc, res_create_time)
         VALUES

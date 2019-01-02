@@ -11,10 +11,10 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
-import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = RootConfig.class)
+
 public class ResourceTest {
     @Autowired
     private ResourceService resourceService;
@@ -23,6 +23,11 @@ public class ResourceTest {
     @Test
     public void showTree() {
         List<ResNode> nodeTree = resourceService.queryResourceTree();
+        System.out.println();
+        for (ResNode resNode : nodeTree) {
+            System.out.println(resNode);
+        }
+
         System.out.println(JSON.toJSON(nodeTree));
     }
 }

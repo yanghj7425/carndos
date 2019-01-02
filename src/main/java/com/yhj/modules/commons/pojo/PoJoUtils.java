@@ -33,10 +33,11 @@ public class PoJoUtils {
     public static ResNode transferSysResource2ResNode(SysResource sysResource) {
         ResNode resNode = new ResNode();
         resNode.setId(sysResource.getId());
-        resNode.setResDesc(sysResource.getResDesc());
+        resNode.setResFid(sysResource.getResFid());
         resNode.setLabel(sysResource.getResName());
-        resNode.setResStatus(sysResource.getResStatus());
         resNode.setResUrl(sysResource.getResUrl());
+        resNode.setResDesc(sysResource.getResDesc());
+        resNode.setResStatus(sysResource.getResStatus());
         return resNode;
     }
 
