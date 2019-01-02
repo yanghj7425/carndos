@@ -1,6 +1,7 @@
 package com.yhj.modules.res.dao;
 
 import com.yhj.modules.res.entity.SysResource;
+import com.yhj.modules.res.pojo.ResNode;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -18,5 +19,5 @@ public interface ResourceMapper extends Mapper<SysResource> {
     /**
      * @return List<SysResource>
      */
-    List<Map<String, Object>> queryResourceOrderById();
+    List<SysResource> queryResourceOrderById();
 }

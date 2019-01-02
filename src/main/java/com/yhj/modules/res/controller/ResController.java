@@ -1,6 +1,9 @@
 package com.yhj.modules.res.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.yhj.modules.commons.controller.BaseController;
+import com.yhj.modules.commons.pojo.PoJoUtils;
+import com.yhj.modules.res.entity.SysResource;
 import com.yhj.modules.res.pojo.ResNode;
 import com.yhj.modules.res.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,19 +26,20 @@ public class ResController extends BaseController {
 
     @GetMapping("resTree")
     public Map queryResList() {
-        List<Map<String, Object>> resTree = resourceService.queryResourceTree();
-        return renderSuccess("tree", resTree);
+        List<ResNode> resTree = resourceService.queryResourceTree();
+        return renderSuccess("tree", JSON.toJSON(resTree));
     }
 
     @PostMapping("addRes")
     public Map createResource(ResNode resNode) {
-        Long primaryKey = resourceService.insertNewResource(resNode.getSysResource());
+        SysResource sysResource = PoJoUtils.transferResNode2SysResource(resNode);
+        Long primaryKey = resourceService.insertNewResource(sysResource);
         return renderSuccess("KEY", primaryKey);
     }
 
     @PostMapping("updateRes")
     public Map updateResource(ResNode resNode) {
-        resourceService.updateResource(resNode.getSysResource());
+        resourceService.updateResource(PoJoUtils.transferResNode2SysResource(resNode));
 
         return renderSuccess();
     }

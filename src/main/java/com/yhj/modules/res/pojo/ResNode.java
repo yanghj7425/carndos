@@ -1,8 +1,12 @@
 package com.yhj.modules.res.pojo;
 
+import com.google.common.collect.Lists;
 import com.yhj.modules.res.entity.SysResource;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ResNode implements Serializable {
 
@@ -38,24 +42,10 @@ public class ResNode implements Serializable {
      */
     private Integer resStatus;
 
+    private List<ResNode> children;
 
     public ResNode() {
-    }
-
-    /**
-     * @return
-     * @description translate ResNode Object to SysResource Object
-     */
-    public SysResource getSysResource() {
-        SysResource sysResource = new SysResource();
-        sysResource.setId(getId());
-        sysResource.setResType("URL");
-        sysResource.setResDesc(getResDesc());
-        sysResource.setResFid(getResFid());
-        sysResource.setResUrl(getResUrl());
-        sysResource.setResName(getLabel());
-        sysResource.setResStatus(getResStatus());
-        return sysResource;
+        children = Lists.newArrayList();
     }
 
     public Long getId() {
@@ -104,5 +94,58 @@ public class ResNode implements Serializable {
 
     public void setResStatus(Integer resStatus) {
         this.resStatus = resStatus;
+    }
+
+    public List<ResNode> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<ResNode> children) {
+        this.children = children;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ResNode resNode = (ResNode) o;
+
+        return new EqualsBuilder()
+                .append(id, resNode.id)
+                .append(resFid, resNode.resFid)
+                .append(label, resNode.label)
+                .append(resDesc, resNode.resDesc)
+                .append(resUrl, resNode.resUrl)
+                .append(resStatus, resNode.resStatus)
+                .append(children, resNode.children)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(id)
+                .append(resFid)
+                .append(label)
+                .append(resDesc)
+                .append(resUrl)
+                .append(resStatus)
+                .append(children)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "ResNode{" +
+                "id=" + id +
+                ", resFid=" + resFid +
+                ", label='" + label + '\'' +
+                ", resDesc='" + resDesc + '\'' +
+                ", resUrl='" + resUrl + '\'' +
+                ", resStatus=" + resStatus +
+                ", children=" + children +
+                '}';
     }
 }

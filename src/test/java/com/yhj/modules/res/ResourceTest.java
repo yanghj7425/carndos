@@ -2,6 +2,7 @@ package com.yhj.modules.res;
 
 import com.alibaba.fastjson.JSON;
 import com.yhj.config.core.RootConfig;
+import com.yhj.modules.res.pojo.ResNode;
 import com.yhj.modules.res.service.ResourceService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,11 +22,9 @@ public class ResourceTest {
 
     @Test
     public void showTree() {
-        List<Map<String, Object>> nodeTree = resourceService.queryResourceTree();
+        List<ResNode> nodeTree = resourceService.queryResourceTree();
         System.out.println(JSON.toJSON(nodeTree));
     }
-
-
 }
 
 
