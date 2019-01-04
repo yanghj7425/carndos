@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
 
-import java.util.Iterator;
 import java.util.List;
 
 @Service("resourceService")
@@ -34,12 +33,15 @@ public class ResourceServiceI extends BaseService<SysResource, Mapper<SysResourc
     @Override
     public List<ResNode> queryResourceTree() {
         List<SysResource> list = resourceMapper.queryResourceOrderById();
-        List<ResNode> childResNodeList = Lists.newArrayList();
+        List<ResNode> resNodeList = Lists.newArrayList();
         for (SysResource sysResource : list) {
             ResNode resNode = PoJoUtils.transferSysResource2ResNode(sysResource);
-            fillResNodeList(resNode, childResNodeList);
+            boolean isPutted = fillResNodeList(resNode, resNodeList);
+            if (!isPutted) {
+                resNodeList.add(resNode);
+            }
         }
-        return childResNodeList;
+        return resNodeList;
     }
 
 
@@ -48,27 +50,23 @@ public class ResourceServiceI extends BaseService<SysResource, Mapper<SysResourc
         return resourceMapper.updateByPrimaryKeySelective(sysResource);
     }
 
+
     /**
-     * when we get a node, we should  check in subResNodeList if one node`s  id  equals  the new node then we put the new node in it`s subList
-     *
-     * @param resNode        resource node
-     * @param childResNodeList  resource nodes list
-     * @description recursively put nodes in list for construct a resource tree
+     * @param resNode          the pojo object of sysResource that would be add in ResNode`s children
+     * @param childResNodeList children list
+     * @return if the node is add in children return true,otherwise false
      */
-    private void fillResNodeList(ResNode resNode, List<ResNode> childResNodeList) {
-        Iterator<ResNode> itr = childResNodeList.iterator();
-        boolean isContainNode = false;
-        while (itr.hasNext()) {
-            ResNode node = itr.next();
+    private boolean fillResNodeList(ResNode resNode, List<ResNode> childResNodeList) {
+        boolean isPutted = false;
+        for (ResNode node : childResNodeList) {
             if (node.getId().equals(resNode.getResFid())) {
-                isContainNode = true;
-                fillResNodeList(resNode, node.getChildren());
+                node.getChildren().add(resNode);
+                return true;
+            }
+            if (node.getChildren().size() > 0) {
+                isPutted = fillResNodeList(resNode, node.getChildren());
             }
         }
-        if (!isContainNode) {
-            childResNodeList.add(resNode);
-        }
+        return isPutted;
     }
-
-
 }

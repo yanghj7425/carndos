@@ -1,6 +1,5 @@
 package com.yhj.modules.res;
 
-import com.alibaba.fastjson.JSON;
 import com.yhj.config.core.RootConfig;
 import com.yhj.modules.res.pojo.ResNode;
 import com.yhj.modules.res.service.ResourceService;
@@ -26,9 +25,10 @@ public class ResourceTest {
         System.out.println();
         for (ResNode resNode : nodeTree) {
             System.out.println(resNode);
+            System.out.println("*****************************************");
         }
 
-        System.out.println(JSON.toJSON(nodeTree));
+//        System.out.println(JSON.toJSON(nodeTree));
     }
 }
 

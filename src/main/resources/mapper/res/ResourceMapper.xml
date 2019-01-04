@@ -8,6 +8,7 @@
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="res_fid" jdbcType="BIGINT" property="resFid"/>
         <result column="res_name" jdbcType="VARCHAR" property="resName"/>
+        <result column="res_level" jdbcType="VARCHAR" property="resLevel"/>
         <result column="res_type" jdbcType="VARCHAR" property="resType"/>
         <result column="res_url" jdbcType="VARCHAR" property="resUrl"/>
         <result column="res_status" jdbcType="INTEGER" property="resStatus"/>
@@ -21,9 +22,9 @@
 
     <insert id="insertNewResource" parameterMap="sysResource" useGeneratedKeys="true"
             keyProperty="id" keyColumn="id">
-        INSERT INTO sys_resource (res_fid, res_name, res_type, res_url, res_status, res_desc, res_create_time)
+        INSERT INTO sys_resource (res_fid, res_name, res_type, res_url, res_status, res_desc, res_level, res_create_time)
         VALUES
-            (#{resFid}, #{resName}, #{resType}, #{resUrl}, #{resStatus}, #{resDesc}, now());
+            (#{resFid}, #{resName}, #{resType}, #{resUrl}, #{resStatus}, #{resDesc}, #{resLevel}, now());
     </insert>
 
     <select id="queryResourceOrderById" resultMap="BaseResultMap">
@@ -33,7 +34,8 @@
             res_name,
             res_url,
             res_desc,
-            res_status
+            res_status,
+            res_level
         FROM
             sys_resource
         where res_status != -1

@@ -66,6 +66,13 @@ public class SysResource implements Serializable {
     @Column(name = "res_delete_time")
     private Date resDeleteTime;
 
+
+    /**
+     * 资源层级
+     */
+    @Column(name = "res_level")
+    private Integer resLevel;
+
     private static final long serialVersionUID = 1L;
 
     /**
@@ -231,6 +238,24 @@ public class SysResource implements Serializable {
     }
 
 
+    /**
+     * 获取资源层级
+     *
+     * @return 资源层级
+     */
+    public Integer getResLevel() {
+        return resLevel;
+    }
+
+    /**
+     * 设置资源层级
+     *
+     * @param resLevel 资源层级
+     */
+    public void setResLevel(Integer resLevel) {
+        this.resLevel = resLevel;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -249,6 +274,7 @@ public class SysResource implements Serializable {
                 .append(resDesc, that.resDesc)
                 .append(resCreateTime, that.resCreateTime)
                 .append(resDeleteTime, that.resDeleteTime)
+                .append(resLevel, that.resLevel)
                 .isEquals();
     }
 
@@ -264,6 +290,7 @@ public class SysResource implements Serializable {
                 .append(resDesc)
                 .append(resCreateTime)
                 .append(resDeleteTime)
+                .append(resLevel)
                 .toHashCode();
     }
 
@@ -279,6 +306,7 @@ public class SysResource implements Serializable {
                 ", resDesc='" + resDesc + '\'' +
                 ", resCreateTime=" + resCreateTime +
                 ", resDeleteTime=" + resDeleteTime +
+                ", resLevel=" + resLevel +
                 '}';
     }
 }

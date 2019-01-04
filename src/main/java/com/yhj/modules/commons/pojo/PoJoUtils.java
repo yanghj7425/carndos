@@ -18,6 +18,7 @@ public class PoJoUtils {
         SysResource sysResource = new SysResource();
         sysResource.setId(resNode.getId());
         sysResource.setResType("URL");
+        sysResource.setResLevel(resNode.getResLevel());
         sysResource.setResDesc(resNode.getResDesc());
         sysResource.setResFid(resNode.getResFid());
         sysResource.setResUrl(resNode.getResUrl());
@@ -33,6 +34,7 @@ public class PoJoUtils {
     public static ResNode transferSysResource2ResNode(SysResource sysResource) {
         ResNode resNode = new ResNode();
         resNode.setId(sysResource.getId());
+        resNode.setResLevel(sysResource.getResLevel());
         resNode.setResFid(sysResource.getResFid());
         resNode.setLabel(sysResource.getResName());
         resNode.setResUrl(sysResource.getResUrl());
