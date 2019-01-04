@@ -42,10 +42,6 @@ public class ResNode implements Serializable {
      */
     private Integer resStatus;
 
-    /**
-     * sysResource Level
-     */
-    private Integer resLevel;
 
     private List<ResNode> children;
 
@@ -109,13 +105,6 @@ public class ResNode implements Serializable {
         this.children = children;
     }
 
-    public Integer getResLevel() {
-        return resLevel;
-    }
-
-    public void setResLevel(Integer resLevel) {
-        this.resLevel = resLevel;
-    }
 
 
     @Override
@@ -133,7 +122,6 @@ public class ResNode implements Serializable {
                 .append(resDesc, resNode.resDesc)
                 .append(resUrl, resNode.resUrl)
                 .append(resStatus, resNode.resStatus)
-                .append(resLevel, resNode.resLevel)
                 .append(children, resNode.children)
                 .isEquals();
     }
@@ -147,7 +135,6 @@ public class ResNode implements Serializable {
                 .append(resDesc)
                 .append(resUrl)
                 .append(resStatus)
-                .append(resLevel)
                 .append(children)
                 .toHashCode();
     }
@@ -161,7 +148,6 @@ public class ResNode implements Serializable {
                 ", resDesc='" + resDesc + '\'' +
                 ", resUrl='" + resUrl + '\'' +
                 ", resStatus=" + resStatus +
-                ", resLevel=" + resLevel +
                 ", children=" + children +
                 '}';
     }

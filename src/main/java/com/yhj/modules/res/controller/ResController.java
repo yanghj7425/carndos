@@ -28,7 +28,7 @@ public class ResController extends BaseController {
     }
 
     @PostMapping("addRes")
-    public Map createResource( ResNode resNode) {
+    public Map createResource(ResNode resNode) {
         SysResource sysResource = PoJoUtils.transferResNode2SysResource(resNode);
         Long primaryKey = resourceService.insertNewResource(sysResource);
         return renderSuccess("KEY", primaryKey);

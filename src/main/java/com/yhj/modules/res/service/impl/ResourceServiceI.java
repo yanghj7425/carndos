@@ -30,6 +30,7 @@ public class ResourceServiceI extends BaseService<SysResource, Mapper<SysResourc
         return sysResource.getId();
     }
 
+
     @Override
     public List<ResNode> queryResourceTree() {
         List<SysResource> list = resourceMapper.queryResourceOrderById();
