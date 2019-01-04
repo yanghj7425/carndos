@@ -1,12 +1,12 @@
-package com.yhj.modules.sys;
+package com.yhj.modules.user;
 
 import com.alibaba.fastjson.JSON;
 import com.yhj.config.core.RootConfig;
-import com.yhj.modules.sys.entity.SysRole;
-import com.yhj.modules.sys.entity.SysUser;
-import com.yhj.modules.sys.entity.SysUserRole;
-import com.yhj.modules.sys.service.SysRoleService;
-import com.yhj.modules.sys.service.SysUserService;
+import com.yhj.modules.user.entity.SysRole;
+import com.yhj.modules.user.entity.SysUser;
+import com.yhj.modules.user.entity.SysUserRole;
+import com.yhj.modules.user.service.SysRoleService;
+import com.yhj.modules.user.service.SysUserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

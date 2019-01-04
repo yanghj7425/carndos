@@ -67,12 +67,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(preAuthFilter(), AbstractPreAuthenticatedProcessingFilter.class);
 
         http.formLogin()
-                .loginPage("/sys/login")
+                .loginPage("/user/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .successHandler(customLoginSuccessHandler)
                 .failureHandler(customLoginFailureHandler);
-        http.logout().logoutUrl("/sys/logout")
+        http.logout().logoutUrl("/user/logout")
                 .logoutSuccessHandler(customLogoutHandler);
         http.exceptionHandling().accessDeniedHandler(customAccessDeniedHandler);
         http.csrf().disable();

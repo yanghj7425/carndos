@@ -1,10 +1,9 @@
-package com.yhj.modules.sys.service.impl;
+package com.yhj.modules.user.service.impl;
 
 import com.yhj.modules.commons.service.impl.BaseService;
-import com.yhj.modules.sys.dao.SysUserMapper;
-import com.yhj.modules.sys.entity.SysRole;
-import com.yhj.modules.sys.entity.SysUser;
-import com.yhj.modules.sys.service.SysUserService;
+import com.yhj.modules.user.dao.SysUserMapper;
+import com.yhj.modules.user.entity.SysUser;
+import com.yhj.modules.user.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

@@ -1,11 +1,11 @@
-package com.yhj.modules.sys.controller;
+package com.yhj.modules.user.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.yhj.modules.commons.controller.BaseController;
 import com.yhj.modules.commons.util.SecurityUtil;
-import com.yhj.modules.sys.entity.SysRole;
-import com.yhj.modules.sys.service.SysRoleService;
-import com.yhj.modules.sys.service.SysUserService;
+import com.yhj.modules.user.entity.SysRole;
+import com.yhj.modules.user.service.SysRoleService;
+import com.yhj.modules.user.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,24 +16,23 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("sys")
-public class SysController extends BaseController {
+@RequestMapping("user")
+public class SysUserController extends BaseController {
 
     @Autowired
     private SysUserService sysUserService;
 
-
     @Autowired
     private SysRoleService sysRoleService;
 
-    @GetMapping("userInfo")
+    @GetMapping("info")
     @ResponseBody
     public Map userInfo() {
         return renderSuccess("roles", SecurityUtil.getRoles());
     }
 
 
-    @GetMapping("users")
+    @GetMapping("lists")
     @ResponseBody
     public Map queryAllUser() {
         return renderSuccess("users", sysUserService.queryAllUser());
@@ -46,4 +45,9 @@ public class SysController extends BaseController {
         return renderSuccess("roles", JSON.toJSON(roles));
     }
 
+    @RequestMapping("login")
+    public Map login() {
+        System.out.println("login failure");
+        return renderSuccess();
+    }
 }

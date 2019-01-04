@@ -1,4 +1,4 @@
-package com.yhj.modules.sys.entity;
+package com.yhj.modules.user.entity;
 
 import java.io.Serializable;
 

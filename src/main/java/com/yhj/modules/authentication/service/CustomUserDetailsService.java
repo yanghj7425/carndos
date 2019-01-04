@@ -1,8 +1,8 @@
 package com.yhj.modules.authentication.service;
 
-import com.yhj.modules.sys.dao.SysUserMapper;
-import com.yhj.modules.sys.entity.SysUser;
-import com.yhj.modules.sys.entity.SysUserRole;
+import com.yhj.modules.user.dao.SysUserMapper;
+import com.yhj.modules.user.entity.SysUser;
+import com.yhj.modules.user.entity.SysUserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

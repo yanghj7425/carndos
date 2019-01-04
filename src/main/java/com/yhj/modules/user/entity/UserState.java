@@ -1,4 +1,4 @@
-package com.yhj.modules.sys.entity;
+package com.yhj.modules.user.entity;
 
 public interface UserState {
     //激活的用户

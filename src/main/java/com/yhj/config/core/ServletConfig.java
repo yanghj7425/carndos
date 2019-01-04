@@ -42,7 +42,7 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
     }
 
     /**
-     * @param configurer
+     * @param configurer configurer handler
      * @Description: 配置静态资源的处理, 把对静态资源的请求转发的Servelt容器的默认servlet上
      */
     @Override
@@ -87,7 +87,7 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
     /**
      * 跨域
      *
-     * @param registry
+     * @param registry corsRegistry
      */
     @Override
     public void addCorsMappings(CorsRegistry registry) {

@@ -1,7 +1,7 @@
-package com.yhj.modules.sys.dao;
+package com.yhj.modules.user.dao;
 
-import com.yhj.modules.sys.entity.SysUser;
-import com.yhj.modules.sys.entity.SysUserRole;
+import com.yhj.modules.user.entity.SysUser;
+import com.yhj.modules.user.entity.SysUserRole;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
 
