@@ -2,11 +2,11 @@ package com.yhj.modules.user;
 
 import com.alibaba.fastjson.JSON;
 import com.yhj.config.core.RootConfig;
-import com.yhj.modules.user.entity.SysRole;
+import com.yhj.modules.role.entity.SysRole;
 import com.yhj.modules.user.entity.SysUser;
 import com.yhj.modules.user.entity.SysUserRole;
-import com.yhj.modules.user.service.SysRoleService;
-import com.yhj.modules.user.service.SysUserService;
+import com.yhj.modules.role.service.RoleService;
+import com.yhj.modules.user.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +20,11 @@ import java.util.List;
 public class SysUserTest {
 
     @Autowired
-    private SysUserService sysUserService;
+    private UserService sysUserService;
 
 
     @Autowired
-    private SysRoleService sysRoleService;
+    private RoleService sysRoleService;
 
     @Test
     public void queryRolesTest() {

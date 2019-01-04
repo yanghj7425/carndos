@@ -1,4 +1,4 @@
-package com.yhj.modules.user.entity;
+package com.yhj.modules.role.entity;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 

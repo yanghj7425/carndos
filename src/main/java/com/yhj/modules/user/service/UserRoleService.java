@@ -6,7 +6,7 @@ import com.yhj.modules.user.entity.SysUserRole;
 
 import java.util.List;
 
-public interface SysUserRoleService extends BaseServiceI<SysUserRole> {
+public interface UserRoleService extends BaseServiceI<SysUserRole> {
     List<SysUserRole> querySysUserRoleByName(SysUser sysUser);
 
 

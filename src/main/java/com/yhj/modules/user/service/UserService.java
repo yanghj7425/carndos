@@ -5,7 +5,7 @@ import com.yhj.modules.user.entity.SysUser;
 
 import java.util.List;
 
-public interface SysUserService extends BaseServiceI<SysUser> {
+public interface UserService extends BaseServiceI<SysUser> {
     SysUser querySysUserByName(String userName);
 
     List<SysUser> queryAllUser();

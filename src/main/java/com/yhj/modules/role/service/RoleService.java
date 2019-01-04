@@ -1,11 +1,12 @@
-package com.yhj.modules.user.service;
+package com.yhj.modules.role.service;
+
 
 import com.yhj.modules.commons.service.BaseServiceI;
-import com.yhj.modules.user.entity.SysRole;
+import com.yhj.modules.role.entity.SysRole;
 
 import java.util.List;
 
-public interface SysRoleService extends BaseServiceI<SysRole> {
+public interface RoleService extends BaseServiceI<SysRole> {
 
 
     /**

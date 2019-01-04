@@ -40,4 +40,17 @@ public class ResController extends BaseController {
         return renderSuccess();
     }
 
+    /**
+     * assign resource to a role
+     * This two parameters  holds the mapping of resources and roles submitted by the web client
+     *
+     * @param roleIds the array of role`s id
+     * @param resId   SysResource Id
+     * @return map
+     */
+    @PostMapping("addRoles")
+    public Map saveResToRole(@RequestBody String roleIds[], @RequestBody String resId) {
+        System.out.println(resId);
+        return renderSuccess();
+    }
 }

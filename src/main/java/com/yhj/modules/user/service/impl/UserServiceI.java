@@ -3,7 +3,7 @@ package com.yhj.modules.user.service.impl;
 import com.yhj.modules.commons.service.impl.BaseService;
 import com.yhj.modules.user.dao.SysUserMapper;
 import com.yhj.modules.user.entity.SysUser;
-import com.yhj.modules.user.service.SysUserService;
+import com.yhj.modules.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -12,8 +12,8 @@ import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
-@Service(value = "sysUserService")
-public class SysUserServiceI extends BaseService<SysUser, Mapper<SysUser>> implements SysUserService {
+@Service(value = "userService")
+public class UserServiceI extends BaseService<SysUser, Mapper<SysUser>> implements UserService {
 
     @Autowired
     private SysUserMapper sysUserMapper;
