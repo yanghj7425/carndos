@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yhj.modules.res.dao.ResourceMapper">
-    <resultMap id="BaseResultMap" type="com.yhj.modules.res.entity.SysResource">
+    <resultMap id="SysResourceResultMap" type="com.yhj.modules.res.entity.SysResource">
         <!--
           WARNING - @mbg.generated
         -->
@@ -16,7 +16,6 @@
         <result column="res_delete_time" jdbcType="TIMESTAMP" property="resDeleteTime"/>
     </resultMap>
 
-
     <parameterMap id="sysResource" type="com.yhj.modules.res.entity.SysResource"/>
 
     <insert id="insertNewResource" parameterMap="sysResource" useGeneratedKeys="true"
@@ -26,7 +25,7 @@
             (#{resFid}, #{resName}, #{resType}, #{resUrl}, #{resStatus}, #{resDesc}, now());
     </insert>
 
-    <select id="queryResourceOrderById" resultMap="BaseResultMap">
+    <select id="queryResourceOrderById" resultMap="SysResourceResultMap">
         SELECT
             id,
             res_fid,

@@ -1,4 +1,4 @@
-package com.yhj.modules.res.entity;
+package com.yhj.modules.res.pojo;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * @description 角色资源映射
  */
-public class ResRole implements Serializable {
+public class PoJoResRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -40,7 +40,7 @@ public class ResRole implements Serializable {
     private String resDesc;
 
 
-    public ResRole(Long id, String roleName, String resUrl, String resName, String resDesc) {
+    public PoJoResRole(Long id, String roleName, String resUrl, String resName, String resDesc) {
         this.id = id;
         this.roleName = roleName;
         this.resUrl = resUrl;
@@ -94,14 +94,14 @@ public class ResRole implements Serializable {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        ResRole resRole = (ResRole) o;
+        PoJoResRole poJoResRole = (PoJoResRole) o;
 
         return new EqualsBuilder()
-                .append(id, resRole.id)
-                .append(roleName, resRole.roleName)
-                .append(resUrl, resRole.resUrl)
-                .append(resName, resRole.resName)
-                .append(resDesc, resRole.resDesc)
+                .append(id, poJoResRole.id)
+                .append(roleName, poJoResRole.roleName)
+                .append(resUrl, poJoResRole.resUrl)
+                .append(resName, poJoResRole.resName)
+                .append(resDesc, poJoResRole.resDesc)
                 .isEquals();
     }
 

@@ -2,9 +2,10 @@ package com.yhj.modules.res.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.yhj.modules.commons.controller.BaseController;
-import com.yhj.modules.commons.pojo.PoJoUtils;
+import com.yhj.modules.commons.util.PoJoUtils;
 import com.yhj.modules.res.entity.SysResource;
-import com.yhj.modules.res.pojo.ResNode;
+import com.yhj.modules.res.pojo.PoJoResNode;
+import com.yhj.modules.res.service.ResRoleService;
 import com.yhj.modules.res.service.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,22 +22,40 @@ public class ResController extends BaseController {
     @Autowired
     private ResourceService resourceService;
 
-    @GetMapping("resTree")
-    public Map queryResList() {
-        List<ResNode> resTree = resourceService.queryResourceTree();
+
+    @Autowired
+    private ResRoleService resRoleService;
+
+    /**
+     * @return map
+     * @description query access control list tree
+     */
+    @GetMapping("tree")
+    public Map queryResTree() {
+        List<PoJoResNode> resTree = resourceService.queryResTree();
         return renderSuccess("tree", JSON.toJSON(resTree));
     }
 
-    @PostMapping("addRes")
-    public Map createResource(ResNode resNode) {
-        SysResource sysResource = PoJoUtils.transferResNode2SysResource(resNode);
+    /**
+     * @param poJoResNode been added data
+     * @return primary key
+     * @description insert one tree node,that web client submit
+     */
+    @PostMapping("create")
+    public Map createResource(PoJoResNode poJoResNode) {
+        SysResource sysResource = PoJoUtils.transferResNode2SysResource(poJoResNode);
         Long primaryKey = resourceService.insertNewResource(sysResource);
-        return renderSuccess("KEY", primaryKey);
+        return renderSuccess(primaryKey);
     }
 
-    @PostMapping("updateRes")
-    public Map updateResource(ResNode resNode) {
-        resourceService.updateResource(PoJoUtils.transferResNode2SysResource(resNode));
+    /**
+     * @param poJoResNode be updated node
+     * @return Map
+     * @description update a resource by Id
+     */
+    @PostMapping("update")
+    public Map updateResource(PoJoResNode poJoResNode) {
+        resourceService.updateResource(PoJoUtils.transferResNode2SysResource(poJoResNode));
         return renderSuccess();
     }
 
@@ -48,9 +67,22 @@ public class ResController extends BaseController {
      * @param resId   SysResource Id
      * @return map
      */
-    @PostMapping("addRoles")
-    public Map saveResToRole(@RequestBody String roleIds[], @RequestBody String resId) {
-        System.out.println(resId);
-        return renderSuccess();
+    @PostMapping("assign")
+    public Map saveResToRole(@RequestParam("roleIds") String[] roleIds, @RequestParam("resId") String resId) {
+        List<Integer> list = resRoleService.saveResToRole(resId, roleIds);
+        return renderSuccess(list);
     }
+
+    /**
+     * @param resId Resource ID parameter
+     * @return role`s ids array
+     * @description this method will return a role`s id array, that roles can access resource which id is resId
+     */
+    @GetMapping("assigned/{resId}")
+    public Map queryResAssignedRoleIds(@PathVariable("resId") String resId) {
+        List<Integer> roleIds = resRoleService.queryResAssignedRoleIds(resId);
+        return renderSuccess("roleIds", roleIds);
+    }
+
+
 }

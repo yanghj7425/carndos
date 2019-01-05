@@ -42,6 +42,9 @@ public final class CustomFinalConstant {
     // error status
     public static final int ERROR_CODE = 5000;
 
+    // general key
+    public static final String RET_KEY = "RET";
+
     private CustomFinalConstant() {
 
     }

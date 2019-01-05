@@ -1,14 +1,13 @@
 package com.yhj.modules.res.pojo;
 
 import com.google.common.collect.Lists;
-import com.yhj.modules.res.entity.SysResource;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class ResNode implements Serializable {
+public class PoJoResNode implements Serializable {
 
     private static final long serialVersionUID = -291851707773983421L;
     /**
@@ -37,15 +36,15 @@ public class ResNode implements Serializable {
     private String resUrl;
 
     /**
-     * 设置资源状态: 1 有效, 0 无效
+     *  1 有效, 0 无效
      * sysResource status
      */
     private Integer resStatus;
 
 
-    private List<ResNode> children;
+    private List<PoJoResNode> children;
 
-    public ResNode() {
+    public PoJoResNode() {
         children = Lists.newArrayList();
     }
 
@@ -97,11 +96,11 @@ public class ResNode implements Serializable {
         this.resStatus = resStatus;
     }
 
-    public List<ResNode> getChildren() {
+    public List<PoJoResNode> getChildren() {
         return children;
     }
 
-    public void setChildren(List<ResNode> children) {
+    public void setChildren(List<PoJoResNode> children) {
         this.children = children;
     }
 
@@ -113,16 +112,16 @@ public class ResNode implements Serializable {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        ResNode resNode = (ResNode) o;
+        PoJoResNode poJoResNode = (PoJoResNode) o;
 
         return new EqualsBuilder()
-                .append(id, resNode.id)
-                .append(resFid, resNode.resFid)
-                .append(label, resNode.label)
-                .append(resDesc, resNode.resDesc)
-                .append(resUrl, resNode.resUrl)
-                .append(resStatus, resNode.resStatus)
-                .append(children, resNode.children)
+                .append(id, poJoResNode.id)
+                .append(resFid, poJoResNode.resFid)
+                .append(label, poJoResNode.label)
+                .append(resDesc, poJoResNode.resDesc)
+                .append(resUrl, poJoResNode.resUrl)
+                .append(resStatus, poJoResNode.resStatus)
+                .append(children, poJoResNode.children)
                 .isEquals();
     }
 
@@ -141,7 +140,7 @@ public class ResNode implements Serializable {
 
     @Override
     public String toString() {
-        return "ResNode{" +
+        return "PoJoResNode{" +
                 "id=" + id +
                 ", resFid=" + resFid +
                 ", label='" + label + '\'' +

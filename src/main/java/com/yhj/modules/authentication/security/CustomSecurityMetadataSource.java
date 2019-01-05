@@ -1,7 +1,7 @@
 package com.yhj.modules.authentication.security;
 
 import com.yhj.modules.res.dao.ResRoleMapper;
-import com.yhj.modules.res.entity.ResRole;
+import com.yhj.modules.res.pojo.PoJoResRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -79,11 +79,11 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
     public Map<RequestMatcher, Collection<ConfigAttribute>> buildRequestMap() {
         LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> matcherCollectionLinkedHashMap = new LinkedHashMap<>();
 
-        List<ResRole> resourceList = resRoleMapper.queryAllResRole();
+        List<PoJoResRole> resourceList = resRoleMapper.queryAllResRole();
 
-        for (ResRole resRole : resourceList) {
+        for (PoJoResRole poJoResRole : resourceList) {
 
-            RequestMatcher requestMatcher = getRequestMatcher(resRole.getResUrl());
+            RequestMatcher requestMatcher = getRequestMatcher(poJoResRole.getResUrl());
 
             Collection<ConfigAttribute> multipleRoles;
 
@@ -94,7 +94,7 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
             } else {
                 multipleRoles = new ArrayList<>();
             }
-            multipleRoles.add(new SecurityConfig(resRole.getRoleName()));
+            multipleRoles.add(new SecurityConfig(poJoResRole.getRoleName()));
             // bad small
 
             matcherCollectionLinkedHashMap.put(requestMatcher, multipleRoles);

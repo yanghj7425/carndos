@@ -21,6 +21,17 @@ public class BaseController {
     }
 
     /**
+     * @param obj
+     * @return Map
+     * @description default object`s key is 'KEY'
+     * @see BaseController#renderSuccess(java.lang.String, java.lang.Object)
+     */
+    protected Map renderSuccess(Object obj) {
+        return renderSuccess(CustomFinalConstant.RET_KEY, obj);
+    }
+
+
+    /**
      * @param retKey return data key
      * @param obj    return data object
      * @return map
