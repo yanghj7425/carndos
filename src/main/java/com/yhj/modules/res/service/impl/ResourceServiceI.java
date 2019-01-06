@@ -55,8 +55,6 @@ public class ResourceServiceI extends BaseService<SysResource, Mapper<SysResourc
     }
 
 
-
-
     /**
      * @param poJoResNode          the pojo object of sysResource that would be add in PoJoResNode`s children
      * @param childPoJoResNodeList children list

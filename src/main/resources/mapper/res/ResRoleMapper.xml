@@ -31,7 +31,14 @@
     <update id="updateResStatus" parameterType="map">
         update res_role
         set res_status = #{resStatus}
-        where res_id = #{resId} and role_id not in #{roleIds}
+        where res_id = #{resId}
+        <if test="roleIds != null and roleIds.length > 0 ">
+            and role_id not in
+            <foreach collection="roleIds" index="index" item="item" open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+
     </update>
 
     <select id="queryAllResRole" resultMap="PoJoResRoleResultMap">

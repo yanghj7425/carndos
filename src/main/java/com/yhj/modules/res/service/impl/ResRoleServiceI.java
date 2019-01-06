@@ -74,3 +74,4 @@ public class ResRoleServiceI extends BaseService<PoJoResRole, Mapper<PoJoResRole
         return resRoleMapper.queryResAssignedRoleIds(resId);
     }
 }
+
