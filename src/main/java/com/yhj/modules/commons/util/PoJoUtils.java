@@ -3,6 +3,9 @@ package com.yhj.modules.commons.util;
 import com.yhj.modules.res.entity.SysResource;
 import com.yhj.modules.res.pojo.PoJoResNode;
 
+/**
+ * this class transfer pojo object to entity object  vice versa
+ */
 public class PoJoUtils {
 
     private PoJoUtils() {

@@ -266,6 +266,7 @@ public final class VideoUtils {
     /**
      * @return string
      * @description 获取系统类型
+     * @link http://lopica.sourceforge.net/os.html
      */
     private static String getSystemType() {
         return System.getProperty("os.name").toLowerCase();
