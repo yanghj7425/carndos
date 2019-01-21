@@ -18,19 +18,6 @@ import javax.sql.DataSource;
 public class RootConfig {
 
     /**
-     * 事务管理
-     * @param dataSource
-     */
-    @Bean
-    public PlatformTransactionManager transactionManager(DataSource dataSource) {
-
-        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
-        transactionManager.setDataSource(dataSource);
-
-        return transactionManager;
-    }
-
-    /**
      *  系统用户加密
      */
     @Bean

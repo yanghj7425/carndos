@@ -27,6 +27,11 @@
         <mybatis.version>3.4.1</mybatis.version>
         <mybatis-spring.version>1.3.2</mybatis-spring.version>
         <commons.version>3.0</commons.version>
+
+        <activiti.version>5.21.0</activiti.version>
+
+
+        <jackson.version>2.5.0</jackson.version>
     </properties>
 
 
@@ -122,28 +127,70 @@
         <!-- spring-security  end -->
 
 
+        <!-- Activiti -->
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-engine</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-spring</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-explorer</artifactId>
+            <version>${activiti.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>vaadin</artifactId>
+                    <groupId>com.vaadin</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>dcharts-widget</artifactId>
+                    <groupId>org.vaadin.addons</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>activiti-simple-workflow</artifactId>
+                    <groupId>org.activiti</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-modeler</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-diagram-rest</artifactId>
+            <version>${activiti.version}</version>
+        </dependency>
+
+
         <!-- log start -->
 
         <!--<dependency>-->
-            <!--<groupId>ch.qos.logback</groupId>-->
-            <!--<artifactId>logback-classic</artifactId>-->
-            <!--<version>${logback.version}</version>-->
+        <!--<groupId>ch.qos.logback</groupId>-->
+        <!--<artifactId>logback-classic</artifactId>-->
+        <!--<version>${logback.version}</version>-->
         <!--</dependency>-->
 
         <!--<dependency>-->
-            <!--<groupId>ch.qos.logback</groupId>-->
-            <!--<artifactId>logback-core</artifactId>-->
-            <!--<version>${logback.version}</version>-->
+        <!--<groupId>ch.qos.logback</groupId>-->
+        <!--<artifactId>logback-core</artifactId>-->
+        <!--<version>${logback.version}</version>-->
         <!--</dependency>-->
         <!--<dependency>-->
-            <!--<groupId>ch.qos.logback</groupId>-->
-            <!--<artifactId>logback-access</artifactId>-->
-            <!--<version>${logback.version}</version>-->
+        <!--<groupId>ch.qos.logback</groupId>-->
+        <!--<artifactId>logback-access</artifactId>-->
+        <!--<version>${logback.version}</version>-->
         <!--</dependency>-->
         <!--<dependency>-->
-            <!--<groupId>org.logback-extensions</groupId>-->
-            <!--<artifactId>logback-ext-spring</artifactId>-->
-            <!--<version>${logback-ext-spring.version}</version>-->
+        <!--<groupId>org.logback-extensions</groupId>-->
+        <!--<artifactId>logback-ext-spring</artifactId>-->
+        <!--<version>${logback-ext-spring.version}</version>-->
         <!--</dependency>-->
 
 
@@ -261,6 +308,23 @@
             <version>27.0.1-jre</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
 
 
     </dependencies>

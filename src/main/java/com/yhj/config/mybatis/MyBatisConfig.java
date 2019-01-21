@@ -13,14 +13,17 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
 import tk.mybatis.mapper.common.BaseMapper;
 import tk.mybatis.spring.mapper.MapperScannerConfigurer;
 
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.util.Properties;
 
 @Configuration
-@PropertySource(value = {"classpath:dataSource.properties"})
+@PropertySource(value = {"classpath:carndos.properties"})
 public class MyBatisConfig implements EnvironmentAware {
 
     private Environment environment;
@@ -38,6 +41,20 @@ public class MyBatisConfig implements EnvironmentAware {
         dataSource.setUsername(environment.getRequiredProperty("mysql.database.user"));
         dataSource.setPassword(environment.getRequiredProperty("mysql.database.password"));
         return dataSource;
+    }
+
+
+    /**
+     * 事务管理
+     * @param dataSource
+     */
+    @Bean
+    public PlatformTransactionManager transactionManager(DataSource dataSource) {
+
+        DataSourceTransactionManager transactionManager = new DataSourceTransactionManager();
+        transactionManager.setDataSource(dataSource);
+
+        return transactionManager;
     }
 
     /**
