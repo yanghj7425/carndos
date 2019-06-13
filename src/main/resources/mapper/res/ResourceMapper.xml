@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.carndos.modules.sys.res.dao.ResourceMapper">
+<mapper namespace="com.carndos.modules.sys.res.mapper.ResourceMapper">
     <resultMap id="SysResourceResultMap" type="com.carndos.modules.sys.res.entity.SysResource">
         <!--
           WARNING - @mbg.generated

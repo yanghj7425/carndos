@@ -1,6 +1,6 @@
 package com.carndos.modules.authentication.service;
 
-import com.carndos.modules.sys.user.dao.SysUserMapper;
+import com.carndos.modules.sys.user.mapper.SysUserMapper;
 import com.carndos.modules.sys.user.entity.SysUser;
 import com.carndos.modules.sys.user.entity.SysUserRole;
 import org.slf4j.Logger;
@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
 
-    @Autowired
+
+
+    @Resource
     private SysUserMapper sysUserMapper;
 
 

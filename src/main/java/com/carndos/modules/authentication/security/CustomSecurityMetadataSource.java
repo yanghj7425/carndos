@@ -1,6 +1,6 @@
 package com.carndos.modules.authentication.security;
 
-import com.carndos.modules.sys.res.dao.ResRoleMapper;
+import com.carndos.modules.sys.res.mapper.ResRoleMapper;
 import com.carndos.modules.sys.res.pojo.PoJoResRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

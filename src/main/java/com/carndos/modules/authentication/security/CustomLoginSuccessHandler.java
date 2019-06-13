@@ -1,6 +1,6 @@
 package com.carndos.modules.authentication.security;
 
-import com.google.common.collect.Maps;
+import cn.hutool.core.collection.CollectionUtil;
 import com.carndos.modules.authentication.utils.JWTUtils;
 import com.carndos.modules.commons.entitiy.response.RespBean;
 import org.springframework.security.core.Authentication;
@@ -25,7 +25,7 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
         String userName = ((User) authentication.getPrincipal()).getUsername();
-        Map<String, Object> tokenMap = Maps.newHashMap();
+        Map<String, Object> tokenMap = CollectionUtil.newHashMap();
         tokenMap.put("token", JWTUtils.encoder(userName, 30));
         RespBean.ok(response, tokenMap).writeJsonToClient();
     }

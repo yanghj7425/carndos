@@ -1,7 +1,7 @@
 package com.carndos.modules.commons.entitiy.response;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.fastjson.JSONObject;
-import com.google.common.collect.Maps;
 import com.carndos.modules.commons.components.CustomFinalConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ public class RespBean {
     private Object object;
 
     public static RespBean ok(HttpServletResponse response, String message) {
-        Map<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = CollectionUtil.newHashMap();
         map.put(CustomFinalConstant.MSG_KEY, message);
         map.put(CustomFinalConstant.STATUS_KEY, CustomFinalConstant.SUCCESS_CODE);
         return new RespBean(response, map);
@@ -37,7 +37,7 @@ public class RespBean {
 
 
     public static RespBean error(HttpServletResponse response, int status, String message) {
-        Map<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = CollectionUtil.newHashMap();
         map.put(CustomFinalConstant.STATUS_KEY, status);
         map.put(CustomFinalConstant.MSG_KEY, message);
         return new RespBean(response, map);

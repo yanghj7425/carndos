@@ -1,7 +1,7 @@
 package com.carndos.modules.sys.user.service.impl;
 
 import com.carndos.modules.commons.service.impl.BaseService;
-import com.carndos.modules.sys.user.dao.SysUserMapper;
+import com.carndos.modules.sys.user.mapper.SysUserMapper;
 import com.carndos.modules.sys.user.entity.SysUser;
 import com.carndos.modules.sys.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +10,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import tk.mybatis.mapper.common.Mapper;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service(value = "userService")
 public class UserServiceI extends BaseService<SysUser, Mapper<SysUser>> implements UserService {
 
-    @Autowired
+    @Resource
     private SysUserMapper sysUserMapper;
 
 
@@ -25,7 +26,8 @@ public class UserServiceI extends BaseService<SysUser, Mapper<SysUser>> implemen
     @Transactional
     public int insert(SysUser sysUser) {
         //给密码编码后存储
-        sysUser.setUserPasswd(passwordEncoder.encode(sysUser.getUserName()));
+
+        sysUser.setUserPasswd(sysUser.getUserPasswd());
 
         return super.insert(sysUser);
     }
@@ -39,7 +41,6 @@ public class UserServiceI extends BaseService<SysUser, Mapper<SysUser>> implemen
     public List<SysUser> queryAllUser() {
         return sysUserMapper.selectAll();
     }
-
 
 
     @Autowired

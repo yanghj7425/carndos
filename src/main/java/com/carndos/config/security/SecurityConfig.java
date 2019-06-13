@@ -1,12 +1,10 @@
 package com.carndos.config.security;
 
-import com.carndos.config.mybatis.MyBatisConfig;
 import com.carndos.modules.authentication.filter.PreAuthFilter;
 import com.carndos.modules.authentication.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -16,6 +14,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
@@ -28,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @EnableWebSecurity
-@Import(MyBatisConfig.class)
 @Configuration
 @CrossOrigin
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -64,7 +63,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //加入自定义过滤器
         http.addFilterBefore(customFilterSecurityInterceptor, FilterSecurityInterceptor.class);
+
+
         http.addFilterBefore(preAuthFilter(), AbstractPreAuthenticatedProcessingFilter.class);
+
+//        http.authorizeRequests().anyRequest().authenticated();
+
 
         http.formLogin()
                 .loginPage("/user/login")
@@ -80,6 +84,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(corsFilter(), CorsFilter.class);
 
     }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder());
+    }
+
+
+    /**
+     * 系统用户加密
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
 
     @Bean
     public UserDetailsByNameServiceWrapper userDetailsServiceWrapper(UserDetailsService customUserDetailService) {

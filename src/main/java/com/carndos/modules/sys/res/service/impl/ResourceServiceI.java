@@ -1,12 +1,12 @@
 package com.carndos.modules.sys.res.service.impl;
 
-import com.carndos.modules.sys.res.dao.ResourceMapper;
+import cn.hutool.core.collection.CollectionUtil;
+import com.carndos.modules.commons.service.impl.BaseService;
+import com.carndos.modules.commons.util.PoJoUtils;
+import com.carndos.modules.sys.res.mapper.ResourceMapper;
 import com.carndos.modules.sys.res.entity.SysResource;
 import com.carndos.modules.sys.res.pojo.PoJoResNode;
 import com.carndos.modules.sys.res.service.ResourceService;
-import com.google.common.collect.Lists;
-import com.carndos.modules.commons.util.PoJoUtils;
-import com.carndos.modules.commons.service.impl.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
@@ -34,7 +34,7 @@ public class ResourceServiceI extends BaseService<SysResource, Mapper<SysResourc
     @Override
     public List<PoJoResNode> queryResTree() {
         List<SysResource> list = resourceMapper.queryResourceOrderById();
-        List<PoJoResNode> poJoResNodeList = Lists.newArrayList();
+        List<PoJoResNode> poJoResNodeList = CollectionUtil.newArrayList();
         for (SysResource sysResource : list) {
             PoJoResNode poJoResNode = PoJoUtils.transferSysResource2ResNode(sysResource);
             boolean isPutted = fillResNodeList(poJoResNode, poJoResNodeList);

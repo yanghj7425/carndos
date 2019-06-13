@@ -8,10 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-@Controller
+@RestController
 @RequestMapping("user")
 public class UserController extends BaseController {
 
@@ -24,7 +25,6 @@ public class UserController extends BaseController {
      * @return map
      */
     @GetMapping("info")
-    @ResponseBody
     public Map userInfo() {
         return renderSuccess("roles", SecurityUtil.getRoles());
     }
@@ -35,7 +35,6 @@ public class UserController extends BaseController {
      * @return map
      */
     @GetMapping("lists")
-    @ResponseBody
     public Map queryAllUser() {
         return renderSuccess("users", userService.queryAllUser());
     }

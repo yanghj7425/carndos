@@ -1,9 +1,30 @@
-*.iml
+HELP.md
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+.mvn
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
 .idea
-out/*
-target/*
-out/*
-sonar*
-classes/*
-.scannerwork/*
-logs/*
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/build/
+
+### VS Code ###
+.vscode/

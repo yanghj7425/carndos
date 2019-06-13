@@ -1,6 +1,6 @@
 package com.carndos.modules.commons.controller;
 
-import com.google.common.collect.Maps;
+import cn.hutool.core.collection.CollectionUtil;
 import com.carndos.modules.commons.components.CustomFinalConstant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -38,7 +38,7 @@ public class BaseController {
      * @description this method is render success status and data signal information
      */
     protected Map renderSuccess(String retKey, Object obj) {
-        Map<String, Object> map = Maps.newHashMap();
+        Map<String, Object> map = CollectionUtil.newHashMap();
         map.put(retKey, obj);
         map.put(CustomFinalConstant.STATUS_KEY, CustomFinalConstant.SUCCESS_CODE);
         if (logger.isErrorEnabled()) {

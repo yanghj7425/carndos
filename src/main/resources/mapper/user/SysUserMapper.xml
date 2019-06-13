@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.carndos.modules.sys.user.dao.SysUserMapper">
+<mapper namespace="com.carndos.modules.sys.user.mapper.SysUserMapper">
     <resultMap id="BaseResultMap" type="com.carndos.modules.sys.user.entity.SysUser">
         <!--
           WARNING - @mbg.generated

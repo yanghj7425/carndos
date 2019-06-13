@@ -1,12 +1,11 @@
 package com.carndos.modules.sys.res.service.impl;
 
-import com.carndos.modules.sys.res.dao.ResRoleMapper;
+import cn.hutool.core.collection.CollectionUtil;
+import com.carndos.modules.commons.service.impl.BaseService;
+import com.carndos.modules.sys.res.mapper.ResRoleMapper;
 import com.carndos.modules.sys.res.entity.SysResRole;
 import com.carndos.modules.sys.res.pojo.PoJoResRole;
 import com.carndos.modules.sys.res.service.ResRoleService;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.carndos.modules.commons.service.impl.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,7 +35,7 @@ public class ResRoleServiceI extends BaseService<PoJoResRole, Mapper<PoJoResRole
      */
     @Override
     public List<Integer> saveResToRole(String resId, String[] roleIds) {
-        List<Integer> list = Lists.newArrayList();
+        List<Integer> list = CollectionUtil.newArrayList();
         SysResRole sysResRole = new SysResRole();
         sysResRole.setResId(resId);
 
@@ -57,7 +56,7 @@ public class ResRoleServiceI extends BaseService<PoJoResRole, Mapper<PoJoResRole
      * @return count of updated records
      */
     public Integer updateResStatus(String resStatus, String resId, String[] roleIds) {
-        Map<String, Object> resMap = Maps.newHashMap();
+        Map<String, Object> resMap = CollectionUtil.newHashMap();
         resMap.put("resStatus", resStatus);
         resMap.put("resId", resId);
         resMap.put("roleIds", roleIds);

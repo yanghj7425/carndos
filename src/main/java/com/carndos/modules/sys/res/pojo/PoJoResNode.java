@@ -1,10 +1,11 @@
 package com.carndos.modules.sys.res.pojo;
 
-import com.google.common.collect.Lists;
+import cn.hutool.core.collection.CollectionUtil;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PoJoResNode implements Serializable {
@@ -36,7 +37,7 @@ public class PoJoResNode implements Serializable {
     private String resUrl;
 
     /**
-     *  1 有效, 0 无效
+     * 1 有效, 0 无效
      * sysResource status
      */
     private Integer resStatus;
@@ -45,7 +46,7 @@ public class PoJoResNode implements Serializable {
     private List<PoJoResNode> children;
 
     public PoJoResNode() {
-        children = Lists.newArrayList();
+        children = CollectionUtil.newArrayList();
     }
 
     public Long getId() {
@@ -103,7 +104,6 @@ public class PoJoResNode implements Serializable {
     public void setChildren(List<PoJoResNode> children) {
         this.children = children;
     }
-
 
 
     @Override
