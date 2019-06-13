@@ -15,7 +15,7 @@ import java.util.List;
  * @param <M>
  */
 @Transactional(transactionManager = "transactionManager")
-public abstract class BaseService<T, M extends Mapper<T>> implements BaseServiceI<T> {
+public abstract class AbstractBaseService<T, M extends Mapper<T>> implements BaseServiceI<T> {
 
     protected final Logger logger = LoggerFactory.getLogger(getClass());
 

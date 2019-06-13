@@ -1,7 +1,7 @@
 package com.carndos.modules.sys.res.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.carndos.modules.commons.service.impl.BaseService;
+import com.carndos.modules.commons.service.impl.AbstractBaseService;
 import com.carndos.modules.sys.res.mapper.ResRoleMapper;
 import com.carndos.modules.sys.res.entity.SysResRole;
 import com.carndos.modules.sys.res.pojo.PoJoResRole;
@@ -16,7 +16,7 @@ import java.util.Map;
 
 @Service("resRoleService")
 @Transactional(rollbackFor = {Exception.class})
-public class ResRoleServiceI extends BaseService<PoJoResRole, Mapper<PoJoResRole>> implements ResRoleService {
+public class ResRoleServiceI extends AbstractBaseService<PoJoResRole, Mapper<PoJoResRole>> implements ResRoleService {
 
     @Autowired
     private ResRoleMapper resRoleMapper;

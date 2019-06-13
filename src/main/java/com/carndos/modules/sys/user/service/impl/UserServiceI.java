@@ -1,6 +1,6 @@
 package com.carndos.modules.sys.user.service.impl;
 
-import com.carndos.modules.commons.service.impl.BaseService;
+import com.carndos.modules.commons.service.impl.AbstractBaseService;
 import com.carndos.modules.sys.user.mapper.SysUserMapper;
 import com.carndos.modules.sys.user.entity.SysUser;
 import com.carndos.modules.sys.user.service.UserService;
@@ -14,7 +14,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service(value = "userService")
-public class UserServiceI extends BaseService<SysUser, Mapper<SysUser>> implements UserService {
+public class UserServiceI extends AbstractBaseService<SysUser, Mapper<SysUser>> implements UserService {
 
     @Resource
     private SysUserMapper sysUserMapper;

@@ -1,22 +1,22 @@
 package com.carndos.modules.sys.res.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.carndos.modules.commons.service.impl.BaseService;
+import com.carndos.modules.commons.service.impl.AbstractBaseService;
 import com.carndos.modules.commons.util.PoJoUtils;
-import com.carndos.modules.sys.res.mapper.ResourceMapper;
 import com.carndos.modules.sys.res.entity.SysResource;
+import com.carndos.modules.sys.res.mapper.ResourceMapper;
 import com.carndos.modules.sys.res.pojo.PoJoResNode;
 import com.carndos.modules.sys.res.service.ResourceService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.common.Mapper;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @Service("resourceService")
-public class ResourceServiceI extends BaseService<SysResource, Mapper<SysResource>> implements ResourceService {
+public class ResourceServiceI extends AbstractBaseService<SysResource, Mapper<SysResource>> implements ResourceService {
 
-    @Autowired
+    @Resource
     private ResourceMapper resourceMapper;
 
     @Override
