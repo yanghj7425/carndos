@@ -1,5 +1,17 @@
 
 
+
+## 阿里 maven 仓库
+```xml
+  <mirror>
+      <id>nexus-aliyun</id>
+      <mirrorOf>*</mirrorOf>
+      <name>Nexus aliyun</name>
+      <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+  </mirror>
+```
+
+
 ## 鸣谢
 - 参考资料
     - [spring security 参考手册](https://springcloud.cc/spring-security-zhcn.html)
