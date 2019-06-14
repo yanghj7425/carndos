@@ -1,5 +1,6 @@
 package com.carndos.modules.user.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
@@ -26,6 +27,7 @@ public class SysUser implements Serializable, UserState {
      * 用户密码
      */
     @Column(name = "user_passwd")
+    @JSONField(serialize = false)
     private String userPasswd;
 
     /**
@@ -38,6 +40,7 @@ public class SysUser implements Serializable, UserState {
      * 用户描述
      */
     @Column(name = "user_desc")
+    @JSONField(serialize = false)
     private String userDesc;
 
     /**

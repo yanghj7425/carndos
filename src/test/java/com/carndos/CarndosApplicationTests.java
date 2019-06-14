@@ -29,7 +29,7 @@ public class CarndosApplicationTests {
 
         System.out.println(pageParam);
         PageInfo<SysUser> sysUserPageInfo = userService.queryForPage(pageParam);
-        System.out.println(sysUserPageInfo);
+        System.out.println(sysUserPageInfo.getList());
 
     }
 
