@@ -1,7 +1,7 @@
 package com.carndos.modules.authentication.security;
 
 
-import com.carndos.modules.commons.entitiy.response.RespBean;
+import com.carndos.modules.commons.pojo.RespBean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;

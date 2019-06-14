@@ -1,11 +1,10 @@
 package com.carndos.modules.authentication.service;
 
-import com.carndos.modules.sys.user.mapper.SysUserMapper;
-import com.carndos.modules.sys.user.entity.SysUser;
-import com.carndos.modules.sys.user.entity.SysUserRole;
+import com.carndos.modules.user.dao.SysUserMapper;
+import com.carndos.modules.user.entity.SysUser;
+import com.carndos.modules.user.entity.SysUserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

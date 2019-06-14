@@ -1,7 +1,7 @@
 package com.carndos.modules.commons.util;
 
-import com.carndos.modules.sys.res.entity.SysResource;
-import com.carndos.modules.sys.res.pojo.PoJoResNode;
+import com.carndos.modules.res.entity.SysResource;
+import com.carndos.modules.res.pojo.ResBO;
 
 /**
  * this class transfer pojo object to entity object  vice versa
@@ -13,11 +13,11 @@ public class PoJoUtils {
     }
 
     /**
-     * @param poJoResNode Instances that want to be transformed into PoJoResNode objects
+     * @param poJoResNode Instances that want to be transformed into ResBO objects
      * @return SysResource
-     * translate PoJoResNode Object to SysResource Object
+     * translate ResBO Object to SysResource Object
      */
-    public static SysResource transferResNode2SysResource(PoJoResNode poJoResNode) {
+    public static SysResource transferResNode2SysResource(ResBO poJoResNode) {
         SysResource sysResource = new SysResource();
         sysResource.setId(poJoResNode.getId());
         sysResource.setResType("URL");
@@ -31,17 +31,17 @@ public class PoJoUtils {
 
     /**
      * @param sysResource Instances that want to be transformed into SysResource objects
-     * @return PoJoResNode
+     * @return ResBO
      */
-    public static PoJoResNode transferSysResource2ResNode(SysResource sysResource) {
-        PoJoResNode poJoResNode = new PoJoResNode();
-        poJoResNode.setId(sysResource.getId());
-        poJoResNode.setResFid(sysResource.getResFid());
-        poJoResNode.setLabel(sysResource.getResName());
-        poJoResNode.setResUrl(sysResource.getResUrl());
-        poJoResNode.setResDesc(sysResource.getResDesc());
-        poJoResNode.setResStatus(sysResource.getResStatus());
-        return poJoResNode;
+    public static ResBO transferSysResource2ResNode(SysResource sysResource) {
+        ResBO resBO = new ResBO();
+        resBO.setId(sysResource.getId());
+        resBO.setResFid(sysResource.getResFid());
+        resBO.setLabel(sysResource.getResName());
+        resBO.setResUrl(sysResource.getResUrl());
+        resBO.setResDesc(sysResource.getResDesc());
+        resBO.setResStatus(sysResource.getResStatus());
+        return resBO;
     }
 
 

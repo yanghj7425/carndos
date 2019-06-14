@@ -1,7 +1,7 @@
 package com.carndos.modules.authentication.security;
 
-import com.carndos.modules.sys.res.mapper.ResRoleMapper;
-import com.carndos.modules.sys.res.pojo.PoJoResRole;
+import com.carndos.modules.res.dao.ResRoleMapper;
+import com.carndos.modules.res.pojo.ResRoleBO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -79,9 +79,9 @@ public class CustomSecurityMetadataSource implements FilterInvocationSecurityMet
     public Map<RequestMatcher, Collection<ConfigAttribute>> buildRequestMap() {
         LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>> matcherCollectionLinkedHashMap = new LinkedHashMap<>();
 
-        List<PoJoResRole> resourceList = resRoleMapper.queryAllResRole();
+        List<ResRoleBO> resourceList = resRoleMapper.queryAllResRole();
 
-        for (PoJoResRole poJoResRole : resourceList) {
+        for (ResRoleBO poJoResRole : resourceList) {
 
             RequestMatcher requestMatcher = getRequestMatcher(poJoResRole.getResUrl());
 

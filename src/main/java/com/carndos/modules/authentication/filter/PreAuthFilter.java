@@ -44,8 +44,11 @@ public class PreAuthFilter extends GenericFilterBean
     private boolean isUnsuccessfulAuthentication = true;
 
 
-    public PreAuthFilter() {
+    private JWTUtils jwtUtils;
+
+    public PreAuthFilter(JWTUtils jwtUtils) {
         authenticationDetailsSource = new WebAuthenticationDetailsSource();
+        this.jwtUtils = jwtUtils;
     }
 
     private Object getPreAuthenticatedPrincipal(HttpServletRequest request) throws CustomInvalidTokenException {
@@ -53,7 +56,7 @@ public class PreAuthFilter extends GenericFilterBean
         if (token == null) {
             return null;
         }
-        String userName = JWTUtils.decoder(token, String.class);
+        String userName = jwtUtils.decoder(token, String.class);
         if (userName == null) {
             throw new CustomInvalidTokenException("非法的 Token");
         }

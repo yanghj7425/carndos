@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.carndos.modules.sys.res.mapper.ResourceMapper">
-    <resultMap id="SysResourceResultMap" type="com.carndos.modules.sys.res.entity.SysResource">
+<mapper namespace="com.carndos.modules.res.dao.ResourceMapper">
+    <resultMap id="SysResourceResultMap" type="com.carndos.modules.res.entity.SysResource">
         <!--
           WARNING - @mbg.generated
         -->
@@ -16,7 +16,7 @@
         <result column="res_delete_time" jdbcType="TIMESTAMP" property="resDeleteTime"/>
     </resultMap>
 
-    <parameterMap id="sysResource" type="com.carndos.modules.sys.res.entity.SysResource"/>
+    <parameterMap id="sysResource" type="com.carndos.modules.res.entity.SysResource"/>
 
     <insert id="insertNewResource" parameterMap="sysResource" useGeneratedKeys="true"
             keyProperty="id" keyColumn="id">

@@ -2,15 +2,14 @@ package com.carndos.config.security;
 
 import com.carndos.modules.authentication.filter.PreAuthFilter;
 import com.carndos.modules.authentication.security.*;
+import com.carndos.modules.authentication.utils.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.preauth.AbstractPreAuthenticatedProcessingFilter;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationProvider;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -27,9 +25,9 @@ import org.springframework.web.filter.CorsFilter;
 import java.util.ArrayList;
 import java.util.List;
 
-@EnableWebSecurity
-@Configuration
-@CrossOrigin
+//@EnableWebSecurity
+//@Configuration
+//@CrossOrigin
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -53,6 +51,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private CustomLogoutHandler customLogoutHandler;
 
+    @Autowired
+    private JWTUtils jwtUtils;
+
 
     /**
      * @param http 资源拦截
@@ -64,10 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         //加入自定义过滤器
         http.addFilterBefore(customFilterSecurityInterceptor, FilterSecurityInterceptor.class);
 
-
         http.addFilterBefore(preAuthFilter(), AbstractPreAuthenticatedProcessingFilter.class);
-
-//        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests().anyRequest().authenticated();
 
 
         http.formLogin()
@@ -125,7 +124,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PreAuthFilter preAuthFilter() {
-        PreAuthFilter filter = new PreAuthFilter();
+        PreAuthFilter filter = new PreAuthFilter(jwtUtils);
         filter.setAuthenticationManager(preAuthenticationManager());
         //认证异常处理器
         filter.setAuthenticationFailureHandler(customLoginFailureHandler);

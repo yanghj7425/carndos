@@ -1,6 +1,6 @@
 package com.carndos.modules.authentication.entity;
 
-import com.carndos.modules.sys.role.entity.SysRole;
+import com.carndos.modules.role.entity.SysRole;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
