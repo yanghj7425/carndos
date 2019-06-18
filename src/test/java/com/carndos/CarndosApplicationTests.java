@@ -1,6 +1,7 @@
 package com.carndos;
 
 import com.carndos.modules.commons.pojo.PageParam;
+import com.carndos.modules.demo.aop.service.LogService;
 import com.carndos.modules.user.entity.SysUser;
 import com.carndos.modules.user.service.UserService;
 import com.github.pagehelper.PageInfo;
@@ -17,19 +18,17 @@ import javax.servlet.http.HttpServletRequest;
 public class CarndosApplicationTests {
 
     @Autowired
-    private UserService userService;
+    private LogService logService;
 
 
     @Test
     public void contextLoads() {
 
-        HttpServletRequest request = null;
-        PageParam pageParam = PageParam.builder(request).addParam("s", "b").build();
 
+        logService.queryLog(3,5);
 
-        System.out.println(pageParam);
-        PageInfo<SysUser> sysUserPageInfo = userService.queryForPage(pageParam);
-        System.out.println(sysUserPageInfo.getList());
+        System.out.println("id : is 0");
+//        logService.queryLog(0);
 
     }
 
