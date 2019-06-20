@@ -51,7 +51,7 @@ public class PreAuthFilter extends GenericFilterBean
         this.jwtUtils = jwtUtils;
     }
 
-    private Object getPreAuthenticatedPrincipal(HttpServletRequest request) throws CustomInvalidTokenException {
+    private Object getPreAuthenticatedPrincipal(HttpServletRequest request) {
         String token = request.getHeader("X-Token");
         if (token == null) {
             return null;

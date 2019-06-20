@@ -23,8 +23,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
 
-
-
     @Resource
     private SysUserMapper sysUserMapper;
 
@@ -35,7 +33,7 @@ public class CustomUserDetailsService implements UserDetailsService {
      * @description load user`s info and  return a UserDetail Object that construct by  username, password and user active status
      */
     @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String sysUserName) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String sysUserName) {
         SysUser sysUser = sysUserMapper.querySysUserByName(sysUserName);
         if (sysUser == null) {
             throw new UsernameNotFoundException("用户名不存在");

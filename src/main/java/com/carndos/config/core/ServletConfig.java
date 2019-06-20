@@ -1,7 +1,6 @@
 package com.carndos.config.core;
 
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
@@ -12,12 +11,12 @@ import org.springframework.http.converter.ResourceHttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.xml.SourceHttpMessageConverter;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ViewResolver;
-import org.springframework.web.servlet.config.annotation.*;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,7 +63,7 @@ public class ServletConfig extends WebMvcConfigurationSupport {
         converters.add(new ByteArrayHttpMessageConverter());
         converters.add(new ResourceHttpMessageConverter());
         converters.add(new SourceHttpMessageConverter<>());
-        converters.add(new StringHttpMessageConverter(Charset.forName("UTF-8")));
+        converters.add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
 
         converters.add(jsonHttpMessageConverter);
     }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class LogServiceI implements LogService {
     @Override
     @Action(name = "LogService")
-    public Object queryLog(long... id) {
+    public Object queryLog(Long... id) {
         return id;
     }
 }

@@ -1,20 +1,36 @@
 package com.carndos;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 public class StreamTest {
 
     public static void main(String[] args) {
-        Random random = new Random();
 
-        List<Integer> collect = random.ints().limit(100).boxed().filter(v -> v > 0).filter(v -> v % 2 == 0).collect(Collectors.toList());
+        Long[] arr = new Long[]{2L, 3L, 4L};
+        List<Long> longs = Arrays.asList(arr);
+        List<Object> list = new ArrayList<>();
 
-        for (int a : collect) {
-            System.out.println(a);
-        }
+        list.add(longs);
+
+
+
+        List<List<Integer>> collect = list.stream()
+                .map(v -> ((Collection<Integer>) v).stream().map(k -> Integer.parseInt(k.toString()) * 2
+                ).collect(Collectors.toList()))
+                .collect(Collectors.toList());
+
+
+//        Random random = new Random();
+//
+//        List<Integer> collect = random.ints().limit(100).boxed().filter(v -> v > 0).filter(v -> v % 2 == 0).collect(Collectors.toList());
+//
+//        for (int a : collect) {
+//            System.out.println(a);
+//        }
 
 //        stream();
     }

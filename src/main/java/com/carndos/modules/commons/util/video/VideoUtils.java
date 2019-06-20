@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -19,7 +20,7 @@ import java.util.regex.Pattern;
  * ffmpeg 视屏处理工具类
  */
 public final class VideoUtils {
-    private static Logger Log = LoggerFactory.getLogger(VideoUtils.class);
+    private static Logger log = LoggerFactory.getLogger(VideoUtils.class);
 
     // ffmepg 程序路径
     private static String ffmepg;
@@ -68,7 +69,7 @@ public final class VideoUtils {
             parseErrorLogStream(process, videoConsumer);
             return true;
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
             return false;
         }
     }
@@ -80,7 +81,7 @@ public final class VideoUtils {
      * @param threads      线程数量
      * @return true 成功，false 失败
      */
-    public synchronized static boolean cutVideoToSegment(VideoCommandParam commandParam, double segmentCount, String threads, VideoConsumer videoConsumer) {
+    public static synchronized boolean cutVideoToSegment(VideoCommandParam commandParam, double segmentCount, String threads, VideoConsumer videoConsumer) {
 
         if (segmentCount <= 0 || isValidFileName(commandParam.getTargetFile())) {
             return false;
@@ -121,13 +122,13 @@ public final class VideoUtils {
                         parseErrorLogStream(process, videoConsumer);
                         process.waitFor();
                     } catch (Exception e) {
-                        Log.error(e.getMessage(), e);
+                        log.error(e.getMessage(), e);
                     }
                 }
             });
             segmentThread.start();
         } catch (Exception e) {
-            Log.info(e.getMessage(), e);
+            log.info(e.getMessage(), e);
             return false;
         }
         return true;
@@ -158,7 +159,7 @@ public final class VideoUtils {
             Process process = builder.start();
             parseErrorLogStream(process, videoConsumer);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
         return true;
     }
@@ -181,7 +182,7 @@ public final class VideoUtils {
 
             //从输入流中读取视频信息
             BufferedReader br = new BufferedReader(new InputStreamReader(process.getErrorStream()));
-            StringBuffer sb = new StringBuffer();
+            StringBuilder sb = new StringBuilder();
             String line;
             while ((line = br.readLine()) != null) {
                 sb.append(line);
@@ -193,11 +194,13 @@ public final class VideoUtils {
             Matcher m = pattern.matcher(sb.toString());
             if (m.find()) {
                 int time = getSecondTimeLen(m.group(1));
-                Log.info(sourceVideo + ",视频时长：" + time + ", 开始时间：" + m.group(2) + ",比特率：" + m.group(3) + "kb/s");
+                String logMsg = MessageFormat.format("{0} ,视频时长：{1}, 开始时间：{2},  比特率：{3}  kb/s", sourceVideo, time, m.group(2), m.group(3));
+                log.info(logMsg);
+
                 return time;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e.getMessage(), e);
         }
         return 0;
     }
@@ -210,15 +213,15 @@ public final class VideoUtils {
      */
     private static int getSecondTimeLen(String timeLen) {
         int second = 0;
-        String strs[] = timeLen.split(":");
-        if (strs[0].compareTo("0") > 0) {
-            second += Integer.valueOf(strs[0]) * 60 * 60;//秒
+        String[] arr = timeLen.split(":");
+        if (arr[0].compareTo("0") > 0) {
+            second += Integer.valueOf(arr[0]) * 60 * 60;//秒
         }
-        if (strs[1].compareTo("0") > 0) {
-            second += Integer.valueOf(strs[1]) * 60;
+        if (arr[1].compareTo("0") > 0) {
+            second += Integer.valueOf(arr[1]) * 60;
         }
-        if (strs[2].compareTo("0") > 0) {
-            second += Math.round(Float.valueOf(strs[2]));
+        if (arr[2].compareTo("0") > 0) {
+            second += Math.round(Float.valueOf(arr[2]));
         }
         return second;
     }
@@ -237,19 +240,19 @@ public final class VideoUtils {
      * @param process 进程对象
      * @description 读取错误日志
      */
-    private synchronized static void parseErrorLogStream(Process process, VideoConsumer videoConsumer) {
+    private static synchronized void parseErrorLogStream(Process process, VideoConsumer videoConsumer) {
         JSONArray pathJsonArray = new JSONArray();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
         int lineNumber = 0;
         try {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
-                if (Log.isDebugEnabled() || lineNumber % 10 == 0) {
-                    Log.info(line);
+                if (log.isDebugEnabled() || lineNumber % 10 == 0) {
+                    log.info(line);
                 }
                 if (line.contains("Output")) {
                     // 名称
-                    String path = line.substring(line.indexOf("'") + 1, line.lastIndexOf("'"));
+                    String path = line.substring(line.indexOf('\'') + 1, line.lastIndexOf('\''));
                     pathJsonArray.add(path);
                 }
                 lineNumber++;
@@ -259,7 +262,7 @@ public final class VideoUtils {
             }
             bufferedReader.close();
         } catch (IOException e) {
-            Log.error(e.getMessage(), e);
+            log.error(e.getMessage(), e);
         }
     }
 

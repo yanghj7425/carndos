@@ -21,13 +21,13 @@ public class UserDetail implements UserDetails {
             long id,
             String username,
             SysRole role,
-//            Date lastPasswordResetDate,
+            Date lastPasswordResetDate,
             String password) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
-//        this.lastPasswordResetDate = lastPasswordResetDate;
+        this.lastPasswordResetDate = lastPasswordResetDate;
     }
 
     public UserDetail(String username, String password, SysRole role) {

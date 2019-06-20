@@ -28,13 +28,6 @@ public class PageParam {
         return params;
     }
 
-    private void setPageSize(int pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    private void setPageNum(int pageNum) {
-        this.pageNum = pageNum;
-    }
 
     public int getPageSize() {
         return pageSize;
@@ -76,8 +69,6 @@ public class PageParam {
         }
 
         public PageParam build() {
-            setPageNum(pageSize);
-            setPageSize(pageSize);
             return PageParam.this;
         }
     }

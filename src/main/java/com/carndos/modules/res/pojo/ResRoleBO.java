@@ -1,8 +1,7 @@
 package com.carndos.modules.res.pojo;
 
+import lombok.Builder;
 import lombok.Data;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import java.io.Serializable;
 
@@ -10,6 +9,7 @@ import java.io.Serializable;
  * @description 角色资源映射
  */
 @Data
+@Builder
 public class ResRoleBO implements Serializable {
 
     private static final long serialVersionUID = 1L;

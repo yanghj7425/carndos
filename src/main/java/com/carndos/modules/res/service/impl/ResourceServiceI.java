@@ -64,7 +64,7 @@ public class ResourceServiceI extends AbstractBaseService<SysResource, Mapper<Sy
                 node.getChildren().add(poJoResNode);
                 return true;
             }
-            if (node.getChildren().size() > 0) {
+            if (!node.getChildren().isEmpty()) {
                 isPutted = fillResNodeList(poJoResNode, node.getChildren());
             }
         }

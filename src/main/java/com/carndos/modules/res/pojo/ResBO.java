@@ -1,12 +1,14 @@
 package com.carndos.modules.res.pojo;
 
 import cn.hutool.core.collection.CollectionUtil;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
 import java.util.List;
 
 @Data
+@Builder
 public class ResBO implements Serializable {
 
     private static final long serialVersionUID = -291851707773983421L;
@@ -46,5 +48,15 @@ public class ResBO implements Serializable {
 
     public ResBO() {
         children = CollectionUtil.newArrayList();
+    }
+
+    public ResBO(Long id, Long resFid, String label, String resDesc, String resUrl, Integer resStatus, List<ResBO> children) {
+        this.id = id;
+        this.resFid = resFid;
+        this.label = label;
+        this.resDesc = resDesc;
+        this.resUrl = resUrl;
+        this.resStatus = resStatus;
+        this.children = children;
     }
 }
