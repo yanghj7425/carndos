@@ -3,7 +3,9 @@ package com.carndos.modules.commons.util;
 
 import org.springframework.util.Base64Utils;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.*;
@@ -33,7 +35,7 @@ import java.util.Map;
  */
 public class RSAUtils {
 
-    private RSAUtils(){
+    private RSAUtils() {
 
     }
 
@@ -72,20 +74,28 @@ public class RSAUtils {
      * 生成密钥对(公钥和私钥)
      * </p>
      *
-     * @return  Map<String, Object> 公钥和私钥的Map
-     *
+     * @return Map : 公钥和私钥的Map
      * @throws Exception 未知异常
      */
-    public static Map<String, Object> genKeyPair() throws Exception {
-        KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
-        keyPairGen.initialize(2048);
-        KeyPair keyPair = keyPairGen.generateKeyPair();
-        RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
-        RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
-        Map<String, Object> keyMap = new HashMap<>(2);
-        keyMap.put(PUBLIC_KEY, publicKey);
-        keyMap.put(PRIVATE_KEY, privateKey);
-        return keyMap;
+    public static Map<String, Object> genKeyPair() throws RSAException {
+        Exception exception;
+
+        try {
+            KeyPairGenerator keyPairGen = KeyPairGenerator.getInstance(KEY_ALGORITHM);
+            keyPairGen.initialize(2048);
+            KeyPair keyPair = keyPairGen.generateKeyPair();
+            RSAPublicKey publicKey = (RSAPublicKey) keyPair.getPublic();
+            RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
+            Map<String, Object> keyMap = new HashMap<>(2);
+            keyMap.put(PUBLIC_KEY, publicKey);
+            keyMap.put(PRIVATE_KEY, privateKey);
+            return keyMap;
+        } catch (Exception e) {
+            exception = e;
+        }
+        throw new RSAException(exception);
+
+
     }
 
     /**
@@ -93,22 +103,27 @@ public class RSAUtils {
      * 用私钥对信息生成数字签名
      * </p>
      *
-     * @param signCodeBuffer   已加密数据
-     * @param privateKey 私钥(BASE64编码)
-     *
+     * @param signCodeBuffer 已加密数据
+     * @param privateKey     私钥(BASE64编码)
      * @return String
-     *
      * @throws Exception 未知异常
      */
-    public static String sign(byte[] signCodeBuffer, String privateKey) throws Exception {
-        byte[] keyBytes = Base64Utils.decodeFromString(privateKey);
-        PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(keyBytes);
-        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
-        PrivateKey privateK = keyFactory.generatePrivate(pkcs8KeySpec);
-        Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
-        signature.initSign(privateK);
-        signature.update(signCodeBuffer);
-        return Base64Utils.encodeToString(signature.sign());
+    public static String sign(byte[] signCodeBuffer, String privateKey) throws RSAException {
+        Exception exception;
+        try {
+            byte[] keyBytes = Base64Utils.decodeFromString(privateKey);
+            PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(keyBytes);
+            KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+            PrivateKey privateK = keyFactory.generatePrivate(pkcs8KeySpec);
+            Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
+            signature.initSign(privateK);
+            signature.update(signCodeBuffer);
+            return Base64Utils.encodeToString(signature.sign());
+        } catch (Exception e) {
+            exception = e;
+        }
+
+        throw new RSAException(exception);
     }
 
     /**
@@ -116,27 +131,30 @@ public class RSAUtils {
      * 校验数字签名
      * </p>
      *
-     * @param verifyCodeBuffer  已加密数据
-     * @param publicKey 公钥(BASE64编码)
-     * @param sign      数字签名
-     *
+     * @param verifyCodeBuffer 已加密数据
+     * @param publicKey        公钥(BASE64编码)
+     * @param sign             数字签名
      * @return boolean
-     *
-     * @throws Exception  未知异常
+     * @throws Exception 未知异常
      */
-    public static boolean verify(byte[] verifyCodeBuffer, String publicKey, String sign)
-            throws Exception {
+    public static boolean verify(byte[] verifyCodeBuffer, String publicKey, String sign) throws RSAException {
+        Exception exception;
+        try {
 
-        byte[] keyBytes = Base64Utils.decodeFromString(publicKey);
-        X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
+            byte[] keyBytes = Base64Utils.decodeFromString(publicKey);
+            X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
 
-        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
-        PublicKey publicK = keyFactory.generatePublic(keySpec);
+            KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+            PublicKey publicK = keyFactory.generatePublic(keySpec);
 
-        Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
-        signature.initVerify(publicK);
-        signature.update(verifyCodeBuffer);
-        return signature.verify(Base64Utils.decodeFromString(sign));
+            Signature signature = Signature.getInstance(SIGNATURE_ALGORITHM);
+            signature.initVerify(publicK);
+            signature.update(verifyCodeBuffer);
+            return signature.verify(Base64Utils.decodeFromString(sign));
+        } catch (Exception e) {
+            exception = e;
+        }
+        throw new RSAException(exception);
     }
 
     /**
@@ -144,25 +162,30 @@ public class RSAUtils {
      * 私钥解密
      * </p>
      *
-     * @param decodeBuffer   已加密数据
-     * @param privateKey 私钥(BASE64编码)
-     *
+     * @param decodeBuffer 已加密数据
+     * @param privateKey   私钥(BASE64编码)
      * @return byte[]
-     *
      * @throws Exception 未知异常
      */
-    public static byte[] decryptByPrivateKey(byte[] decodeBuffer, String privateKey)
-            throws Exception {
-        byte[] keyBytes = Base64Utils.decodeFromString(privateKey);
-        PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(keyBytes);
+    public static byte[] decryptByPrivateKey(byte[] decodeBuffer, String privateKey) throws RSAException {
+        Exception exception;
+        try {
+            byte[] keyBytes = Base64Utils.decodeFromString(privateKey);
+            PKCS8EncodedKeySpec pkcs8KeySpec = new PKCS8EncodedKeySpec(keyBytes);
 
-        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
-        Key privateK = keyFactory.generatePrivate(pkcs8KeySpec);
+            KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+            Key privateK = keyFactory.generatePrivate(pkcs8KeySpec);
 
-        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
-        cipher.init(Cipher.DECRYPT_MODE, privateK);
-        // 对数据分段加密
-        return encodeGroup(decodeBuffer, cipher, MAX_DECRYPT_BLOCK);
+            Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+            cipher.init(Cipher.DECRYPT_MODE, privateK);
+            // 对数据分段加密
+            return encodeGroup(decodeBuffer, cipher, MAX_DECRYPT_BLOCK);
+
+        } catch (Exception e) {
+            exception = e;
+        }
+        throw new RSAException(exception);
+
     }
 
     /**
@@ -170,24 +193,26 @@ public class RSAUtils {
      * 公钥解密
      * </p>
      *
-     * @param decodeBuffer  已加密数据
-     * @param publicKey 公钥(BASE64编码)
-     *
+     * @param decodeBuffer 已加密数据
+     * @param publicKey    公钥(BASE64编码)
      * @return byte[]
-     *
      * @throws Exception 未知异常
      */
-    public static byte[] decryptByPublicKey(byte[] decodeBuffer, String publicKey)
-            throws Exception {
+    public static byte[] decryptByPublicKey(byte[] decodeBuffer, String publicKey) throws RSAException {
+        Exception exception;
+        try {
+            byte[] keyBytes = Base64Utils.decodeFromString(publicKey);
+            X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
+            KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+            Key publicK = keyFactory.generatePublic(x509KeySpec);
+            Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+            cipher.init(Cipher.DECRYPT_MODE, publicK);
 
-        byte[] keyBytes = Base64Utils.decodeFromString(publicKey);
-        X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
-        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
-        Key publicK = keyFactory.generatePublic(x509KeySpec);
-        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
-        cipher.init(Cipher.DECRYPT_MODE, publicK);
-
-        return encodeGroup(decodeBuffer, cipher, MAX_DECRYPT_BLOCK);
+            return encodeGroup(decodeBuffer, cipher, MAX_DECRYPT_BLOCK);
+        } catch (Exception e) {
+            exception = e;
+        }
+        throw new RSAException(exception);
     }
 
     /**
@@ -195,29 +220,30 @@ public class RSAUtils {
      * 公钥加密
      * </p>
      *
-     * @param encodeBuffer  源数据
-     * @param publicKey 公钥(BASE64编码)
-     *
+     * @param encodeBuffer 源数据
+     * @param publicKey    公钥(BASE64编码)
      * @return byte[]
-     *
      * @throws Exception 未知异常
      */
-    public static byte[] encryptByPublicKey(byte[] encodeBuffer, String publicKey)
-            throws Exception {
+    public static byte[] encryptByPublicKey(byte[] encodeBuffer, String publicKey) throws RSAException {
+        Exception exception;
+        try {
+            byte[] keyBytes = Base64Utils.decodeFromString(publicKey);
+            X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
 
-        byte[] keyBytes = Base64Utils.decodeFromString(publicKey);
-        X509EncodedKeySpec x509KeySpec = new X509EncodedKeySpec(keyBytes);
+            KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
+            Key publicK = keyFactory.generatePublic(x509KeySpec);
 
-        KeyFactory keyFactory = KeyFactory.getInstance(KEY_ALGORITHM);
-        Key publicK = keyFactory.generatePublic(x509KeySpec);
+            // 对数据加密
+            Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
+            cipher.init(Cipher.ENCRYPT_MODE, publicK);
+            // 对数据分段加密
+            return encodeGroup(encodeBuffer, cipher, MAX_ENCRYPT_BLOCK);
+        } catch (Exception e) {
+            exception = e;
+        }
+        throw new RSAException(exception);
 
-        // 对数据加密
-        Cipher cipher = Cipher.getInstance(keyFactory.getAlgorithm());
-        cipher.init(Cipher.ENCRYPT_MODE, publicK);
-
-
-        // 对数据分段加密
-        return encodeGroup(encodeBuffer, cipher, MAX_ENCRYPT_BLOCK);
     }
 
     /**
@@ -225,12 +251,10 @@ public class RSAUtils {
      * 私钥加密
      * </p>
      *
-     * @param encodeBuffer   源数据
-     * @param privateKey 私钥(BASE64编码)
-     *
+     * @param encodeBuffer 源数据
+     * @param privateKey   私钥(BASE64编码)
      * @return byte[]
-     *
-     * @throws Exception  未知异常
+     * @throws Exception 未知异常
      */
     public static byte[] encryptByPrivateKey(byte[] encodeBuffer, String privateKey)
             throws Exception {
@@ -245,14 +269,13 @@ public class RSAUtils {
     }
 
     /**
-     *
      * @param encodeBuffer 加密缓冲区
-     * @param cipher  Cipher类为加密和解密提供密码功能
-     * @param maxBlock 秘钥长度
+     * @param cipher       Cipher类为加密和解密提供密码功能
+     * @param maxBlock     秘钥长度
      * @return byte[]
      * @throws Exception 未知异常
      */
-    private static byte[] encodeGroup(byte[] encodeBuffer, Cipher cipher, int maxBlock) throws Exception {
+    private static byte[] encodeGroup(byte[] encodeBuffer, Cipher cipher, int maxBlock) throws BadPaddingException, IllegalBlockSizeException {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         byte[] cache;
         int i = 0;
@@ -286,9 +309,7 @@ public class RSAUtils {
      * </p>
      *
      * @param keyMap 密钥对
-     *
      * @return String
-     *
      */
     public static String getPrivateKey(Map<String, Object> keyMap) {
         Key key = (Key) keyMap.get(PRIVATE_KEY);
@@ -301,18 +322,10 @@ public class RSAUtils {
      * </p>
      *
      * @param keyMap 密钥对
-     *
      * @return String
-     *
      */
     public static String getPublicKey(Map<String, Object> keyMap) {
         Key key = (Key) keyMap.get(PUBLIC_KEY);
         return Base64Utils.encodeToString(key.getEncoded());
     }
-
-
-    class RSAUtilsException extends Exception{
-
-    }
-
 }

@@ -18,8 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class CustomLoginFailureHandler extends SimpleUrlAuthenticationFailureHandler {
-    private Logger logger = LoggerFactory.getLogger(CustomLoginFailureHandler.class);
-
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) {
         RespBean respBean;
